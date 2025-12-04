@@ -1,0 +1,13 @@
+.titleBox {
+    width: 500px;
+    align-items: center;
+    border: 10px solid black;
+    margin: 0 auto;
+    background-color: hsl(60, 97%, 55%);
+
+}
+h1 {
+    vertical-align: middle;
+    text-align: center;
+    font-size: 4rem;
+}
