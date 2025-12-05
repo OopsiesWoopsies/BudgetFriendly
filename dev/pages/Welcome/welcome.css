@@ -32,12 +32,10 @@ h1 {
   font-size: 3rem;
   min-width: 460px;
   padding: 30px;
-  vertical-align: center;
 
   font-family: cursive;
 
   background-color: hsl(0, 92%, 75%);
-  border: hidden;
   border: 5px solid black;
   border-radius: 100px;
 
