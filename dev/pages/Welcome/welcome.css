@@ -1,13 +1,51 @@
-.titleBox {
-    width: 500px;
-    align-items: center;
-    border: 10px solid black;
-    margin: 0 auto;
-    background-color: hsl(60, 97%, 55%);
+body {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
 
+  font-family: cursive, Arial;
+
+  /* Conisder adding an image as a background*/
 }
+
+.titleBox {
+  align-items: center;
+
+  margin-bottom: 50px;
+  margin-top: 50px;
+  padding: 20px;
+  width: 500px;
+
+  background-color: hsl(60, 97%, 55%);
+  border: 12px solid black;
+  border-radius: 100px;
+}
+
 h1 {
-    vertical-align: middle;
-    text-align: center;
-    font-size: 4rem;
+  text-align: center;
+  vertical-align: middle;
+
+  font-size: 4rem;
+}
+
+.button {
+  font-size: 3rem;
+  min-width: 460px;
+  padding: 30px;
+  vertical-align: center;
+
+  font-family: cursive;
+
+  background-color: hsl(0, 92%, 75%);
+  border: hidden;
+  border: 5px solid black;
+  border-radius: 100px;
+
+  transition: background-color 0.5s ease;
+}
+
+.button:hover {
+  background-color: hsl(0, 92%, 50%);
+
+  font-weight: bold;
 }
