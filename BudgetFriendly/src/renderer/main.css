@@ -1,0 +1,7 @@
+body {
+    background-color:hsl(200, 100%, 95%);
+}
+
+button:hover {
+    cursor: pointer;
+}
