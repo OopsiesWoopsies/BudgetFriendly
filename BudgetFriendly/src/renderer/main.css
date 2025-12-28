@@ -1,7 +1,38 @@
+:root {
+  --primary-colour: hsl(200, 100%, 95%);
+  --secondary-colour: hsl(51, 100%, 54%);
+}
+
 body {
-    background-color:hsl(200, 100%, 95%);
+  background-color: var(--primary-colour);
 }
 
 button:hover {
-    cursor: pointer;
+  cursor: pointer;
+}
+
+
+.align-items-center {
+    align-items: center;
+}
+
+.flex {
+  display: flex;
+}
+
+.margin-zero {
+  margin: 0;
+}
+
+.no-select {
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.padding-zero {
+  padding: 0;
+}
+
+.position-fixed {
+  position: fixed;
 }
