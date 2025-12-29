@@ -36,17 +36,22 @@
 .sidebar {
   z-index: 9998;
 
-  /* left: -200px; */
+  left: -250px;
   width: 250px;
   height: 100vh;
 
   background-color: var(--secondary-colour);
+  transition: left 0.3s ease;
 }
 
 .sidebar-labels {
   position: inherit;
   top: 140px;
   width: inherit;
+}
+
+.sidebar.open {
+  left: 0px;
 }
 
 .sidebar-labels div {
