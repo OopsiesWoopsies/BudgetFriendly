@@ -1,6 +1,9 @@
 :root {
   --primary-colour: hsl(200, 100%, 95%);
+
   --secondary-colour: hsl(51, 100%, 54%);
+  --secondary-colour-light1: hsl(51, 100%, 80%);
+  --secondary-colour-light2: hsl(51, 100%, 70%);
 }
 
 body {
@@ -11,13 +14,20 @@ button:hover {
   cursor: pointer;
 }
 
-
 .align-items-center {
-    align-items: center;
+  align-items: center;
 }
 
 .flex {
   display: flex;
+}
+
+.hide-display {
+  display: none;
+}
+
+.justify-content-center {
+  justify-content: center;
 }
 
 .margin-zero {
@@ -25,8 +35,8 @@ button:hover {
 }
 
 .no-select {
-    user-select: none;
-    -webkit-user-select: none;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 .padding-zero {

@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="home.css" />
   </head>
   <body class="margin-zero">
-    <div class="navbar flex position-fixed align-items-center">
+    <div class="navbar flex position-fixed align-items-center justify-content-center">
       <div class="hamburger flex margin-zero padding-zero">
         <span></span>
         <span></span>
@@ -17,13 +17,19 @@
       <div class="navbar-title no-select">BudgetFriendly</div>
     </div>
 
-    <div class="sidebar flex position-fixed"></div>
+    <div class="sidebar flex position-fixed">
+      <div class="sidebar-labels no-select">
+        <div class="budgets-label">Home</div>
+        <div class="settings-label">Settings</div>
+        <div class="about-label">About</div>
+      </div>
+    </div>
 
     <div class="budgets"></div>
 
-    <div class="settings"></div>
+    <div class="settings hide-display"></div>
 
-    <div class="about"></div>
+    <div class="about hide-display"></div>
 
     <script src="../../main.js"></script>
     <script src="home.js"></script>
