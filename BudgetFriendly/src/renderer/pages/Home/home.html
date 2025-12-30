@@ -19,17 +19,17 @@
 
     <div class="sidebar flex position-fixed">
       <div class="sidebar-labels no-select">
-        <div class="budgets-label">Home</div>
-        <div class="settings-label">Settings</div>
-        <div class="about-label">About</div>
+        <div class="label" data-page="budgets">Home</div>
+        <div class="label" data-page="settings">Settings</div>
+        <div class="label" data-page="about">About</div>
       </div>
     </div>
+  
+    <div class="page" data-page="budgets"></div>
 
-    <div class="budgets"></div>
+    <div class="page hide-display" data-page="settings"></div>
 
-    <div class="settings hide-display"></div>
-
-    <div class="about hide-display"></div>
+    <div class="page hide-display" data-page="about"></div>
 
     <script src="../../main.js"></script>
     <script src="home.js"></script>
