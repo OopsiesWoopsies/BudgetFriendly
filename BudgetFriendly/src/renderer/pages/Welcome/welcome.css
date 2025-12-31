@@ -1,6 +1,4 @@
 body {
-  align-items: center;
-  display: flex;
   flex-direction: column;
 
   font-family: cursive, Arial;
@@ -9,14 +7,12 @@ body {
 }
 
 .titleBox {
-  align-items: center;
-
   margin-bottom: 50px;
   margin-top: 50px;
   padding: 20px;
   width: 500px;
 
-  background-color: hsl(60, 97%, 55%);
+  background-color: var(--secondary-colour);
   border: 12px solid black;
   border-radius: 100px;
 }
@@ -33,7 +29,7 @@ h1 {
   min-width: 460px;
   padding: 30px;
 
-  font-family: cursive;
+  font-family: cursive, Arial;
 
   background-color: hsl(0, 92%, 75%);
   border: 5px solid black;

@@ -1,0 +1,141 @@
+/* Navbar */
+.navbar {
+  top: 0px;
+  z-index: 9999;
+
+  height: 100px;
+  width: 100vw;
+
+  background-color: var(--secondary-colour);
+}
+
+.navbar-title {
+  font-family: cursive, Arial, Helvetica, sans-serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+.navbar-space {
+  padding-top: 100px;
+}
+
+.hamburger {
+  flex-direction: column;
+  justify-content: space-between;
+  position: absolute;
+  top: 35%;
+  left: 20px;
+
+  height: 30px;
+  width: 40px;
+
+  cursor: pointer;
+}
+
+.hamburger span {
+  display: block;
+  height: 4px;
+
+  background: black;
+  border-radius: 3px;
+}
+
+/* Sidebar */
+.sidebar {
+  left: -250px;
+  top: 0px;
+  z-index: 9998;
+
+  width: 250px;
+  height: 100vh;
+
+  background-color: var(--secondary-colour);
+
+  transition: left 0.3s ease;
+}
+
+.sidebar-labels {
+  position: inherit;
+  top: 140px;
+  width: inherit;
+}
+
+.sidebar.open {
+  left: 0px;
+}
+
+.sidebar-labels button {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+
+  height: 50px;
+  width: 100%;
+
+  font-family: cursive, Arial, Helvetica, sans-serif;
+  font-size: 1.25rem;
+  font-weight: 600;
+
+  background-color: var(--secondary-colour-light1);
+  border: none;
+}
+
+.sidebar-labels button:hover {
+  background-color: var(--secondary-colour-light2);
+
+  cursor: pointer;
+}
+
+.sidebar-labels button:first-child {
+  border-top: 2px solid black;
+}
+
+.sidebar-labels button:last-child {
+  border-bottom: 2px solid black;
+}
+
+/* Budget page */
+.budgets-page {
+  flex-direction: column;
+  position: relative;
+
+  margin: 25px;
+  padding: 25px;
+
+  border: solid black 1px;
+  border-radius: 20px;
+}
+
+.add-budget-button {
+  margin-left: auto;
+  margin-bottom: 25px;
+
+  height: 50px;
+  width: 90px;
+
+  font-size: 2rem;
+
+  background-color: var(--secondary-colour-light1);
+  border: none;
+  border-radius: 25px;
+  box-shadow: 0 4px 10px hsla(0, 0%, 0%, 0.25);
+
+  transition: box-shadow 0.3s ease;
+}
+
+/* Add budget button */
+.add-budget-button:hover {
+  background-color: var(--secondary-colour-light2);
+  box-shadow: 3px 6px 15px hsla(0, 0%, 0%, 0.6);
+}
+
+.add-budget-button:active {
+  background-color: var(--secondary-colour-light3);
+  box-shadow: 0 4px 10px hsla(0, 0%, 0%, 0.4);
+}
+
+/* Budgets list */
+.budgets-list {
+  border: solid black 1px;
+  
+}
