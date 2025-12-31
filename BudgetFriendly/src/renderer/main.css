@@ -1,11 +1,3 @@
-:root {
-  --primary-colour: hsl(200, 100%, 95%);
-
-  --secondary-colour: hsl(51, 100%, 54%);
-  --secondary-colour-light1: hsl(51, 100%, 80%);
-  --secondary-colour-light2: hsl(51, 100%, 70%);
-}
-
 body {
   background-color: var(--primary-colour);
 }

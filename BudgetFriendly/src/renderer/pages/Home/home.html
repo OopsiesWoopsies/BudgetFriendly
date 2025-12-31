@@ -4,18 +4,19 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>BudgetFriendly</title>
+    <link rel="stylesheet" href="../../constants.css" />
     <link rel="stylesheet" href="../../main.css" />
     <link rel="stylesheet" href="home.css" />
   </head>
   <body class="margin-zero">
-    <div class="navbar flex position-fixed align-items-center justify-content-center">
+    <header class="navbar flex position-fixed align-items-center justify-content-center">
       <div class="hamburger flex margin-zero padding-zero">
         <span></span>
         <span></span>
         <span></span>
       </div>
-      <div class="navbar-title no-select">BudgetFriendly</div>
-    </div>
+      <h1 class="navbar-title no-select">BudgetFriendly</h1>
+    </header>
 
     <div class="sidebar flex position-fixed">
       <div class="sidebar-labels no-select">
@@ -24,12 +25,18 @@
         <div class="label" data-page="about">About</div>
       </div>
     </div>
-  
-    <div class="page" data-page="budgets"></div>
 
-    <div class="page hide-display" data-page="settings"></div>
+    <main>
+      <div class="navbar-space"></div>
 
-    <div class="page hide-display" data-page="about"></div>
+      <div class="budgets-page page flex" data-page="budgets">
+        <button class="add-budget-button">+</button>
+      </div>
+
+      <div class="settings-page page hide-display" data-page="settings"></div>
+
+      <div class="about-page hide-display" data-page="about"></div>
+    </main>
 
     <script src="../../main.js"></script>
     <script src="home.js"></script>

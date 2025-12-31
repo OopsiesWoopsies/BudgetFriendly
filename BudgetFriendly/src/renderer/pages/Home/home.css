@@ -1,4 +1,6 @@
+/* Navbar */
 .navbar {
+  top: 0px;
   z-index: 9999;
 
   height: 100px;
@@ -9,8 +11,12 @@
 
 .navbar-title {
   font-family: cursive, Arial, Helvetica, sans-serif;
-  font-size: 40px;
+  font-size: 2.5rem;
   font-weight: 700;
+}
+
+.navbar-space {
+  padding-top: 100px;
 }
 
 .hamburger {
@@ -29,18 +35,22 @@
 .hamburger span {
   display: block;
   height: 4px;
+
   background: black;
   border-radius: 3px;
 }
 
+/* Sidebar */
 .sidebar {
+  left: -250px;
+  top: 0px;
   z-index: 9998;
 
-  left: -250px;
   width: 250px;
   height: 100vh;
 
   background-color: var(--secondary-colour);
+
   transition: left 0.3s ease;
 }
 
@@ -62,7 +72,7 @@
   height: 50px;
 
   font-family: cursive, Arial, Helvetica, sans-serif;
-  font-size: 20px;
+  font-size: 1.25rem;
   font-weight: 600;
 
   background-color: var(--secondary-colour-light1);
@@ -70,6 +80,7 @@
 
 .sidebar-labels div:hover {
   background-color: var(--secondary-colour-light2);
+
   cursor: pointer;
 }
 
@@ -79,4 +90,31 @@
 
 .sidebar-labels div:last-child {
   border-bottom: 2px solid black;
+}
+
+/* Budget page */
+.budgets-page {
+  position: relative;
+
+  margin: 50px;
+  padding: 25px;
+
+  border: solid black 2px;
+  border-radius: 20px;
+}
+
+.add-budget-button {
+  margin-left: auto;
+
+  height: 50px;
+  width: 90px;
+
+  font-size: 2rem;
+
+  background-color: var(--secondary-colour-light1);
+  border-radius: 25px;
+}
+
+.add-budget-button:hover {
+  background-color: var(--secondary-colour-light2);
 }
