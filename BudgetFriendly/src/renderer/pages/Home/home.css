@@ -113,7 +113,9 @@
   height: 50px;
   width: 90px;
 
+  color: inherit;
   font-size: 2rem;
+  text-decoration: none;
 
   background-color: var(--secondary-colour-light1);
   border: none;
