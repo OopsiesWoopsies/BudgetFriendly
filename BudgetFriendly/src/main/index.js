@@ -28,7 +28,7 @@ function createWindow() {
   })
 
   // Welcome page of BudgetFriendly
-  mainWindow.loadFile(join(__dirname, '../../src/renderer/pages/Welcome/welcome.html'))
+  mainWindow.loadFile(join(__dirname, '../../src/renderer/pages/welcome/welcome.html'))
 }
 
 // Some APIs can only be used after this event occurs.
