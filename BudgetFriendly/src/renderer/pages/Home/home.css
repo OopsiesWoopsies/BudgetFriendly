@@ -64,31 +64,33 @@
   left: 0px;
 }
 
-.sidebar-labels div {
+.sidebar-labels button {
   align-items: center;
   display: flex;
   justify-content: center;
 
   height: 50px;
+  width: 100%;
 
   font-family: cursive, Arial, Helvetica, sans-serif;
   font-size: 1.25rem;
   font-weight: 600;
 
   background-color: var(--secondary-colour-light1);
+  border: none;
 }
 
-.sidebar-labels div:hover {
+.sidebar-labels button:hover {
   background-color: var(--secondary-colour-light2);
 
   cursor: pointer;
 }
 
-.sidebar-labels div:first-child {
+.sidebar-labels button:first-child {
   border-top: 2px solid black;
 }
 
-.sidebar-labels div:last-child {
+.sidebar-labels button:last-child {
   border-bottom: 2px solid black;
 }
 
