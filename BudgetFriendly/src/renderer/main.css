@@ -1,5 +1,5 @@
 body {
-  background-color: var(--primary-colour);
+  background-color: var(--background-colour);
 }
 
 button:hover {
