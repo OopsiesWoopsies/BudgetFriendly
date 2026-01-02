@@ -106,6 +106,7 @@
   border-radius: 20px;
 }
 
+/* Add budget button */
 .add-budget-button {
   margin-left: auto;
   margin-bottom: 25px;
@@ -126,7 +127,6 @@
   transition: box-shadow 0.3s ease;
 }
 
-/* Add budget button */
 .add-budget-button:hover {
   background-color: var(--primary-colour-light2);
   box-shadow: 3px 6px 15px hsla(0, 0%, 0%, 0.6);

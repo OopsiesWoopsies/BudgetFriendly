@@ -30,16 +30,54 @@
   border: none;
 }
 
+/* Main Body */
+.card {
+  width: 90vw;
+}
+
+.card button {
+  height: 50px;
+
+  font-size: 2rem;
+
+  background-color: var(--primary-colour-light1);
+  border: solid black 1px;
+  box-shadow: 4px 5px 10px hsla(0, 0%, 0%, 0.8);
+  transition: box-shadow 0.3s ease;
+}
+
+.card button:hover {
+  background-color: var(--primary-colour-light2);
+  box-shadow: 7px 9px 15px hsla(0, 0%, 0%, 0.8);
+}
+
+.card button:active {
+  background-color: var(--primary-colour-light3);
+  box-shadow: 5px 6px 12px hsla(0, 0%, 0%, 0.8);
+}
+
+.card-header {
+  margin-bottom: 30px;
+
+  max-width: 90%;
+  width: 100%;
+}
+
+.card .title {
+  margin: 0 auto;
+  width: 70%;
+}
+
 /* Month Selection */
 .month-selection {
   margin: 20px;
 
+  height: 100px;
 }
 
 /* Day Selection */
 .day-selection {
   margin: 20px;
 }
-
 
 /* Budget Sheet */

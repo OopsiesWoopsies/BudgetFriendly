@@ -40,7 +40,11 @@ button:hover {
 }
 
 .card {
-  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+
+  height: auto;
 
   background-color: var(--secondary-colour);
   border-radius: 30px;
