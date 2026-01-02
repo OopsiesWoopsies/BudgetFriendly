@@ -39,6 +39,22 @@ button:hover {
   position: fixed;
 }
 
+.custom-button {
+  background-color: var(--primary-colour-light1);
+  box-shadow: 3px 5px 10px hsla(0, 0%, 0%, 0.6);
+  transition: box-shadow 0.2s ease;
+}
+
+.custom-button:hover {
+  background-color: var(--primary-colour-light2);
+  box-shadow: 4px 8px 13px hsla(0, 0%, 0%, 0.7);
+}
+
+.custom-button:active {
+  background-color: var(--primary-colour-light3);
+  box-shadow: 1px 2px 8px hsla(0, 0%, 0%, 0.5);
+}
+
 .card {
   display: flex;
   flex-direction: column;

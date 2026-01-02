@@ -40,20 +40,7 @@
 
   font-size: 2rem;
 
-  background-color: var(--primary-colour-light1);
   border: solid black 1px;
-  box-shadow: 4px 5px 10px hsla(0, 0%, 0%, 0.8);
-  transition: box-shadow 0.3s ease;
-}
-
-.card button:hover {
-  background-color: var(--primary-colour-light2);
-  box-shadow: 7px 9px 15px hsla(0, 0%, 0%, 0.8);
-}
-
-.card button:active {
-  background-color: var(--primary-colour-light3);
-  box-shadow: 5px 6px 12px hsla(0, 0%, 0%, 0.8);
 }
 
 .card-header {
