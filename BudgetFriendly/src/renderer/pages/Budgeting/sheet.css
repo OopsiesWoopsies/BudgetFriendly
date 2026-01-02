@@ -1,5 +1,7 @@
+/* Header */
 .header {
   height: 60px;
+  width: 100%;
   z-index: 9999;
 
   background-color: var(--primary-colour);
@@ -8,6 +10,10 @@
 .header-title {
   font-size: 1.5rem;
   font-family: cursive, Arial;
+}
+
+.header-space {
+  padding-top: 60px;
 }
 
 .back-button {
@@ -23,3 +29,17 @@
   background-color: var(--primary-colour);
   border: none;
 }
+
+/* Month Selection */
+.month-selection {
+  margin: 20px;
+
+}
+
+/* Day Selection */
+.day-selection {
+  margin: 20px;
+}
+
+
+/* Budget Sheet */

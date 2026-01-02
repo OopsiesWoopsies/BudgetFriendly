@@ -16,12 +16,12 @@ sidebar.addEventListener('click', (event) => {
     pages.forEach((page) => {
       const key = mouseClick.dataset.page;
       if (page.dataset.page === key) {
-        page.classList.remove('hide-display');
+        page.classList.remove('display-none');
         if (key === 'budgets') navbarTitle.textContent = 'BudgetFriendly';
         else navbarTitle.textContent = mouseClick.textContent;
         return;
       }
-      page.classList.add('hide-display');
+      page.classList.add('display-none');
     });
   }
 });
