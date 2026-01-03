@@ -53,6 +53,26 @@
 .card .title {
   margin: 0 auto;
   width: 70%;
+
+  font-family: cursive, Arial;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+
+  max-width: 90%;
+  width: 100%;
+
+  font-family: cursive, Arial;
+}
+
+.calendar-grid > div {
+  border: solid black 1px;
+}
+
+.day-name {
+  background-color: var(--primary-colour);
 }
 
 /* Month Selection */
