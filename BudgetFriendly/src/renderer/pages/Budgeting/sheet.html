@@ -10,43 +10,59 @@
   </head>
   <body class="margin-zero">
     <header class="header flex position-fixed align-items-center justify-content-center">
-      <a class="back-button position-fixed" href="../home/home.html"><</a>
-      <h1 class="header-title">Title of Budget Sheet</h1>
+      <a class="back-button position-fixed no-select" href="../home/home.html" draggable="false"
+        ><</a
+      >
+      <h1 class="header-title no-select">Title of Budget Sheet</h1>
     </header>
 
     <div class="header-space"></div>
 
     <main class="flex align-items-center justify-content-center">
-      <div class="month-selection">
-        <div class="card align-items-center">
+      <div class="card flex align-items-center">
+        <div class="month-selection flex justify-content-center">
           <div class="card-header flex">
-            <button class="custom-button arrow-left flex justify-content-center">◀</button>
-            <button class="custom-button title">2026</button>
-            <button class="custom-button arrow-right flex justify-content-center">▶</button>
+            <button id="left-arrow" class="custom-button flex justify-content-center no-select">
+              ◀
+            </button>
+            <button class="custom-button title no-select">2026</button>
+            <button id="right-arrow" class="custom-button flex justify-content-center no-select">
+              ▶
+            </button>
           </div>
 
-          <div class="calendar-grid">
-            <div class="day-name">Sun</div>
-            <div class="day-name">Mon</div>
-            <div class="day-name">Tue</div>
-            <div class="day-name">Wed</div>
-            <div class="day-name">Thu</div>
-            <div class="day-name">Fri</div>
-            <div class="day-name">Sat</div>
+          <div class="calendar calendar-month">
+            <div class="month-name no-select">Jan</div>
+            <div class="month-name no-select">Feb</div>
+            <div class="month-name no-select">Mar</div>
+            <div class="month-name no-select">Apr</div>
+            <div class="month-name no-select">May</div>
+            <div class="month-name no-select">Jun</div>
+            <div class="month-name no-select">Jul</div>
+            <div class="month-name no-select">Aug</div>
+            <div class="month-name no-select">Sep</div>
+            <div class="month-name no-select">Oct</div>
+            <div class="month-name no-select">Nov</div>
+            <div class="month-name no-select">Dec</div>
+            
           </div>
-          
-          <div id="days" class="calendar-grid"></div>
         </div>
-      </div>
-      <div class="day-selection display-none">
-        <div class="card">
-          <button class="arrow-left"><</button>
-          <button class="title">Month</button>
-          <button class="arrow-right">></button>
+
+        <div class="day-selection display-none">
+          <div class="calendar calendar-header">
+            <div class="day-name no-select">Sun</div>
+            <div class="day-name no-select">Mon</div>
+            <div class="day-name no-select">Tue</div>
+            <div class="day-name no-select">Wed</div>
+            <div class="day-name no-select">Thu</div>
+            <div class="day-name no-select">Fri</div>
+            <div class="day-name no-select">Sat</div>
+          </div>
+
+          <div id="days" class="calendar calendar-body"></div>
         </div>
-      </div>
-      <div class="budget-sheet display-none">
-        <div class="card"></div>
+
+        <div class="budget-sheet display-none"></div>
       </div>
     </main>
 
