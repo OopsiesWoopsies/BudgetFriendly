@@ -135,7 +135,7 @@ calendar.addEventListener('click', (event) => {
     calendarHeaderTitle.textContent = `${monthName}, ${year}`;
   } else if (!daySelection.classList.contains('display-none')) {
     const selectedCell = event.target.closest('.day-number');
-    if (!selectedCell) return;
+    if (!selectedCell || selectedCell.textContent === '') return;
 
     daySelection.classList.add('display-none');
     budgetSheet.classList.remove('display-none');
