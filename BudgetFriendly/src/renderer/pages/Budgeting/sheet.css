@@ -31,6 +31,10 @@
 }
 
 /* Main Body */
+.calendar {
+  width: 100%;
+}
+
 .card {
   margin: 20px;
 
@@ -61,16 +65,9 @@
   font-family: cursive, Arial;
 }
 
-.calendar > div {
-  padding: 3px;
-
-  border: solid black 1px;
-}
-
 /* Month Selection */
 .month-selection {
   flex-direction: column;
-  margin: 20px;
 
   height: 100%;
   width: 100%;
@@ -93,11 +90,12 @@
   align-items: center;
   justify-content: center;
 
-  font: cursive, Arial;
+  font-family: cursive, Arial;
   font-size: 1.5rem;
   font-weight: 700;
 
   background-color: var(--primary-colour-light1);
+  border: solid black 1px;
 }
 
 .month-name:hover {
@@ -113,7 +111,6 @@
 /* Day Selection */
 .day-selection {
   flex-direction: column;
-  margin: 20px;
 
   height: 100%;
   width: 100%;
@@ -149,10 +146,12 @@
 
 .day-name {
   background-color: var(--primary-colour);
+  border: solid black 1px;
 }
 
 .day-number {
   background-color: var(--plain-colour);
+  border: solid black 1px;
 }
 
 .day-number:hover {
