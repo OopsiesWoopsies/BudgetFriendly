@@ -1,3 +1,7 @@
+:root {
+  --budget-cell-height: 32px;
+}
+
 /* Header */
 .header {
   height: 60px;
@@ -22,8 +26,9 @@
   padding-right: 5px;
 
   color: inherit;
-  font-size: 2rem;
-  font-weight: 600;
+  font-family: Arial;
+  font-size: 1.75rem;
+  font-weight: 100;
   text-decoration: none;
 
   background-color: var(--primary-colour);
@@ -39,6 +44,8 @@
   margin: 20px;
 
   width: 90vw;
+
+  font-family: cursive, Arial;
 }
 
 .card button {
@@ -75,11 +82,10 @@
 }
 
 .calendar-month {
-  margin: 0 auto;
-  margin-bottom: 10px;
-  display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-auto-rows: minmax(80px, 100px);
+  margin: 0 auto;
+  margin-bottom: 10px;
 
   width: 90%;
 
@@ -92,7 +98,6 @@
   align-items: center;
   justify-content: center;
 
-  font-family: cursive, Arial;
   font-size: 1.5rem;
   font-weight: 700;
 
@@ -121,12 +126,9 @@
 
 .calendar-header {
   margin: 0 auto;
-  display: grid;
   grid-template-columns: repeat(7, 1fr);
 
   width: 90%;
-
-  font-family: cursive, Arial;
 
   border: solid black 1px;
   border-bottom: none;
@@ -134,37 +136,90 @@
 
 .calendar-body {
   margin: 0 auto;
-  display: grid;
   grid-template-columns: repeat(7, 1fr);
   grid-auto-rows: minmax(80px, 100px);
 
   height: auto;
   width: 90%;
 
-  font-family: cursive, Arial;
-
   border: solid black 1px;
   border-top: none;
 }
 
 .day-name {
+  padding: 2px;
+
   background-color: var(--primary-colour);
   border: solid black 1px;
 }
 
 .day-number {
+  padding: 3px;
+
   background-color: var(--plain-colour);
   border: solid black 1px;
 }
 
 .day-number:hover {
-  background-color: var(--plain-colour-dark2);
+  background-color: var(--plain-colour-dark3);
 
   cursor: pointer;
 }
 
 .day-number:active {
-  background-color: var(--plain-colour-dark1);
+  background-color: var(--plain-colour-dark2);
 }
 
 /* Budget Sheet */
+.budget-sheet {
+  width: 100%;
+}
+
+.table-header {
+  margin: 0 auto;
+  grid-template-columns: 4fr repeat(2, 1fr);
+  width: 90%;
+
+  border: solid black 1px;
+  border-bottom: none;
+}
+
+.column-header {
+  padding: 3px;
+
+  background-color: var(--primary-colour);
+  border: solid black 1px;
+}
+
+.table {
+  margin: 0 auto;
+  grid-template-columns: 4fr repeat(2, 1fr);
+
+  width: 90%;
+
+  border: solid black 1px;
+  border-top: none;
+}
+
+.cell {
+  box-sizing: border-box;
+  padding: 3px;
+
+  min-height: var(--budget-cell-height);
+  width: 100%;
+
+  font-family: cursive, Arial;
+
+  background-color: var(--plain-colour-dark1);
+  border: solid black 1px;
+}
+
+.cell:focus-visible {
+  outline: none;
+  background-color: var(--plain-colour);
+}
+
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  appearance: none;
+}

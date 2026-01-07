@@ -11,7 +11,7 @@
   <body class="margin-zero">
     <header class="header flex position-fixed align-items-center justify-content-center">
       <a class="back-button position-fixed no-select" href="../home/home.html" draggable="false"
-        ><</a
+        >X</a
       >
       <h1 class="header-title no-select">Title of Budget Sheet</h1>
     </header>
@@ -24,7 +24,7 @@
           <button id="left-arrow" class="custom-button flex justify-content-center no-select">
             ◀
           </button>
-          <button class="custom-button title no-select">2026</button>
+          <button class="custom-button title no-select"></button>
           <button id="right-arrow" class="custom-button flex justify-content-center no-select">
             ▶
           </button>
@@ -32,7 +32,7 @@
 
         <div class="calendar flex justify-content-center">
           <div class="month-selection">
-            <div class="calendar-month">
+            <div class="calendar-month grid">
               <div id="0" class="month-name no-select">Jan</div>
               <div id="1" class="month-name no-select">Feb</div>
               <div id="2" class="month-name no-select">Mar</div>
@@ -49,7 +49,7 @@
           </div>
 
           <div class="day-selection display-none">
-            <div class="calendar-header">
+            <div class="calendar-header grid">
               <div class="day-name no-select">Sun</div>
               <div class="day-name no-select">Mon</div>
               <div class="day-name no-select">Tue</div>
@@ -59,11 +59,23 @@
               <div class="day-name no-select">Sat</div>
             </div>
 
-            <div id="days" class="calendar-body"></div>
+            <div id="days" class="calendar-body grid"></div>
           </div>
         </div>
 
-        <div class="budget-sheet display-none"></div>
+        <div class="budget-sheet display-none">
+          <div class="table-header grid">
+            <div class="column-header">Name</div>
+            <div class="column-header">Category</div>
+            <div class="column-header">Price $</div>
+          </div>
+
+          <div class="table grid">
+            <input type="text" class="cell nameCell"></input>
+            <div class="cell categoryCell"></div>
+            <input type="number" class="cell priceCell"></input>
+          </div>
+        </div>
       </div>
     </main>
 

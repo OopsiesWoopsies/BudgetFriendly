@@ -14,6 +14,8 @@ let monthName = '';
 let day = 0;
 let daysInMonth = new Date(year, month + 1, 0).getDate();
 
+calendarHeaderTitle.textContent = year;
+
 function createCalendar() {
   let calendarArr = Array.from({ length: 5 }, () => Array(7).fill(null));
 

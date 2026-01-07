@@ -10,12 +10,16 @@ button:hover {
   align-items: center;
 }
 
+.display-none {
+  display: none;
+}
+
 .flex {
   display: flex;
 }
 
-.display-none {
-  display: none;
+.grid {
+  display: grid;
 }
 
 .justify-content-center {

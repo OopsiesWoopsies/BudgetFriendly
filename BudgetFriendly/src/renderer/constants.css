@@ -8,7 +8,8 @@
 
   --secondary-colour: hsl(200, 100%, 90%);
 
-  --plain-colour: hsl(180, 100%, 100%);
-  --plain-colour-dark1: hsl(0, 0%, 90%);
-  --plain-colour-dark2: hsl(0, 0%, 80%);
+  --plain-colour: hsl(0, 0%, 100%);
+  --plain-colour-dark1: hsl(0, 0%, 95%);
+  --plain-colour-dark2: hsl(0, 0%, 90%);
+  --plain-colour-dark3: hsl(0, 0%, 80%);
 }
