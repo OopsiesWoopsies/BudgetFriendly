@@ -45,7 +45,9 @@ button:hover {
 
 .custom-button {
   background-color: var(--primary-colour-light1);
+  border-radius: 5px;
   box-shadow: 3px 5px 10px hsla(0, 0%, 0%, 0.6);
+  
   transition: box-shadow 0.2s ease;
 }
 

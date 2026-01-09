@@ -21,6 +21,26 @@
         <button class="modal-back-button back-button">X</button>
         <h1 class="modal-title">Settings</h1>
       </div>
+      <div class="modal-body">
+        <div class="change-title flex align-items-center">
+          <h2 class="description">Change Budget Sheet Title</h2>
+          <input id="new-title-sheet" type="text" class="new-title" maxlength="30" />
+        </div>
+        <div class="edit-categories flex align-items-center">
+          <h2 class="description">
+            Edit Categories
+            <div class="edit-tools">
+              <button class="edit-category-name">✏️</button>
+              <button class="delete-category">🗑️</button>
+            </div>
+          </h2>
+          <div class="categories flex align-items-center justify-content-center">
+            <button class="category">Groceries</button>
+            <button class="category">School</button>
+            <button class="category">Fun</button>
+          </div>
+        </div>
+      </div>
     </dialog>
 
     <div class="header-space"></div>
@@ -38,7 +58,7 @@
         </div>
 
         <div class="calendar flex justify-content-center">
-          <div class="month-selection">
+          <div class="month-selection display-none">
             <div class="calendar-month grid">
               <div id="0" class="month-name no-select">Jan</div>
               <div id="1" class="month-name no-select">Feb</div>
@@ -70,7 +90,8 @@
           </div>
         </div>
 
-        <div class="budget-sheet display-none">
+        <div class="budget-sheet">
+          <!-- display-none -->
           <div class="table-header grid">
             <div class="column-header">Name</div>
             <div class="column-header">Category</div>

@@ -1,10 +1,11 @@
 :root {
   --budget-cell-height: 32px;
+  --title-header-height: 65px;
 }
 
 /* Header */
 .header {
-  height: 60px;
+  height: var(--title-header-height);
   width: 100%;
   z-index: 9999;
 
@@ -12,14 +13,17 @@
 }
 
 .header-title {
+  padding: 5px;
+
   font-size: 1.5rem;
   font-family: cursive, Arial;
 
   background-color: var(--primary-colour-light1);
+  border-radius: 10px;
 }
 
 .header-space {
-  padding-top: 60px;
+  padding-top: var(--title-header-height);
 }
 
 .back-button {
@@ -41,6 +45,8 @@
 .modal {
   height: 70vh;
   width: 80vw;
+
+  background-color: var(--background-colour);
 }
 
 .modal-header {
@@ -62,6 +68,81 @@
 
 .modal-title {
   margin: 0 auto;
+}
+
+/* Modal body (settings) */
+.modal-body {
+  padding: 2px;
+
+  font-family: cursive, Arial;
+}
+
+.change-title {
+  flex-direction: column;
+  margin: 5px;
+}
+
+.description {
+  margin: 5px;
+  padding: 5px;
+
+  width: 70%;
+
+  font-size: 1.25rem;
+  text-align: center;
+
+  background-color: var(--primary-colour-light1);
+  border: solid black 1px;
+  border-radius: 5px;
+}
+
+.new-title {
+  height: 30px;
+  width: 40%;
+
+  font-family: cursive, Arial;
+  font-size: 1rem;
+  text-align: center;
+
+  background-color: var(--plain-colour-dark1);
+  border: solid black 2px;
+  border-radius: 5px;
+}
+
+.new-title:hover {
+  background-color: var(--plain-colour);
+}
+
+.new-title:focus-visible {
+  outline: none;
+  background-color: var(--plain-colour);
+}
+
+.edit-categories {
+  flex-direction: column;
+  margin: 5px;
+}
+
+.edit-categories h2 {
+  position: relative;
+}
+
+.edit-tools {
+  position: absolute;
+
+  top: 3px;
+  right: 8px;
+}
+
+.categories {
+  height: 100%;
+  width: 100%;
+}
+
+.category {
+  margin: 5px;
+
+  border: solid black 1px;
 }
 
 /* Main Body */
