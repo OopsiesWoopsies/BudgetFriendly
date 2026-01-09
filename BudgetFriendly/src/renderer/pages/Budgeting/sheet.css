@@ -14,6 +14,8 @@
 .header-title {
   font-size: 1.5rem;
   font-family: cursive, Arial;
+
+  background-color: var(--primary-colour-light1);
 }
 
 .header-space {
@@ -31,7 +33,7 @@
   font-weight: 100;
   text-decoration: none;
 
-  background-color: var(--primary-colour);
+  background-color: inherit;
   border: none;
 }
 
@@ -54,7 +56,7 @@
   position: absolute;
   justify-self: center;
 
-  top: 11px;
+  top: 10px;
   left: 15px;
 }
 
