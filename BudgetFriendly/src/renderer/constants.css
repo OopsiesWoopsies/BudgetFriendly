@@ -7,9 +7,12 @@
   --primary-colour-light3: hsl(51, 100%, 60%);
 
   --secondary-colour: hsl(200, 100%, 90%);
+  --secondary-colour-dark1: hsl(200, 100%, 80%);
 
   --plain-colour: hsl(0, 0%, 100%);
   --plain-colour-dark1: hsl(0, 0%, 95%);
   --plain-colour-dark2: hsl(0, 0%, 90%);
   --plain-colour-dark3: hsl(0, 0%, 80%);
+
+  --overlay: hsla(0, 0%, 100%, 0.3)
 }

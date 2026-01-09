@@ -35,6 +35,33 @@
   border: none;
 }
 
+/* Modal (settings) */
+.modal {
+  height: 70vh;
+  width: 80vw;
+}
+
+.modal-header {
+  position: relative;
+  padding: 5px;
+
+  font-family: cursive, Arial;
+
+  background-color: var(--primary-colour);
+}
+
+.modal-back-button {
+  position: absolute;
+  justify-self: center;
+
+  top: 11px;
+  left: 15px;
+}
+
+.modal-title {
+  margin: 0 auto;
+}
+
 /* Main Body */
 .calendar {
   width: 100%;
@@ -201,6 +228,16 @@
   border-top: none;
 }
 
+.table button {
+  height: inherit;
+
+  font-size: 1rem;
+}
+
+.table button:hover {
+  background-color: var(--plain-colour);
+}
+
 .cell {
   box-sizing: border-box;
   padding: 3px;
@@ -208,10 +245,20 @@
   min-height: var(--budget-cell-height);
   width: 100%;
 
-  font-family: cursive, Arial;
+  font: inherit;
+  font-size: 1rem;
 
   background-color: var(--plain-colour-dark1);
   border: solid black 1px;
+}
+
+.cell.new {
+  background-color: var(--overlay);
+  border: dashed black 1px;
+}
+
+.cell:hover {
+  background-color: var(--plain-colour);
 }
 
 .cell:focus-visible {

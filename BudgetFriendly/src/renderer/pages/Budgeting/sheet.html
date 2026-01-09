@@ -13,8 +13,15 @@
       <a class="back-button position-fixed no-select" href="../home/home.html" draggable="false"
         >X</a
       >
-      <h1 class="header-title no-select">Title of Budget Sheet</h1>
+      <button class="header-title no-select">Title of Budget Sheet</button>
     </header>
+
+    <dialog id="settings" class="modal padding-zero">
+      <div class="modal-header flex">
+        <button class="modal-back-button back-button">X</button>
+        <h1 class="modal-title">Settings</h1>
+      </div>
+    </dialog>
 
     <div class="header-space"></div>
 
@@ -72,8 +79,11 @@
 
           <div class="table grid">
             <input type="text" class="cell nameCell"></input>
-            <div class="cell categoryCell"></div>
+            <button class="cell categoryCell"></button>
             <input type="number" class="cell priceCell"></input>
+            <input type="text" class="cell nameCell new"></input>
+            <button class="cell categoryCell new"></button>
+            <input type="number" class="cell priceCell new"></input>
           </div>
         </div>
       </div>
