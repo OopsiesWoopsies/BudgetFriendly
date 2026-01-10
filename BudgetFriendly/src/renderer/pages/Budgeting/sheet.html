@@ -18,26 +18,28 @@
 
     <dialog id="settings" class="modal padding-zero">
       <div class="modal-header flex">
-        <button class="modal-back-button back-button">X</button>
+        <button class="modal-back-button back-button no-select">X</button>
         <h1 class="modal-title">Settings</h1>
       </div>
       <div class="modal-body">
         <div class="change-title flex align-items-center">
           <h2 class="description">Change Budget Sheet Title</h2>
-          <input id="new-title-sheet" type="text" class="new-title" maxlength="30" />
+          <input id="new-title-sheet" type="text" class="new-title custom-input" maxlength="30" />
         </div>
         <div class="edit-categories flex align-items-center">
-          <h2 class="description">
+          <div class="description header">
             Edit Categories
-            <div class="edit-tools">
-              <button class="edit-category-name">✏️</button>
-              <button class="delete-category">🗑️</button>
+            <div class="edit-tools grid">
+              <button id="add-category" class="custom-button">+</button>
+              <button id="edit-category-name" class="custom-button">✏️</button>
+              <button id="delete-category" class="custom-button">🗑️</button>
             </div>
-          </h2>
+          </div>
           <div class="categories flex align-items-center justify-content-center">
-            <button class="category">Groceries</button>
-            <button class="category">School</button>
-            <button class="category">Fun</button>
+            <button class="category custom-button">Groceries</button>
+            <button class="category custom-button">School</button>
+            <button class="category custom-button">Fun</button>
+            <input type="text" class="custom-input" maxlength="15" />
           </div>
         </div>
       </div>
@@ -99,12 +101,12 @@
           </div>
 
           <div class="table grid">
-            <input type="text" class="cell nameCell" />
+            <input type="text" class="cell nameCell custom-input" />
             <button class="cell categoryCell"></button>
-            <input type="number" class="cell priceCell" />
-            <input type="text" class="cell nameCell new" />
+            <input type="number" class="cell priceCell custom-input" />
+            <input type="text" class="cell nameCell new custom-input" />
             <button class="cell categoryCell new"></button>
-            <input type="number" class="cell priceCell new" />
+            <input type="number" class="cell priceCell new custom-input" />
           </div>
         </div>
       </div>

@@ -83,13 +83,17 @@
 }
 
 .description {
+  display: flex;
   margin: 5px;
   padding: 5px;
+  justify-content: center;
+  align-items: center;
 
+  height: 50px;
   width: 70%;
 
   font-size: 1.25rem;
-  text-align: center;
+  font-weight: 800;
 
   background-color: var(--primary-colour-light1);
   border: solid black 1px;
@@ -97,6 +101,8 @@
 }
 
 .new-title {
+  margin: 5px;
+
   height: 30px;
   width: 40%;
 
@@ -109,34 +115,49 @@
   border-radius: 5px;
 }
 
-.new-title:hover {
-  background-color: var(--plain-colour);
-}
-
-.new-title:focus-visible {
-  outline: none;
-  background-color: var(--plain-colour);
-}
-
 .edit-categories {
   flex-direction: column;
   margin: 5px;
 }
 
-.edit-categories h2 {
+.description.header {
   position: relative;
 }
 
 .edit-tools {
+  grid-template-columns: repeat(3, 1fr);
   position: absolute;
+  gap: 5px;
 
-  top: 3px;
-  right: 8px;
+  top: 14px;
+  right: 10px;
+}
+
+.edit-tools button {
+  padding: 0;
+  margin: 0;
+
+  font-size: 1.5rem;
+  font-weight: 900;
+  text-align: center;
+
+  background-color: var(--secondary-colour);
+  border: none;
+  border-radius: 5px;
+}
+
+.edit-tools button:hover {
+  background-color: var(--secondary-colour-dark1);
+}
+
+.edit-tools button:active {
+  background-color: var(--secondary-colour-dark2);
 }
 
 .categories {
-  height: 100%;
   width: 100%;
+
+  border: solid black 1px;
 }
 
 .category {
@@ -333,6 +354,7 @@
 
   background-color: var(--plain-colour-dark1);
   border: solid black 1px;
+  border-radius: 0;
 }
 
 .cell.new {
@@ -347,9 +369,4 @@
 .cell:focus-visible {
   outline: none;
   background-color: var(--plain-colour);
-}
-
-input[type='number']::-webkit-inner-spin-button,
-input[type='number']::-webkit-outer-spin-button {
-  appearance: none;
 }

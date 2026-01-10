@@ -32,7 +32,6 @@ button:hover {
 
 .no-select {
   user-select: none;
-  -webkit-user-select: none;
 }
 
 .padding-zero {
@@ -47,8 +46,9 @@ button:hover {
   background-color: var(--primary-colour-light1);
   border-radius: 5px;
   box-shadow: 3px 5px 10px hsla(0, 0%, 0%, 0.6);
-  
+
   transition: box-shadow 0.2s ease;
+  user-select: none;
 }
 
 .custom-button:hover {
@@ -61,6 +61,21 @@ button:hover {
   box-shadow: 1px 2px 8px hsla(0, 0%, 0%, 0.5);
 }
 
+.custom-input {
+  background-color: var(--plain-colour-dark1);
+  border: solid black 2px;
+  border-radius: 5px;
+}
+
+.custom-input:hover {
+  background-color: var(--plain-colour);
+}
+
+.custom-input:focus-visible {
+  outline: none;
+  background-color: var(--plain-colour);
+}
+
 .card {
   display: flex;
   flex-direction: column;
@@ -71,4 +86,9 @@ button:hover {
   background-color: var(--secondary-colour);
   border-radius: 30px;
   box-shadow: 2px 8px 15px hsla(0, 0%, 10%, 0.2);
+}
+
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  appearance: none;
 }
