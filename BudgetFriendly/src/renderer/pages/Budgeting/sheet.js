@@ -1,3 +1,5 @@
+const title = document.querySelector('.header-title');
+
 const daysDiv = document.getElementById('days');
 const calendar = document.querySelector('.calendar');
 const calendarBody = document.querySelector('.calendar-body');
@@ -10,6 +12,13 @@ const budgetSheet = document.querySelector('.budget-sheet');
 const settingsButton = document.querySelector('.header-title');
 const settingsModal = document.getElementById('settings');
 const settingsBackButton = document.querySelector('.modal-back-button');
+const newTitleInput = document.querySelector('.new-title');
+const editCategoryHeader = document.querySelector('.description.header');
+const categoriesTitle = document.getElementById('categories-header');
+const categoryToolButtons = document.querySelector('.edit-tools');
+const newCategoryInput = document.querySelector('.new-category');
+
+let budgetSheetTitle = '';
 
 let date = new Date();
 let year = date.getFullYear();
@@ -153,6 +162,7 @@ function initCardListeners() {
 }
 
 function initSettingsListeners() {
+  // Settings Header listeners
   settingsButton.addEventListener('click', () => {
     settingsModal.showModal();
   });
@@ -160,7 +170,48 @@ function initSettingsListeners() {
   settingsBackButton.addEventListener('click', () => {
     settingsModal.close();
   });
+
+  // Budget Sheet Title listeners
+  newTitleInput.addEventListener('change', () => {
+    budgetSheetTitle = newTitleInput.value;
+    title.textContent = budgetSheetTitle;
+  });
+
+  newTitleInput.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') {
+      newTitleInput.blur();
+    }
+  });
+
+  // Category Tools listeners
+  categoryToolButtons.addEventListener('click', (event) => {
+    const id = event.target.id;
+    if (id === 'add-category') {
+      editCategoryHeader.classList.remove('edit-category-name-mode', 'remove-category-mode');
+      editCategoryHeader.classList.add('add-category-mode');
+      categoriesTitle.textContent = 'Add a Category';
+      newCategoryInput.classList.add('display-none');
+    } else if (id === 'edit-category-name') {
+      editCategoryHeader.classList.remove('add-category-mode', 'remove-category-mode');
+      editCategoryHeader.classList.add('edit-category-name-mode');
+      categoriesTitle.textContent = 'Edit a Category Name';
+      newCategoryInput.classList.remove('display-none');
+    } else if (id === 'remove-category') {
+      editCategoryHeader.classList.remove('edit-category-name-mode', 'add-category-mode');
+      editCategoryHeader.classList.add('remove-category-mode');
+      categoriesTitle.textContent = 'Remove a Category';
+      newCategoryInput.classList.add('display-none');
+    }
+  });
 }
+function initInitialVals() {
+  newTitleInput.value = budgetSheetTitle;
+}
+
+// TODO
+// Add display-none to the input in edit categories to rmeove it when not in addition mode
+//  When submitting a new category, first remove the input element then re-add after adding the button for the new category
 
 initCardListeners();
 initSettingsListeners();
+initInitialVals();

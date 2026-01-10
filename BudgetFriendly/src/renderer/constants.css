@@ -17,3 +17,7 @@
 
   --overlay: hsla(0, 0%, 100%, 0.3)
 }
+
+:root {
+  --fonts: cursive, Arial;
+}
