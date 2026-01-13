@@ -16,9 +16,11 @@ const newTitleInput = document.querySelector('.new-title');
 const editCategoryHeader = document.querySelector('.description.header');
 const categoriesTitle = document.getElementById('categories-header');
 const categoryToolButtons = document.querySelector('.edit-tools');
+const categoryEditList = document.querySelector('.categories');
 const newCategoryInput = document.querySelector('.new-category');
 
 let budgetSheetTitle = '';
+// GET req for budget sheet title
 
 let date = new Date();
 let year = date.getFullYear();
@@ -184,22 +186,61 @@ function initSettingsListeners() {
   });
 
   // Category Tools listeners
+  function addCategoryButton() {
+    newCategoryInput.blur();
+    newCategoryInput.value = newCategoryInput.value.trim();
+
+    if (newCategoryInput.value === '') {
+      return;
+    }
+    // Create button and move input element
+    const button = document.createElement('button');
+    button.classList.add('category', 'custom-button');
+    button.textContent = newCategoryInput.value;
+    newCategoryInput.value = '';
+
+    const input = categoryEditList.removeChild(newCategoryInput);
+    categoryEditList.appendChild(button);
+    categoryEditList.appendChild(input);
+
+    // POST req to db for new category
+  }
+
+  function addCategory() {
+    newCategoryInput.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter') {
+        addCategoryButton();
+      }
+    });
+    newCategoryInput.addEventListener('change', () => {
+      addCategoryButton();
+    });
+  }
+
+  function editCategory() {
+
+  }
+
+  function deleteCategory() {
+
+  }
+
   categoryToolButtons.addEventListener('click', (event) => {
     const id = event.target.id;
 
-    switch(id) {
+    switch (id) {
       case 'add-category':
         editCategoryHeader.classList.remove('edit-category-name-mode', 'remove-category-mode');
         editCategoryHeader.classList.add('add-category-mode');
         categoriesTitle.textContent = 'Add a Category';
-        newCategoryInput.classList.add('display-none');
+        newCategoryInput.classList.remove('display-none');
         break;
 
       case 'edit-category-name':
         editCategoryHeader.classList.remove('add-category-mode', 'remove-category-mode');
         editCategoryHeader.classList.add('edit-category-name-mode');
         categoriesTitle.textContent = 'Edit a Category Name';
-        newCategoryInput.classList.remove('display-none');
+        newCategoryInput.classList.add('display-none');
         break;
 
       case 'remove-category':
@@ -210,7 +251,12 @@ function initSettingsListeners() {
         break;
     }
   });
+
+  addCategory();
+  editCategory();
+  deleteCategory();
 }
+
 function initInitialVals() {
   newTitleInput.value = budgetSheetTitle;
 }
@@ -218,6 +264,8 @@ function initInitialVals() {
 // TODO
 // Add display-none to the input in edit categories to rmeove it when not in addition mode
 //  When submitting a new category, first remove the input element then re-add after adding the button for the new category
+// When editing the names, turn the buttons into inputs (use a toggle to show / hide inputs / buttons, do NOT use replace)
+// When removing category, use double click feature (change the colour of the background with first click as an "are you sure?")
 
 initCardListeners();
 initSettingsListeners();
