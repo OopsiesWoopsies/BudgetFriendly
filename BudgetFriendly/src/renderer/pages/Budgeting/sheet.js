@@ -186,21 +186,28 @@ function initSettingsListeners() {
   // Category Tools listeners
   categoryToolButtons.addEventListener('click', (event) => {
     const id = event.target.id;
-    if (id === 'add-category') {
-      editCategoryHeader.classList.remove('edit-category-name-mode', 'remove-category-mode');
-      editCategoryHeader.classList.add('add-category-mode');
-      categoriesTitle.textContent = 'Add a Category';
-      newCategoryInput.classList.add('display-none');
-    } else if (id === 'edit-category-name') {
-      editCategoryHeader.classList.remove('add-category-mode', 'remove-category-mode');
-      editCategoryHeader.classList.add('edit-category-name-mode');
-      categoriesTitle.textContent = 'Edit a Category Name';
-      newCategoryInput.classList.remove('display-none');
-    } else if (id === 'remove-category') {
-      editCategoryHeader.classList.remove('edit-category-name-mode', 'add-category-mode');
-      editCategoryHeader.classList.add('remove-category-mode');
-      categoriesTitle.textContent = 'Remove a Category';
-      newCategoryInput.classList.add('display-none');
+
+    switch(id) {
+      case 'add-category':
+        editCategoryHeader.classList.remove('edit-category-name-mode', 'remove-category-mode');
+        editCategoryHeader.classList.add('add-category-mode');
+        categoriesTitle.textContent = 'Add a Category';
+        newCategoryInput.classList.add('display-none');
+        break;
+
+      case 'edit-category-name':
+        editCategoryHeader.classList.remove('add-category-mode', 'remove-category-mode');
+        editCategoryHeader.classList.add('edit-category-name-mode');
+        categoriesTitle.textContent = 'Edit a Category Name';
+        newCategoryInput.classList.remove('display-none');
+        break;
+
+      case 'remove-category':
+        editCategoryHeader.classList.remove('edit-category-name-mode', 'add-category-mode');
+        editCategoryHeader.classList.add('remove-category-mode');
+        categoriesTitle.textContent = 'Remove a Category';
+        newCategoryInput.classList.add('display-none');
+        break;
     }
   });
 }
