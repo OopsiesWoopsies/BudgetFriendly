@@ -16,12 +16,13 @@ const newTitleInput = document.querySelector('.new-title');
 const editCategoryHeader = document.querySelector('.description.header');
 const categoriesTitle = document.getElementById('categories-header');
 const categoryToolButtons = document.querySelector('.edit-tools');
-const categoryEditList = document.querySelector('.categories');
-const newCategoryInput = document.querySelector('.new-category');
+const categoryList = document.querySelector('.categories');
+const newCategoryInput = document.getElementById('category-input');
 
 let budgetSheetTitle = '';
 // GET req for budget sheet title
 
+// Calendar vars
 let date = new Date();
 let year = date.getFullYear();
 let month = date.getMonth();
@@ -30,6 +31,11 @@ let day = 0;
 let daysInMonth = new Date(year, month + 1, 0).getDate();
 
 calendarHeaderTitle.textContent = year;
+
+// Calendar settings vars
+let isAddingCategory = true;
+let isEditingCategory = false;
+let isRemovingCategory = false;
 
 function createCalendar() {
   let calendarArr = Array.from({ length: 5 }, () => Array(7).fill(null));
@@ -190,39 +196,89 @@ function initSettingsListeners() {
     newCategoryInput.blur();
     newCategoryInput.value = newCategoryInput.value.trim();
 
-    if (newCategoryInput.value === '') {
-      return;
-    }
-    // Create button and move input element
+    if (newCategoryInput.value === '') return;
+    // Create editor div and its relevant children and move input element
+    const div = document.createElement('div');
     const button = document.createElement('button');
-    button.classList.add('category', 'custom-button');
+    const input = document.createElement('input');
+    div.classList.add('category-editor');
+    button.classList.add('category', 'custom-button', 'label');
     button.textContent = newCategoryInput.value;
+    input.classList.add('new-category', 'custom-input', 'editor', 'display-none');
+    input.maxLength = '15';
+    input.placeholder = '___________';
     newCategoryInput.value = '';
 
-    const input = categoryEditList.removeChild(newCategoryInput);
-    categoryEditList.appendChild(button);
-    categoryEditList.appendChild(input);
+    const newInput = categoryList.removeChild(newCategoryInput);
+    div.appendChild(button);
+    div.appendChild(input);
+    categoryList.appendChild(div);
+    categoryList.appendChild(newInput);
 
     // POST req to db for new category
   }
 
   function addCategory() {
     newCategoryInput.addEventListener('keydown', (event) => {
-      if (event.key === 'Enter') {
-        addCategoryButton();
-      }
+      if (!isAddingCategory) return;
+      if (event.key === 'Enter') addCategoryButton();
     });
     newCategoryInput.addEventListener('change', () => {
+      if (!isAddingCategory) return;
       addCategoryButton();
     });
   }
 
   function editCategory() {
+    function applyChanges(target) {
+      const input = target;
+      const button = target.closest('.category-editor').querySelector('.label');
+      const originalText = button.textContent;
+      input.blur();
+      input.value = input.value.trim();
 
+      if (input.value === '') input.value = originalText;
+      button.textContent = input.value;
+      input.classList.add('display-none');
+      button.classList.remove('display-none');
+
+      // POST req to change category name
+    }
+
+    categoryList.addEventListener('click', (event) => {
+      if (!isEditingCategory) return;
+      if (event.target.classList.contains('label')) {
+        const button = event.target;
+        const input = event.target.closest('.category-editor').querySelector('.editor');
+
+        input.value = button.textContent;
+        button.classList.add('display-none');
+        input.classList.remove('display-none');
+        input.focus();
+
+        const handleBlur = (event) => {
+          if (!isEditingCategory) return;
+          applyChanges(event.target);
+          event.target.removeEventListener('blur', handleBlur);
+        };
+
+        input.addEventListener('blur', handleBlur);
+      }
+    });
+    categoryList.addEventListener('keydown', (event) => {
+      if (!isEditingCategory) return;
+      if (event.key === 'Enter') {
+        applyChanges(event.target);
+      }
+    });
   }
 
   function deleteCategory() {
-
+    categoryList.addEventListener('click', (event) => {
+      if (!isRemovingCategory) return;
+      if (event.target.classList.contains('label')) {
+      }
+    });
   }
 
   categoryToolButtons.addEventListener('click', (event) => {
@@ -234,6 +290,9 @@ function initSettingsListeners() {
         editCategoryHeader.classList.add('add-category-mode');
         categoriesTitle.textContent = 'Add a Category';
         newCategoryInput.classList.remove('display-none');
+        isAddingCategory = true;
+        isEditingCategory = false;
+        isRemovingCategory = false;
         break;
 
       case 'edit-category-name':
@@ -241,6 +300,9 @@ function initSettingsListeners() {
         editCategoryHeader.classList.add('edit-category-name-mode');
         categoriesTitle.textContent = 'Edit a Category Name';
         newCategoryInput.classList.add('display-none');
+        isAddingCategory = false;
+        isEditingCategory = true;
+        isRemovingCategory = false;
         break;
 
       case 'remove-category':
@@ -248,6 +310,9 @@ function initSettingsListeners() {
         editCategoryHeader.classList.add('remove-category-mode');
         categoriesTitle.textContent = 'Remove a Category';
         newCategoryInput.classList.add('display-none');
+        isAddingCategory = false;
+        isEditingCategory = false;
+        isRemovingCategory = true;
         break;
     }
   });
@@ -262,10 +327,19 @@ function initInitialVals() {
 }
 
 // TODO
-// Add display-none to the input in edit categories to rmeove it when not in addition mode
-//  When submitting a new category, first remove the input element then re-add after adding the button for the new category
 // When editing the names, turn the buttons into inputs (use a toggle to show / hide inputs / buttons, do NOT use replace)
 // When removing category, use double click feature (change the colour of the background with first click as an "are you sure?")
+
+// Create a dropdown menu when selecting category in the table
+// Add new row to the table when and if any of the cells are filled with anything other than whitespace
+// Remove row when if all cells empty (consider creating a delete button)
+
+// Create backend
+
+// Create a function for GET req for:
+//  all the categories and create all the buttons in the settings and in the category drop down
+//  all the names, categories, and prices to fill the table
+//  the title of the budget sheet
 
 initCardListeners();
 initSettingsListeners();
