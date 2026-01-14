@@ -89,8 +89,7 @@ function initCardListeners() {
       if (id === 'left-arrow') {
         year--;
         calendarHeaderTitle.textContent = year;
-      } 
-      else if (id === 'right-arrow') {
+      } else if (id === 'right-arrow') {
         year++;
         calendarHeaderTitle.textContent = year;
       }
@@ -106,8 +105,7 @@ function initCardListeners() {
         calendarHeaderTitle.textContent = `${monthName}, ${year}`;
         calendarBody.innerHTML = '';
         daysInMonth = createCalendar();
-      } 
-      else if (id === 'right-arrow') {
+      } else if (id === 'right-arrow') {
         if (++month > 11) {
           month = 0;
           year++;
@@ -116,7 +114,7 @@ function initCardListeners() {
         calendarHeaderTitle.textContent = `${monthName}, ${year}`;
         calendarBody.innerHTML = '';
         daysInMonth = createCalendar();
-      } 
+      }
       // Returns to month selection for the current year
       else if (event.target.classList.contains('title')) {
         monthSelection.classList.remove('display-none');
@@ -139,8 +137,7 @@ function initCardListeners() {
           day = daysInMonth;
         }
         calendarHeaderTitle.textContent = `${monthName} ${day}, ${year}`;
-      } 
-      else if (id === 'right-arrow') {
+      } else if (id === 'right-arrow') {
         if (++day > daysInMonth) {
           if (++month > 11) {
             year++;
@@ -192,6 +189,9 @@ function initCardListeners() {
 }
 
 function initSettingsListeners() {
+  // Function Vars
+  let button = null;
+
   // Settings Header listeners
   settingsButton.addEventListener('click', () => {
     settingsModal.showModal();
@@ -303,14 +303,36 @@ function initSettingsListeners() {
 
   // Removes a category
   function removeCategory() {
+    let isConfirming = false;
+
     categoryList.addEventListener('click', (event) => {
       if (!isRemovingCategory) return;
-      if (event.target.classList.contains('label')) {
+
+      if (event.target.classList.contains('remove-confirm')) {
+        isConfirming = false;
+        button = null;
+        const element = event.target.closest('.category-editor');
+        categoryList.removeChild(element);
+
+        // !POST req to remove category
+      } else if (event.target.classList.contains('label')) {
+        if (!isConfirming) {
+          button = event.target;
+          button.classList.add('remove-confirm');
+          isConfirming = true;
+        } else if (button !== null) {
+          button.classList.remove('remove-confirm');
+          button = event.target;
+          button.classList.add('remove-confirm');
+        }
       }
     });
   }
 
   categoryToolButtons.addEventListener('click', (event) => {
+    // Removes confirmation for removal
+    if (button !== null) button.classList.remove('remove-confirm');
+
     const id = event.target.id;
 
     // Checks category to update header accordingly
@@ -357,8 +379,6 @@ function initInitialVals() {
 }
 
 // !TODO
-// When removing category, use double click feature (change the colour of the background with first click as an "are you sure?")
-
 // Create a dropdown menu when selecting category in the table
 // Add new row to the table when and if any of the cells are filled with anything other than whitespace
 // Remove row when if all cells empty (consider creating a delete button)
