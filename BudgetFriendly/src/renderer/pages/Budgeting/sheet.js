@@ -20,7 +20,7 @@ const categoryList = document.querySelector('.categories');
 const newCategoryInput = document.getElementById('category-input');
 
 let budgetSheetTitle = '';
-// GET req for budget sheet title
+// !GET req for budget sheet title
 
 // Calendar vars
 let date = new Date();
@@ -37,6 +37,7 @@ let isAddingCategory = true;
 let isEditingCategory = false;
 let isRemovingCategory = false;
 
+// Creates calendar and creates an array containing relevant information
 function createCalendar() {
   let calendarArr = Array.from({ length: 5 }, () => Array(7).fill(null));
 
@@ -53,6 +54,7 @@ function createCalendar() {
     container.appendChild(div);
   }
 
+  // Sets up calendar and array
   for (let i = 0; i < firstDay; i++) {
     createDiv(daysDiv, '');
   }
@@ -72,21 +74,29 @@ function createCalendar() {
       createDiv(daysDiv, '');
     }
   }
+
+  // !Need to return array
   return daysInMonth;
 }
 
+// Initialize event listeners for the calendar
 function initCardListeners() {
   cardHeader.addEventListener('click', (event) => {
     const id = event.target.id;
+
+    // Change years
     if (!monthSelection.classList.contains('display-none')) {
       if (id === 'left-arrow') {
         year--;
         calendarHeaderTitle.textContent = year;
-      } else if (id === 'right-arrow') {
+      } 
+      else if (id === 'right-arrow') {
         year++;
         calendarHeaderTitle.textContent = year;
       }
-    } else if (!daySelection.classList.contains('display-none')) {
+    }
+    // Change months and creates day calendar
+    else if (!daySelection.classList.contains('display-none')) {
       if (id === 'left-arrow') {
         if (--month < 0) {
           month = 11;
@@ -96,7 +106,8 @@ function initCardListeners() {
         calendarHeaderTitle.textContent = `${monthName}, ${year}`;
         calendarBody.innerHTML = '';
         daysInMonth = createCalendar();
-      } else if (id === 'right-arrow') {
+      } 
+      else if (id === 'right-arrow') {
         if (++month > 11) {
           month = 0;
           year++;
@@ -105,14 +116,18 @@ function initCardListeners() {
         calendarHeaderTitle.textContent = `${monthName}, ${year}`;
         calendarBody.innerHTML = '';
         daysInMonth = createCalendar();
-      } else if (event.target.classList.contains('title')) {
+      } 
+      // Returns to month selection for the current year
+      else if (event.target.classList.contains('title')) {
         monthSelection.classList.remove('display-none');
         daySelection.classList.add('display-none');
         calendarBody.innerHTML = '';
         calendarHeaderTitle.textContent = year;
         console.log('consider this done too');
       }
-    } else if (!budgetSheet.classList.contains('display-none')) {
+    }
+    // Changes budget sheet and shows budget data for that day
+    else if (!budgetSheet.classList.contains('display-none')) {
       if (id === 'left-arrow') {
         if (--day < 1) {
           if (--month < 0) {
@@ -124,7 +139,8 @@ function initCardListeners() {
           day = daysInMonth;
         }
         calendarHeaderTitle.textContent = `${monthName} ${day}, ${year}`;
-      } else if (id === 'right-arrow') {
+      } 
+      else if (id === 'right-arrow') {
         if (++day > daysInMonth) {
           if (++month > 11) {
             year++;
@@ -135,7 +151,9 @@ function initCardListeners() {
           day = 1;
         }
         calendarHeaderTitle.textContent = `${monthName} ${day}, ${year}`;
-      } else if (event.target.classList.contains('title')) {
+      }
+      // Returns to day selection for the current month and year
+      else if (event.target.classList.contains('title')) {
         budgetSheet.classList.add('display-none');
         daySelection.classList.remove('display-none');
         calendarHeaderTitle.textContent = `${monthName}, ${year}`;
@@ -145,7 +163,9 @@ function initCardListeners() {
     }
   });
 
+  // Creates a calendar based on the month clicked and opens budget sheet if a day is selected
   calendar.addEventListener('click', (event) => {
+    // Month selected
     if (!monthSelection.classList.contains('display-none')) {
       const selectedCell = event.target.closest('.month-name');
       if (!selectedCell) return;
@@ -157,7 +177,9 @@ function initCardListeners() {
       daySelection.classList.remove('display-none');
       monthName = selectedCell.textContent;
       calendarHeaderTitle.textContent = `${monthName}, ${year}`;
-    } else if (!daySelection.classList.contains('display-none')) {
+    }
+    // Day selected
+    else if (!daySelection.classList.contains('display-none')) {
       const selectedCell = event.target.closest('.day-number');
       if (!selectedCell || selectedCell.textContent === '') return;
 
@@ -197,7 +219,7 @@ function initSettingsListeners() {
     newCategoryInput.value = newCategoryInput.value.trim();
 
     if (newCategoryInput.value === '') return;
-    // Create editor div and its relevant children and move input element
+    // Creates editor div and its relevant children and moves input element to the back
     const div = document.createElement('div');
     const button = document.createElement('button');
     const input = document.createElement('input');
@@ -215,21 +237,25 @@ function initSettingsListeners() {
     categoryList.appendChild(div);
     categoryList.appendChild(newInput);
 
-    // POST req to db for new category
+    // !POST req to db for new category
   }
 
+  // Adds a new category
   function addCategory() {
     newCategoryInput.addEventListener('keydown', (event) => {
       if (!isAddingCategory) return;
       if (event.key === 'Enter') addCategoryButton();
     });
+
     newCategoryInput.addEventListener('change', () => {
       if (!isAddingCategory) return;
       addCategoryButton();
     });
   }
 
+  // Edits a category name when clicked
   function editCategory() {
+    // Applies changes made to categories
     function applyChanges(target) {
       const input = target;
       const button = target.closest('.category-editor').querySelector('.label');
@@ -242,7 +268,7 @@ function initSettingsListeners() {
       input.classList.add('display-none');
       button.classList.remove('display-none');
 
-      // POST req to change category name
+      // !POST req to change category name
     }
 
     categoryList.addEventListener('click', (event) => {
@@ -256,6 +282,7 @@ function initSettingsListeners() {
         input.classList.remove('display-none');
         input.focus();
 
+        // Avoids duplicate listeners
         const handleBlur = (event) => {
           if (!isEditingCategory) return;
           applyChanges(event.target);
@@ -265,6 +292,7 @@ function initSettingsListeners() {
         input.addEventListener('blur', handleBlur);
       }
     });
+
     categoryList.addEventListener('keydown', (event) => {
       if (!isEditingCategory) return;
       if (event.key === 'Enter') {
@@ -273,7 +301,8 @@ function initSettingsListeners() {
     });
   }
 
-  function deleteCategory() {
+  // Removes a category
+  function removeCategory() {
     categoryList.addEventListener('click', (event) => {
       if (!isRemovingCategory) return;
       if (event.target.classList.contains('label')) {
@@ -284,6 +313,7 @@ function initSettingsListeners() {
   categoryToolButtons.addEventListener('click', (event) => {
     const id = event.target.id;
 
+    // Checks category to update header accordingly
     switch (id) {
       case 'add-category':
         editCategoryHeader.classList.remove('edit-category-name-mode', 'remove-category-mode');
@@ -319,15 +349,14 @@ function initSettingsListeners() {
 
   addCategory();
   editCategory();
-  deleteCategory();
+  removeCategory();
 }
 
 function initInitialVals() {
   newTitleInput.value = budgetSheetTitle;
 }
 
-// TODO
-// When editing the names, turn the buttons into inputs (use a toggle to show / hide inputs / buttons, do NOT use replace)
+// !TODO
 // When removing category, use double click feature (change the colour of the background with first click as an "are you sure?")
 
 // Create a dropdown menu when selecting category in the table
@@ -340,6 +369,8 @@ function initInitialVals() {
 //  all the categories and create all the buttons in the settings and in the category drop down
 //  all the names, categories, and prices to fill the table
 //  the title of the budget sheet
+
+// Create POST reqs, consider doing it all upon closing page or having a submit button (POST if crash as well)
 
 initCardListeners();
 initSettingsListeners();
