@@ -68,7 +68,7 @@
         </div>
 
         <div class="calendar flex justify-content-center">
-          <div class="month-selection">
+          <div class="month-selection display-none">
             <div class="calendar-month grid">
               <div id="0" class="month-name no-select">Jan</div>
               <div id="1" class="month-name no-select">Feb</div>
@@ -100,7 +100,8 @@
           </div>
         </div>
 
-        <div class="budget-sheet display-none">
+        <div class="budget-sheet">
+          <!-- display-none -->
           <div class="table-header grid">
             <div class="column-header">Name</div>
             <div class="column-header">Category</div>
@@ -108,6 +109,9 @@
           </div>
 
           <div class="table grid">
+            <input type="text" class="cell nameCell custom-input" />
+            <button class="cell categoryCell"></button>
+            <input type="number" class="cell priceCell custom-input" />
             <input
               type="text"
               class="cell nameCell new custom-input"
