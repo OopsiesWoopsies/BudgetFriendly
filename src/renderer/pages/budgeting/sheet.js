@@ -1,5 +1,7 @@
+// Header vars
 const title = document.querySelector('.header-title');
 
+// Card vars
 const daysDiv = document.getElementById('days');
 const calendar = document.querySelector('.calendar');
 const calendarBody = document.querySelector('.calendar-body');
@@ -9,6 +11,7 @@ const daySelection = document.querySelector('.day-selection');
 const cardHeader = document.querySelector('.card-header');
 const budgetSheet = document.querySelector('.budget-sheet');
 
+// Modal (settings) vars
 const settingsButton = document.querySelector('.header-title');
 const settingsModal = document.getElementById('settings');
 const settingsBackButton = document.querySelector('.modal-back-button');
@@ -18,6 +21,9 @@ const categoriesTitle = document.getElementById('categories-header');
 const categoryToolButtons = document.querySelector('.edit-tools');
 const categoryList = document.querySelector('.categories');
 const newCategoryInput = document.getElementById('category-input');
+
+// Table vars
+const categoryDropdownList = document.querySelectorAll('.category-cell');
 
 let budgetSheetTitle = '';
 // !GET req for budget sheet title
@@ -36,6 +42,15 @@ calendarHeaderTitle.textContent = year;
 let isAddingCategory = true;
 let isEditingCategory = false;
 let isRemovingCategory = false;
+
+// Sheet Vars
+const categoryDropdownModel = new Map([]);
+const stagedChanges = {
+  adding: new Map(),
+  removing: new Map(),
+  editing: new Map()
+};
+// !GET req for list of categories
 
 // Creates calendar and creates an array containing relevant information
 function createCalendar() {
@@ -121,7 +136,6 @@ function initCardListeners() {
         daySelection.classList.add('display-none');
         calendarBody.innerHTML = '';
         calendarHeaderTitle.textContent = year;
-        console.log('consider this done too');
       }
     }
     // Changes budget sheet and shows budget data for that day
@@ -188,6 +202,72 @@ function initCardListeners() {
   });
 }
 
+// Update category map and save changes to db
+function saveCategoryChanges() {
+  console.log(categoryDropdownList);
+
+  stagedChangesCleanup();
+  applyChangesToDropdowns();
+
+  // !POST request to db using stagedChanges
+  stagedChanges.adding.clear();
+  stagedChanges.editing.clear();
+  stagedChanges.removing.clear();
+}
+
+function applyChangesToDropdowns() {
+  const fragment = document.createDocumentFragment();
+
+  // eslint-disable-next-line
+  for (const [id, value] of stagedChanges.removing) {
+    categoryDropdownList.forEach((categoryDropdown) => {
+      categoryDropdown.querySelector(`option[value="${id}"]`).remove();
+      console.log(categoryDropdown);
+    });
+    categoryDropdownModel.delete(id);
+  }
+
+  for (const [id, value] of stagedChanges.editing) {
+    categoryDropdownList.forEach((categoryDropdown) => {
+      categoryDropdown.querySelector(`option[value="${id}"]`).textContent = value;
+      console.log(categoryDropdown);
+    });
+    categoryDropdownModel.set(id, value);
+  }
+
+  for (const [id, value] of stagedChanges.adding) {
+    const option = document.createElement('option');
+    option.value = id;
+    option.textContent = value;
+    fragment.appendChild(option);
+    categoryDropdownModel.set(id, value);
+  }
+
+  categoryDropdownList.forEach((categoryDropdown) => {
+    categoryDropdown.appendChild(fragment.cloneNode(true));
+  });
+}
+
+// Removes any categories added in the editing session that wanted to be removed and edits the remainder to reduce DOM manipulation
+function stagedChangesCleanup() {
+  // eslint-disable-next-line
+  for (const [id, value] of stagedChanges.removing) {
+    if (stagedChanges.adding.get(id) === undefined) continue;
+
+    stagedChanges.adding.delete(id);
+    stagedChanges.removing.delete(id);
+    stagedChanges.editing.delete(id);
+  }
+
+  for (const [id, value] of stagedChanges.editing) {
+    if (stagedChanges.adding.get(id) === undefined) continue;
+
+    stagedChanges.adding.set(id, value);
+    stagedChanges.editing.delete(id);
+  }
+}
+
+// Settings Modal listeners
 function initSettingsListeners() {
   // Function Vars
   let button = null;
@@ -199,6 +279,7 @@ function initSettingsListeners() {
 
   settingsBackButton.addEventListener('click', () => {
     settingsModal.close();
+    saveCategoryChanges();
   });
 
   // Budget Sheet Title listeners
@@ -225,7 +306,9 @@ function initSettingsListeners() {
     const input = document.createElement('input');
     div.classList.add('category-editor');
     button.classList.add('category', 'custom-button', 'label');
+    button.dataset.id = crypto.randomUUID();
     button.textContent = newCategoryInput.value;
+    stagedChanges.adding.set(button.dataset.id, button.textContent);
     input.classList.add('new-category', 'custom-input', 'editor', 'display-none');
     input.maxLength = '15';
     input.placeholder = '___________';
@@ -263,8 +346,11 @@ function initSettingsListeners() {
       input.blur();
       input.value = input.value.trim();
 
-      if (input.value === '') input.value = originalText;
-      button.textContent = input.value;
+      if (input.value !== originalText) {
+        if (input.value === '') input.value = originalText;
+        button.textContent = input.value;
+        stagedChanges.editing.set(button.dataset.id, button.textContent);
+      }
       input.classList.add('display-none');
       button.classList.remove('display-none');
 
@@ -309,6 +395,7 @@ function initSettingsListeners() {
       if (!isRemovingCategory) return;
 
       if (event.target.classList.contains('remove-confirm')) {
+        stagedChanges.removing.set(button.dataset.id, button.textContent);
         isConfirming = false;
         button = null;
         const element = event.target.closest('.category-editor');

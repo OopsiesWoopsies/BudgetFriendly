@@ -354,7 +354,7 @@
 
 .table-header {
   margin: 0 auto;
-  grid-template-columns: 4fr repeat(2, 1fr);
+  grid-template-columns: 4fr 1.5fr 1fr;
   width: 90%;
 
   border: solid black 1px;
@@ -370,7 +370,7 @@
 
 .table {
   margin: 0 auto;
-  grid-template-columns: 4fr repeat(2, 1fr);
+  grid-template-columns: 4fr 1.5fr 1fr;
 
   width: 90%;
 

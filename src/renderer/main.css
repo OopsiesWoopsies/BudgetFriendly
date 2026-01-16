@@ -49,6 +49,7 @@ button:hover {
 
   transition: box-shadow 0.2s ease;
   user-select: none;
+  will-change: box-shadow, background-color;
 }
 
 .custom-button:hover {
