@@ -204,8 +204,6 @@ function initCardListeners() {
 
 // Update category map and save changes to db
 function saveCategoryChanges() {
-  console.log(categoryDropdownList);
-
   stagedChangesCleanup();
   applyChangesToDropdowns();
 
@@ -222,7 +220,6 @@ function applyChangesToDropdowns() {
   for (const [id, value] of stagedChanges.removing) {
     categoryDropdownList.forEach((categoryDropdown) => {
       categoryDropdown.querySelector(`option[value="${id}"]`).remove();
-      console.log(categoryDropdown);
     });
     categoryDropdownModel.delete(id);
   }
@@ -230,7 +227,6 @@ function applyChangesToDropdowns() {
   for (const [id, value] of stagedChanges.editing) {
     categoryDropdownList.forEach((categoryDropdown) => {
       categoryDropdown.querySelector(`option[value="${id}"]`).textContent = value;
-      console.log(categoryDropdown);
     });
     categoryDropdownModel.set(id, value);
   }
@@ -357,6 +353,13 @@ function initSettingsListeners() {
       // !POST req to change category name
     }
 
+    // Avoids duplicating listeners
+    const handleBlur = (event) => {
+      if (!isEditingCategory) return;
+      applyChanges(event.target);
+      event.target.removeEventListener('blur', handleBlur);
+    };
+
     categoryList.addEventListener('click', (event) => {
       if (!isEditingCategory) return;
       if (event.target.classList.contains('label')) {
@@ -368,13 +371,6 @@ function initSettingsListeners() {
         input.classList.remove('display-none');
         input.focus();
 
-        // Avoids duplicate listeners
-        const handleBlur = (event) => {
-          if (!isEditingCategory) return;
-          applyChanges(event.target);
-          event.target.removeEventListener('blur', handleBlur);
-        };
-
         input.addEventListener('blur', handleBlur);
       }
     });
@@ -382,6 +378,7 @@ function initSettingsListeners() {
     categoryList.addEventListener('keydown', (event) => {
       if (!isEditingCategory) return;
       if (event.key === 'Enter') {
+        event.target.removeEventListener('blur', handleBlur);
         applyChanges(event.target);
       }
     });
