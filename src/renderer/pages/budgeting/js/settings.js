@@ -1,17 +1,8 @@
 // Header vars
 const title = document.querySelector('.header-title');
+let budgetSheetTitle = '';
 
-// Card vars
-const daysDiv = document.getElementById('days');
-const calendar = document.querySelector('.calendar');
-const calendarBody = document.querySelector('.calendar-body');
-const calendarHeaderTitle = document.querySelector('.title');
-const monthSelection = document.querySelector('.month-selection');
-const daySelection = document.querySelector('.day-selection');
-const cardHeader = document.querySelector('.card-header');
-const budgetSheet = document.querySelector('.budget-sheet');
-
-// Modal (settings) vars
+// Modal (settings) DOM vars
 const settingsButton = document.querySelector('.header-title');
 const settingsModal = document.getElementById('settings');
 const settingsBackButton = document.querySelector('.modal-back-button');
@@ -22,185 +13,22 @@ const categoryToolButtons = document.querySelector('.edit-tools');
 const categoryList = document.querySelector('.categories');
 const newCategoryInput = document.getElementById('category-input');
 
-// Table vars
-const categoryDropdownList = document.querySelectorAll('.category-cell');
-
-let budgetSheetTitle = '';
-// !GET req for budget sheet title
-
-// Calendar vars
-let date = new Date();
-let year = date.getFullYear();
-let month = date.getMonth();
-let monthName = '';
-let day = 0;
-let daysInMonth = new Date(year, month + 1, 0).getDate();
-
-calendarHeaderTitle.textContent = year;
-
-// Calendar settings vars
+// Modal (settings) value vars
 let isAddingCategory = true;
 let isEditingCategory = false;
 let isRemovingCategory = false;
 
-// Sheet Vars
+// Table vars
+const categoryDropdownList = document.querySelectorAll('.category-cell');
 const categoryDropdownModel = new Map([]);
+// !GET req for list of categories
 const stagedChanges = {
   adding: new Map(),
   removing: new Map(),
   editing: new Map()
 };
-// !GET req for list of categories
 
-// Creates calendar and creates an array containing relevant information
-function createCalendar() {
-  let calendarArr = Array.from({ length: 5 }, () => Array(7).fill(null));
-
-  const daysInMonth = new Date(year, month + 1, 0).getDate();
-  const firstDay = new Date(year, month, 1).getDay();
-
-  let day = 1;
-  let week = 0;
-
-  function createDiv(container, content) {
-    const div = document.createElement('div');
-    div.textContent = content;
-    div.classList.add('day-number', 'no-select');
-    container.appendChild(div);
-  }
-
-  // Sets up calendar and array
-  for (let i = 0; i < firstDay; i++) {
-    createDiv(daysDiv, '');
-  }
-
-  for (let i = 0; day <= daysInMonth; i++, day++) {
-    if (i == 7) {
-      week++;
-      i = 0;
-    }
-    calendarArr[week][i] = day;
-    createDiv(daysDiv, day);
-  }
-
-  let customDay = new Date(year, month, day).getDay();
-  if (customDay !== 0) {
-    for (; customDay !== 7; customDay++) {
-      createDiv(daysDiv, '');
-    }
-  }
-
-  // !Need to return array
-  return daysInMonth;
-}
-
-// Initialize event listeners for the calendar
-function initCardListeners() {
-  cardHeader.addEventListener('click', (event) => {
-    const id = event.target.id;
-
-    // Change years
-    if (!monthSelection.classList.contains('display-none')) {
-      if (id === 'left-arrow') {
-        year--;
-        calendarHeaderTitle.textContent = year;
-      } else if (id === 'right-arrow') {
-        year++;
-        calendarHeaderTitle.textContent = year;
-      }
-    }
-    // Change months and creates day calendar
-    else if (!daySelection.classList.contains('display-none')) {
-      if (id === 'left-arrow') {
-        if (--month < 0) {
-          month = 11;
-          year--;
-        }
-        monthName = document.getElementById(month).textContent;
-        calendarHeaderTitle.textContent = `${monthName}, ${year}`;
-        calendarBody.innerHTML = '';
-        daysInMonth = createCalendar();
-      } else if (id === 'right-arrow') {
-        if (++month > 11) {
-          month = 0;
-          year++;
-        }
-        monthName = document.getElementById(month).textContent;
-        calendarHeaderTitle.textContent = `${monthName}, ${year}`;
-        calendarBody.innerHTML = '';
-        daysInMonth = createCalendar();
-      }
-      // Returns to month selection for the current year
-      else if (event.target.classList.contains('title')) {
-        monthSelection.classList.remove('display-none');
-        daySelection.classList.add('display-none');
-        calendarBody.innerHTML = '';
-        calendarHeaderTitle.textContent = year;
-      }
-    }
-    // Changes budget sheet and shows budget data for that day
-    else if (!budgetSheet.classList.contains('display-none')) {
-      if (id === 'left-arrow') {
-        if (--day < 1) {
-          if (--month < 0) {
-            year--;
-            month = 11;
-          }
-          monthName = document.getElementById(month).textContent;
-          daysInMonth = new Date(year, month + 1, 0).getDate();
-          day = daysInMonth;
-        }
-        calendarHeaderTitle.textContent = `${monthName} ${day}, ${year}`;
-      } else if (id === 'right-arrow') {
-        if (++day > daysInMonth) {
-          if (++month > 11) {
-            year++;
-            month = 0;
-          }
-          monthName = document.getElementById(month).textContent;
-          daysInMonth = new Date(year, month + 1, 0).getDate();
-          day = 1;
-        }
-        calendarHeaderTitle.textContent = `${monthName} ${day}, ${year}`;
-      }
-      // Returns to day selection for the current month and year
-      else if (event.target.classList.contains('title')) {
-        budgetSheet.classList.add('display-none');
-        daySelection.classList.remove('display-none');
-        calendarHeaderTitle.textContent = `${monthName}, ${year}`;
-        calendarBody.innerHTML = '';
-        createCalendar();
-      }
-    }
-  });
-
-  // Creates a calendar based on the month clicked and opens budget sheet if a day is selected
-  calendar.addEventListener('click', (event) => {
-    // Month selected
-    if (!monthSelection.classList.contains('display-none')) {
-      const selectedCell = event.target.closest('.month-name');
-      if (!selectedCell) return;
-
-      month = Number(selectedCell.id);
-      date = new Date(year, month, 1);
-      createCalendar();
-      monthSelection.classList.add('display-none');
-      daySelection.classList.remove('display-none');
-      monthName = selectedCell.textContent;
-      calendarHeaderTitle.textContent = `${monthName}, ${year}`;
-    }
-    // Day selected
-    else if (!daySelection.classList.contains('display-none')) {
-      const selectedCell = event.target.closest('.day-number');
-      if (!selectedCell || selectedCell.textContent === '') return;
-
-      daySelection.classList.add('display-none');
-      budgetSheet.classList.remove('display-none');
-      day = Number(selectedCell.textContent);
-      calendarHeaderTitle.textContent = `${monthName} ${day}, ${year}`;
-    }
-  });
-}
+// !GET req for budget sheet title
 
 // Update category map and save changes to db
 function saveCategoryChanges() {
@@ -215,7 +43,6 @@ function saveCategoryChanges() {
 
 function applyChangesToDropdowns() {
   const fragment = document.createDocumentFragment();
-
   // eslint-disable-next-line
   for (const [id, value] of stagedChanges.removing) {
     categoryDropdownList.forEach((categoryDropdown) => {
@@ -264,7 +91,7 @@ function stagedChangesCleanup() {
 }
 
 // Settings Modal listeners
-function initSettingsListeners() {
+export function initSettingsListeners() {
   // Function Vars
   let button = null;
 
@@ -458,24 +285,6 @@ function initSettingsListeners() {
   removeCategory();
 }
 
-function initInitialVals() {
+export function initInitialVals() {
   newTitleInput.value = budgetSheetTitle;
 }
-
-// !TODO
-// Create a dropdown menu when selecting category in the table
-// Add new row to the table when and if any of the cells are filled with anything other than whitespace
-// Remove row when if all cells empty (consider creating a delete button)
-
-// Create backend
-
-// Create a function for GET req for:
-//  all the categories and create all the buttons in the settings and in the category drop down
-//  all the names, categories, and prices to fill the table
-//  the title of the budget sheet
-
-// Create POST reqs, consider doing it all upon closing page or having a submit button (POST if crash as well)
-
-initCardListeners();
-initSettingsListeners();
-initInitialVals();
