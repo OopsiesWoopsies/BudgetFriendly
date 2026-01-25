@@ -370,12 +370,19 @@
 
 .table {
   margin: 0 auto;
-  grid-template-columns: 4fr 1.5fr 1fr;
 
   width: 90%;
 
   border: solid black 1px;
   border-top: none;
+}
+
+.filled-table {
+  grid-template-columns: 4fr 1.5fr 1fr;
+}
+
+.new-row {
+  grid-template-columns: 4fr 1.5fr 1fr;
 }
 
 .table button {

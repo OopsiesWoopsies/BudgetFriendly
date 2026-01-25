@@ -68,7 +68,7 @@
         </div>
 
         <div class="calendar flex justify-content-center">
-          <div class="month-selection display-none">
+          <div class="month-selection">
             <div class="calendar-month grid">
               <div id="0" class="month-name no-select">Jan</div>
               <div id="1" class="month-name no-select">Feb</div>
@@ -100,29 +100,27 @@
           </div>
         </div>
 
-        <div class="budget-sheet">
-          <!-- display-none -->
+        <div class="budget-sheet display-none">
           <div class="table-header grid">
             <div class="column-header">Name</div>
             <div class="column-header">Category</div>
             <div class="column-header">Price $</div>
           </div>
 
-          <div class="table grid">
-            <input type="text" class="cell name-cell custom-input" />
-            <select class="cell category-cell">
-              <option value="">Select Category</option>
-            </select>
-            <input type="number" class="cell price-cell custom-input" />
-            <input
-              type="text"
-              class="cell nameCell new custom-input"
-              placeholder="Name of item(s)"
-            />
-            <select class="cell category-cell new">
-              <option value="">Select Category</option>
-            </select>
-            <input type="number" class="cell price-cell new custom-input" placeholder="123.45" />
+          <div class="table">
+            <div class="filled-table grid"></div>
+
+            <div class="new-row grid">
+              <input
+                type="text"
+                class="cell name-cell new custom-input"
+                placeholder="Name of item(s)"
+              />
+              <select class="cell category-cell new">
+                <option value="">Select Category</option>
+              </select>
+              <input type="number" class="cell price-cell new custom-input" placeholder="123.45" />
+            </div>
           </div>
         </div>
       </div>

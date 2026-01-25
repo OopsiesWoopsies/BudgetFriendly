@@ -19,8 +19,8 @@ let isEditingCategory = false;
 let isRemovingCategory = false;
 
 // Table vars
-const categoryDropdownList = document.querySelectorAll('.category-cell');
-const categoryDropdownModel = new Map([]);
+let categoryDropdownList = document.querySelectorAll('.category-cell');
+export const categoryDropdownModel = new Map([]);
 // !GET req for list of categories
 const stagedChanges = {
   adding: new Map(),
@@ -29,6 +29,11 @@ const stagedChanges = {
 };
 
 // !GET req for budget sheet title
+
+// Updates the category dropdown list
+export function updateDropdownList() {
+  categoryDropdownList = document.querySelectorAll('.category-cell');
+}
 
 // Update category map and save changes to db
 function saveCategoryChanges() {
