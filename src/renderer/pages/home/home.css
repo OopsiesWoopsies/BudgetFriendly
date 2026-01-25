@@ -6,7 +6,7 @@
   height: 100px;
   width: 100vw;
 
-  background-color: var(--secondary-colour);
+  background-color: var(--primary-colour);
 }
 
 .navbar-title {
@@ -49,7 +49,7 @@
   width: 250px;
   height: 100vh;
 
-  background-color: var(--secondary-colour);
+  background-color: var(--primary-colour);
 
   transition: left 0.3s ease;
 }
@@ -76,12 +76,12 @@
   font-size: 1.25rem;
   font-weight: 600;
 
-  background-color: var(--secondary-colour-light1);
+  background-color: var(--primary-colour-light1);
   border: none;
 }
 
 .sidebar-labels button:hover {
-  background-color: var(--secondary-colour-light2);
+  background-color: var(--primary-colour-light2);
 
   cursor: pointer;
 }
@@ -106,6 +106,7 @@
   border-radius: 20px;
 }
 
+/* Add budget button */
 .add-budget-button {
   margin-left: auto;
   margin-bottom: 25px;
@@ -113,25 +114,14 @@
   height: 50px;
   width: 90px;
 
+  color: inherit;
   font-size: 2rem;
+  font-weight: 800;
+  text-decoration: none;
 
-  background-color: var(--secondary-colour-light1);
   border: none;
   border-radius: 25px;
   box-shadow: 0 4px 10px hsla(0, 0%, 0%, 0.25);
-
-  transition: box-shadow 0.3s ease;
-}
-
-/* Add budget button */
-.add-budget-button:hover {
-  background-color: var(--secondary-colour-light2);
-  box-shadow: 3px 6px 15px hsla(0, 0%, 0%, 0.6);
-}
-
-.add-budget-button:active {
-  background-color: var(--secondary-colour-light3);
-  box-shadow: 0 4px 10px hsla(0, 0%, 0%, 0.4);
 }
 
 /* Budgets list */

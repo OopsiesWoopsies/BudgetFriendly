@@ -18,30 +18,34 @@
       <h1 class="navbar-title no-select">BudgetFriendly</h1>
     </header>
 
-    <div class="sidebar flex position-fixed">
+    <nav class="sidebar flex position-fixed">
       <div class="sidebar-labels no-select">
         <button class="label" data-page="budgets">Home</button>
         <button class="label" data-page="settings">Settings</button>
         <button class="label" data-page="about">About</button>
       </div>
-    </div>
+    </nav>
 
     <main>
       <div class="navbar-space"></div>
 
       <div class="budgets-page page flex" data-page="budgets">
-        <button class="add-budget-button">+</button>
-        <div class="budgets-list">
-          
-        </div>
+        <a
+          class="custom-button add-budget-button flex align-items-center justify-content-center no-select"
+          href="../budgeting/sheet.html"
+          ref="noreferrer"
+          draggable="false"
+          >+
+        </a>
+        <div class="budgets-list"></div>
       </div>
 
-      <div class="settings-page page hide-display" data-page="settings"></div>
+      <div class="settings-page page display-none" data-page="settings"></div>
 
-      <div class="about-page page hide-display" data-page="about"></div>
+      <div class="about-page page display-none" data-page="about"></div>
     </main>
 
-    <script src="../../main.js"></script>
-    <script src="home.js"></script>
+    <script async src="../../main.js"></script>
+    <script async src="home.js"></script>
   </body>
 </html>

@@ -1,0 +1,23 @@
+:root {
+  --background-colour: hsl(200, 100%, 95%);
+
+  --primary-colour: hsl(51, 100%, 50%);
+  --primary-colour-light1: hsl(51, 100%, 80%);
+  --primary-colour-light2: hsl(51, 100%, 70%);
+  --primary-colour-light3: hsl(51, 100%, 60%);
+
+  --secondary-colour: hsl(200, 100%, 90%);
+  --secondary-colour-dark1: hsl(200, 100%, 80%);
+  --secondary-colour-dark2: hsl(200, 100%, 70%);
+
+  --plain-colour: hsl(0, 0%, 100%);
+  --plain-colour-dark1: hsl(0, 0%, 95%);
+  --plain-colour-dark2: hsl(0, 0%, 90%);
+  --plain-colour-dark3: hsl(0, 0%, 80%);
+
+  --overlay: hsla(0, 0%, 100%, 0.3)
+}
+
+:root {
+  --fonts: cursive, Arial;
+}

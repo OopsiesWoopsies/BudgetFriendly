@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BudgetFriendly</title>
+    <link rel="stylesheet" href="../../constants.css" />
+    <link rel="stylesheet" href="../../main.css" />
+    <link rel="stylesheet" href="sheet.css" />
+  </head>
+  <body class="margin-zero">
+    <header class="header flex position-fixed align-items-center justify-content-center">
+      <a class="back-button position-fixed no-select" href="../home/home.html" draggable="false"
+        >X</a
+      >
+      <button class="header-title no-select custom-button">Title of Budget Sheet</button>
+    </header>
+
+    <dialog id="settings" class="modal padding-zero">
+      <div class="modal-header flex">
+        <button class="modal-back-button back-button no-select">X</button>
+        <h1 class="modal-title">Settings</h1>
+      </div>
+      <div class="modal-body">
+        <div class="change-title flex align-items-center">
+          <h2 class="description">Change Budget Sheet Title</h2>
+          <input
+            type="text"
+            class="new-title custom-input"
+            maxlength="30"
+            placeholder="Budget Sheet Title"
+          />
+        </div>
+        <div class="edit-categories flex align-items-center">
+          <div class="description header add-category-mode">
+            <p id="categories-header">Add a Category</p>
+            <div class="edit-tools grid">
+              <button id="add-category" class="custom-button">+</button>
+              <button id="edit-category-name" class="custom-button">✏️</button>
+              <button id="remove-category" class="custom-button">🗑️</button>
+            </div>
+          </div>
+          <div class="categories flex align-items-center justify-content-center">
+            <input
+              id="category-input"
+              type="text"
+              class="new-category custom-input"
+              maxlength="15"
+              placeholder="___________"
+            />
+          </div>
+        </div>
+      </div>
+    </dialog>
+
+    <div class="header-space"></div>
+
+    <main class="flex align-items-center justify-content-center">
+      <div class="card flex align-items-center">
+        <div class="card-header flex">
+          <button id="left-arrow" class="custom-button flex justify-content-center no-select">
+            ◀
+          </button>
+          <button class="custom-button title no-select"></button>
+          <button id="right-arrow" class="custom-button flex justify-content-center no-select">
+            ▶
+          </button>
+        </div>
+
+        <div class="calendar flex justify-content-center">
+          <div class="month-selection">
+            <div class="calendar-month grid">
+              <div id="0" class="month-name no-select">Jan</div>
+              <div id="1" class="month-name no-select">Feb</div>
+              <div id="2" class="month-name no-select">Mar</div>
+              <div id="3" class="month-name no-select">Apr</div>
+              <div id="4" class="month-name no-select">May</div>
+              <div id="5" class="month-name no-select">Jun</div>
+              <div id="6" class="month-name no-select">Jul</div>
+              <div id="7" class="month-name no-select">Aug</div>
+              <div id="8" class="month-name no-select">Sep</div>
+              <div id="9" class="month-name no-select">Oct</div>
+              <div id="10" class="month-name no-select">Nov</div>
+              <div id="11" class="month-name no-select">Dec</div>
+            </div>
+          </div>
+
+          <div class="day-selection display-none">
+            <div class="calendar-header grid">
+              <div class="day-name no-select">Sun</div>
+              <div class="day-name no-select">Mon</div>
+              <div class="day-name no-select">Tue</div>
+              <div class="day-name no-select">Wed</div>
+              <div class="day-name no-select">Thu</div>
+              <div class="day-name no-select">Fri</div>
+              <div class="day-name no-select">Sat</div>
+            </div>
+
+            <div id="days" class="calendar-body grid"></div>
+          </div>
+        </div>
+
+        <div class="budget-sheet display-none">
+          <div class="table-header grid">
+            <div class="column-header">Name</div>
+            <div class="column-header">Category</div>
+            <div class="column-header">Price $</div>
+          </div>
+
+          <div class="table">
+            <div class="filled-table grid"></div>
+
+            <div class="new-row grid">
+              <input
+                type="text"
+                class="cell name-cell new custom-input"
+                placeholder="Name of item(s)"
+              />
+              <select class="cell category-cell new">
+                <option value="">Select Category</option>
+              </select>
+              <input type="number" class="cell price-cell new custom-input" placeholder="123.45" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script type="module" async src="js/main.js"></script>
+  </body>
+</html>
