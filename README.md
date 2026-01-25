@@ -1,4 +1,4 @@
-# budgetfriendly
+# BudgetFriendly
 
 A minimal Electron application with JavaScript
 
