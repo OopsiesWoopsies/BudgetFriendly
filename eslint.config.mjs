@@ -5,4 +5,4 @@ export default [
   { ignores: ['**/node_modules', '**/dist', '**/out'] },
   eslintConfig,
   eslintConfigPrettier
-]
+];

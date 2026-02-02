@@ -1,7 +1,19 @@
-import { defineConfig } from 'electron-vite'
+import { defineConfig } from 'electron-vite';
 
 export default defineConfig({
-  main: {},
-  preload: {},
+  main: {
+    build: {
+      rollupOptions: {
+        external: ['better-sqlite3']
+      }
+    }
+  },
+  preload: {
+    build: {
+      rollupOptions: {
+        external: ['electron']
+      }
+    }
+  },
   renderer: {}
-})
+});
