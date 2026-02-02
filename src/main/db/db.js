@@ -13,7 +13,7 @@ db.prepare(
     CREATE TABLE IF NOT EXISTS budget_sheets (
         id TEXT PRIMARY KEY,
         title TEXT,
-        created_at INTEGER DEFAULT (unixepoch()),
+        created_at TEXT,
         budget REAL NOT NULL
     );
 `
