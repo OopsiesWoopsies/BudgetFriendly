@@ -3,6 +3,8 @@ import { join } from 'path';
 import { electronApp, optimizer } from '@electron-toolkit/utils';
 import icon from '../../resources/icon.png?asset';
 import { registerSheetIpc } from './db/dbFunctions/sheetDb';
+import { registerBudgetSettingsIpc } from './db/dbFunctions/budgetSettingsDb';
+import { registerEntriesIpc } from './db/dbFunctions/entriesDb';
 
 function createWindow() {
   const mainWindow = new BrowserWindow({
@@ -64,3 +66,5 @@ app.on('window-all-closed', () => {
 
 // Db functions
 registerSheetIpc();
+registerBudgetSettingsIpc();
+registerEntriesIpc();
