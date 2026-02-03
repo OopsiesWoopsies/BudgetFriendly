@@ -22,9 +22,11 @@ export function registerSheetIpc() {
   ipcMain.handle('budgetSheets:get', () => {
     return enqueue(() => getBudgetSheets());
   });
+
   ipcMain.handle('budgetSheets:create', (_event, { id, title, created_at, budget }) => {
     return enqueue(() => insertNewBudgetSheet(id, title, created_at, budget));
   });
+
   ipcMain.handle('budgetSheets:delete', (_event, { id }) => {
     return enqueue(() => deleteBudgetSheet(id));
   });

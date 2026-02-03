@@ -15,7 +15,7 @@
   --plain-colour-dark2: hsl(0, 0%, 90%);
   --plain-colour-dark3: hsl(0, 0%, 80%);
 
-  --overlay: hsla(0, 0%, 100%, 0.3)
+  --overlay: hsla(0, 0%, 100%, 0.3);
 }
 
 :root {

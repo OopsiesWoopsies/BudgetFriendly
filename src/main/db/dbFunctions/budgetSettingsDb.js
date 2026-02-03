@@ -22,9 +22,11 @@ export function registerBudgetSettingsIpc() {
   ipcMain.handle('categories:get', (_event, { budget_sheet_id }) => {
     return enqueue(() => getCategories(budget_sheet_id));
   });
+
   ipcMain.handle('categories:create', (_event, { id, name, budget_sheet_id }) => {
     return enqueue(() => insertNewCategory(id, name, budget_sheet_id));
   });
+
   ipcMain.handle('categories:delete', (_event, { id }) => {
     return enqueue(() => deleteCategory(id));
   });
