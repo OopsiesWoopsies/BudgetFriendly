@@ -27,8 +27,8 @@ function deleteEntry(id) {
 
 // Registers db functions for renderer use
 export function registerEntriesIpc() {
-  ipcMain.handle('entries:get', (_event, { budget_sheet_id }) => {
-    return enqueue(() => getEntries(budget_sheet_id));
+  ipcMain.handle('entries:get', (_event, { date, budget_sheet_id }) => {
+    return enqueue(() => getEntries(date, budget_sheet_id));
   });
 
   ipcMain.handle(

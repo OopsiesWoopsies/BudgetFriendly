@@ -13,8 +13,10 @@ db.prepare(
     CREATE TABLE IF NOT EXISTS budget_sheets (
         id TEXT PRIMARY KEY,
         title TEXT,
-        created_at TEXT,
-        budget REAL NOT NULL
+        created_at TEXT NOT NULL,
+        period TEXT NOT NULL,
+        budget INTEGER NOT NULL,
+        CHECK (budget >= 0)
     );
 `
 ).run();
@@ -36,11 +38,12 @@ db.prepare(
         id TEXT PRIMARY KEY,
         name TEXT,
         category_id TEXT,
-        price REAL,
+        price INTEGER,
         date TEXT NOT NULL,
-        budget_sheet_id TEXT,
+        budget_sheet_id TEXT NOT NULL,
         FOREIGN KEY (category_id) REFERENCES category(id) ON DELETE SET NULL,
         FOREIGN KEY (budget_sheet_id) REFERENCES budget_sheets(id) ON DELETE CASCADE
+        CHECK (price >= 0)
     );
 `
 ).run();

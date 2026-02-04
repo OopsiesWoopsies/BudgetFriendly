@@ -3,17 +3,56 @@ import { electronAPI } from '@electron-toolkit/preload';
 
 // Expose db functions to the renderer
 const dbFunctions = {
+  // Budget sheet queries
   getBudgetSheets: () => ipcRenderer.invoke('budgetSheets:get'),
-  createNewBudgetSheet: () => ipcRenderer.invoke('budgetSheets:create'),
-  deleteBudgetSheet: () => ipcRenderer.invoke('budgetSheets:delete'),
+  createNewBudgetSheet: (id, title, created_at, period, budget) =>
+    ipcRenderer.invoke('budgetSheets:create', {
+      id: id,
+      title: title,
+      created_at: created_at,
+      period: period,
+      budget: budget
+    }),
+  deleteBudgetSheet: (id) =>
+    ipcRenderer.invoke('budgetSheets:delete', {
+      id: id
+    }),
 
-  getCategories: () => ipcRenderer.invoke('categories:get'),
-  createNewCategory: () => ipcRenderer.invoke('categories:create'),
-  deleteCategory: () => ipcRenderer.invoke('categories:delete'),
+  // Category queries
+  getCategories: (budget_sheet_id) =>
+    ipcRenderer.invoke('categories:get', {
+      budget_sheet_id: budget_sheet_id
+    }),
+  createNewCategory: (id, name, budget_sheet_id) =>
+    ipcRenderer.invoke('categories:create', {
+      id: id,
+      name: name,
+      budget_sheet_id: budget_sheet_id
+    }),
+  deleteCategory: (id) =>
+    ipcRenderer.invoke('categories:delete', {
+      id: id
+    }),
 
-  getEntries: () => ipcRenderer.invoke('entries:get'),
-  createEntry: () => ipcRenderer.invoke('entries:create'),
-  deleteEntry: () => ipcRenderer.invoke('entries:delete')
+  // Entry queries
+  getEntries: (date, budget_sheet_id) =>
+    ipcRenderer.invoke('entries:get', {
+      date: date,
+      budget_sheet_id: budget_sheet_id
+    }),
+  createEntry: (id, name, category_id, price, date, budget_sheet_id) =>
+    ipcRenderer.invoke('entries:create', {
+      id: id,
+      name: name,
+      category_id: category_id,
+      price: price,
+      date: date,
+      budget_sheet_id: budget_sheet_id
+    }),
+  deleteEntry: (id) =>
+    ipcRenderer.invoke('entries:delete', {
+      id: id
+    })
 };
 
 if (process.contextIsolated) {
