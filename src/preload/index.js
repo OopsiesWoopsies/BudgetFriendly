@@ -5,13 +5,12 @@ import { electronAPI } from '@electron-toolkit/preload';
 const dbFunctions = {
   // Budget sheet queries
   getBudgetSheets: () => ipcRenderer.invoke('budgetSheets:get'),
-  createNewBudgetSheet: (id, title, created_at, period, budget) =>
+  createNewBudgetSheet: (id, title, created_at, period) =>
     ipcRenderer.invoke('budgetSheets:create', {
       id: id,
       title: title,
       created_at: created_at,
-      period: period,
-      budget: budget
+      period: period
     }),
   deleteBudgetSheet: (id) =>
     ipcRenderer.invoke('budgetSheets:delete', {
@@ -52,6 +51,21 @@ const dbFunctions = {
   deleteEntry: (id) =>
     ipcRenderer.invoke('entries:delete', {
       id: id
+    }),
+
+  // Budget amounts queries
+  getBudgetAmount: (date, budget_sheet_id) =>
+    ipcRenderer.invoke('budgetAmounts:get', {
+      date: date,
+      budget_sheet_id: budget_sheet_id
+    }),
+  createNewBudgetAmount: (newId, amount, effective_from, effective_to, budget_sheet_id) =>
+    ipcRenderer.invoke('budgetAmounts:create', {
+      newId: newId,
+      amount: amount,
+      effective_from: effective_from,
+      effective_to: effective_to,
+      budget_sheet_id: budget_sheet_id
     })
 };
 

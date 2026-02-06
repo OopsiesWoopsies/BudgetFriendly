@@ -7,15 +7,15 @@ function getBudgetSheets() {
   return db.prepare('SELECT * FROM budget_sheets').all();
 }
 
-function insertNewBudgetSheet(id, title, created_at, period, budget) {
+function insertNewBudgetSheet(id, title, created_at, period) {
   return db
     .prepare(
       `
-      INSERT INTO budget_sheets (id, title, created_at, period, budget) 
-      VALUES (?, ?, ?, ?, ?)
+      INSERT INTO budget_sheets (id, title, created_at, period) 
+      VALUES (?, ?, ?, ?)
       `
     )
-    .run(id, title, created_at, period, budget);
+    .run(id, title, created_at, period);
 }
 
 function deleteBudgetSheet(id) {
@@ -28,8 +28,8 @@ export function registerSheetIpc() {
     return enqueue(() => getBudgetSheets());
   });
 
-  ipcMain.handle('budgetSheets:create', (_event, { id, title, created_at, period, budget }) => {
-    return enqueue(() => insertNewBudgetSheet(id, title, created_at, period, budget));
+  ipcMain.handle('budgetSheets:create', (_event, { id, title, created_at, period }) => {
+    return enqueue(() => insertNewBudgetSheet(id, title, created_at, period));
   });
 
   ipcMain.handle('budgetSheets:delete', (_event, { id }) => {

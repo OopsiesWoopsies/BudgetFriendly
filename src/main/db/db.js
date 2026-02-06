@@ -14,9 +14,7 @@ db.prepare(
         id TEXT PRIMARY KEY,
         title TEXT,
         created_at TEXT NOT NULL,
-        period TEXT NOT NULL,
-        budget INTEGER NOT NULL,
-        CHECK (budget >= 0)
+        period TEXT NOT NULL
     );
 `
 ).run();
@@ -42,7 +40,7 @@ db.prepare(
         date TEXT NOT NULL,
         budget_sheet_id TEXT NOT NULL,
         FOREIGN KEY (category_id) REFERENCES category(id) ON DELETE SET NULL,
-        FOREIGN KEY (budget_sheet_id) REFERENCES budget_sheets(id) ON DELETE CASCADE
+        FOREIGN KEY (budget_sheet_id) REFERENCES budget_sheets(id) ON DELETE CASCADE,
         CHECK (price >= 0)
     );
 `
@@ -50,22 +48,29 @@ db.prepare(
 
 db.prepare(
   `
-  CREATE INDEX IF NOT EXISTS idx_entries_date ON entries(date);
-`
+    CREATE TABLE IF NOT EXISTS budget_amounts (
+      id TEXT PRIMARY KEY,
+      amount INTEGER NOT NULL,
+      effective_from TEXT NOT NULL,
+      effective_to TEXT,
+      budget_sheet_id TEXT NOT NULL,
+      FOREIGN KEY (budget_sheet_id) REFERENCES budget_sheets(id) ON DELETE CASCADE,
+      CHECK (amount >= 0 AND (effective_to IS NULL OR effective_to >= effective_from)),
+      UNIQUE(budget_sheet_id, effective_from)
+    );
+  `
+).run();
+
+db.prepare('CREATE INDEX IF NOT EXISTS idx_entries_date ON entries(date);').run();
+
+db.prepare('CREATE INDEX IF NOT EXISTS idx_entries_category ON entries(category_id);').run();
+
+db.prepare(
+  'CREATE INDEX IF NOT EXISTS idx_entries_sheet_date ON entries(budget_sheet_id, date);'
 ).run();
 
 db.prepare(
-  `  
-  CREATE INDEX IF NOT EXISTS idx_entries_category ON entries(category_id);
-`
-).run();
-
-db.prepare(
-  `  
-  CREATE INDEX IF NOT EXISTS idx_entries_sheet_date ON entries(budget_sheet_id, date);
-`
+  'CREATE INDEX IF NOT EXISTS idx_budget_amounts ON budget_amounts(budget_sheet_id, effective_from, effective_to)'
 ).run();
 
 export default db;
-
-console.log('created');
