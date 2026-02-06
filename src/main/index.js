@@ -5,6 +5,7 @@ import icon from '../../resources/icon.png?asset';
 import { registerSheetIpc } from './db/dbFunctions/sheetDb';
 import { registerBudgetSettingsIpc } from './db/dbFunctions/budgetSettingsDb';
 import { registerEntriesIpc } from './db/dbFunctions/entriesDb';
+import { registerBudgetAmountsIpc } from './db/dbFunctions/budgetAmountsDb';
 
 function createWindow() {
   const mainWindow = new BrowserWindow({
@@ -68,3 +69,4 @@ app.on('window-all-closed', () => {
 registerSheetIpc();
 registerBudgetSettingsIpc();
 registerEntriesIpc();
+registerBudgetAmountsIpc();
