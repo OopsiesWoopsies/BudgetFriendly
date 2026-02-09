@@ -32,10 +32,10 @@
 
     <main>
       <dialog id="settings" class="modal padding-zero">
-        <div class="modal-header flex">
+        <header class="modal-header flex">
           <button class="modal-back-button back-button no-select">X</button>
           <h1 class="modal-title">Create Budget Sheet</h1>
-        </div>
+        </header>
         <div class="modal-body">
           <div class="change-title flex align-items-center">
             <h2 class="description">Name of Budget Sheet</h2>
@@ -46,6 +46,26 @@
               placeholder="Budget Sheet Title"
             />
           </div>
+
+          <div class="budgeting-options flex align-items-center">
+            <h2 class="description">Budgeting Details</h2>
+            <div class="period-options card">
+              <h3>Budget Period Selection</h3>
+              <select class="period-dropdown">
+                <option value="">Select a Budgeting Period</option>
+                <option value="daily">Daily</option>
+                <option value="weekly">Weekly</option>
+                <option value="biweekly">Biweekly</option>
+                <option value="monthly">Monthly</option>
+                <option value="yearly">Yearly</option>
+              </select>
+            </div>
+            <div class="amount card">
+              <h3>Enter budget amount</h3>
+              <input type="number" placeholder="1234.56" />
+            </div>
+          </div>
+
           <div class="edit-categories flex align-items-center">
             <div class="description header add-category-mode">
               <p id="categories-header">Add a Category</p>
@@ -65,6 +85,11 @@
               />
             </div>
           </div>
+
+          <footer class="submission-buttons">
+            <button class="cancel-button custom-button">CANCEL</button>
+            <a class="submit-button custom-button"> Submit </a>
+          </footer>
         </div>
       </dialog>
 

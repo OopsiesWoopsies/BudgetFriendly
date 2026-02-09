@@ -3,7 +3,7 @@ body {
   background-color: var(--background-colour);
 }
 
-button:hover {
+a:hover, button:hover {
   cursor: pointer;
 }
 
@@ -91,6 +91,7 @@ button:hover {
   box-shadow: 2px 8px 15px hsla(0, 0%, 10%, 0.2);
 }
 
+/* Quality of Life */
 input[type='number']::-webkit-inner-spin-button,
 input[type='number']::-webkit-outer-spin-button {
   appearance: none;
