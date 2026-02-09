@@ -34,11 +34,11 @@
       <dialog id="settings" class="modal padding-zero">
         <div class="modal-header flex">
           <button class="modal-back-button back-button no-select">X</button>
-          <h1 class="modal-title">Settings</h1>
+          <h1 class="modal-title">Create Budget Sheet</h1>
         </div>
         <div class="modal-body">
           <div class="change-title flex align-items-center">
-            <h2 class="description">Change Budget Sheet Title</h2>
+            <h2 class="description">Name of Budget Sheet</h2>
             <input
               type="text"
               class="new-title custom-input"
@@ -72,7 +72,7 @@
 
       <div class="budgets-page page flex" data-page="budgets">
         <button
-          class="custom-button add-budget-button flex align-items-center justify-content-center no-select"
+          class="custom-button open-settings-button flex align-items-center justify-content-center no-select"
           ref="noreferrer"
           draggable="false"
         >
@@ -87,6 +87,6 @@
     </main>
 
     <script async src="../../main.js"></script>
-    <script async src="./main.js"></script>
+    <script type="module" async src="./main.js"></script>
   </body>
 </html>

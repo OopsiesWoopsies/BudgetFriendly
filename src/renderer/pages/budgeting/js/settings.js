@@ -3,7 +3,7 @@ const title = document.querySelector('.header-title');
 let budgetSheetTitle = '';
 
 // Modal (settings) DOM vars
-const settingsButton = document.querySelector('.header-title');
+const settingsButton = document.querySelector('.open-settings-button');
 const settingsModal = document.getElementById('settings');
 const settingsBackButton = document.querySelector('.modal-back-button');
 const newTitleInput = document.querySelector('.new-title');

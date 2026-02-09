@@ -11,7 +11,7 @@
 }
 
 /* Add budget button */
-.add-budget-button {
+.open-settings-button {
   margin-left: auto;
   margin-bottom: 25px;
 
@@ -31,4 +31,5 @@
 /* Budgets list */
 .budgets-list {
   border: solid black 1px;
+  
 }
