@@ -5,11 +5,13 @@ const sidebar = document.querySelector('.sidebar');
 const sidebarLabels = sidebar.querySelectorAll('.sidebar-labels > .label');
 const pages = document.querySelectorAll('.page');
 
-function initNavbarListeners() {
+export function initNavbarListeners() {
+  // Sidebar icon listener
   hamburger.addEventListener('click', () => {
     sidebar.classList.toggle('open');
   });
 
+  // Sidebar listener
   sidebar.addEventListener('click', (event) => {
     const mouseClick = event.target;
 
@@ -27,5 +29,3 @@ function initNavbarListeners() {
     }
   });
 }
-
-initNavbarListeners();

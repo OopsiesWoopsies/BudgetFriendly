@@ -6,6 +6,7 @@
     <title>BudgetFriendly</title>
     <link rel="stylesheet" href="../../constants.css" />
     <link rel="stylesheet" href="../../main.css" />
+    <link rel="stylesheet" href="../../pages/budgeting/css/settings.css" />
     <link rel="stylesheet" href="./css/home.css" />
     <link rel="stylesheet" href="./css/about.css" />
     <link rel="stylesheet" href="./css/settings.css" />
@@ -70,13 +71,13 @@
       <div class="navbar-space"></div>
 
       <div class="budgets-page page flex" data-page="budgets">
-        <a
+        <button
           class="custom-button add-budget-button flex align-items-center justify-content-center no-select"
-          href="../budgeting/sheet.html"
           ref="noreferrer"
           draggable="false"
-          >+
-        </a>
+        >
+          +
+        </button>
         <div class="budgets-list"></div>
       </div>
 
@@ -86,6 +87,6 @@
     </main>
 
     <script async src="../../main.js"></script>
-    <script async src="home.js"></script>
+    <script async src="./main.js"></script>
   </body>
 </html>
