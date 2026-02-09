@@ -1,3 +1,4 @@
+/* Single-change classes */
 body {
   background-color: var(--background-colour);
 }
@@ -8,10 +9,6 @@ button:hover {
 
 .align-items-center {
   align-items: center;
-}
-
-.display-none {
-  display: none;
 }
 
 .flex {
@@ -42,6 +39,11 @@ button:hover {
   position: fixed;
 }
 
+.display-none {
+  display: none;
+}
+
+/* Custom classes */
 .custom-button {
   background-color: var(--primary-colour-light1);
   border-radius: 5px;
