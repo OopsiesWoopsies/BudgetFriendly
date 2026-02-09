@@ -1,0 +1,40 @@
+.month-selection {
+  flex-direction: column;
+
+  height: 100%;
+  width: 100%;
+}
+
+.calendar-month {
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: minmax(80px, 100px);
+  margin: 0 auto;
+  margin-bottom: 10px;
+
+  width: 90%;
+
+  border: solid black 1px;
+}
+
+.month-name {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  font-size: 1.5rem;
+  font-weight: 700;
+
+  background-color: var(--primary-colour-light1);
+  border: solid black 1px;
+}
+
+.month-name:hover {
+  background-color: var(--primary-colour-light2);
+
+  cursor: pointer;
+}
+
+.month-name:active {
+  background-color: var(--primary-colour-light3);
+}

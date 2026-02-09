@@ -6,7 +6,10 @@
     <title>BudgetFriendly</title>
     <link rel="stylesheet" href="../../constants.css" />
     <link rel="stylesheet" href="../../main.css" />
-    <link rel="stylesheet" href="home.css" />
+    <link rel="stylesheet" href="./css/home.css" />
+    <link rel="stylesheet" href="./css/about.css" />
+    <link rel="stylesheet" href="./css/settings.css" />
+    <link rel="stylesheet" href="./css/navbar.css" />
   </head>
   <body class="margin-zero">
     <header class="navbar flex position-fixed align-items-center justify-content-center">
@@ -27,6 +30,43 @@
     </nav>
 
     <main>
+      <dialog id="settings" class="modal padding-zero">
+      <div class="modal-header flex">
+        <button class="modal-back-button back-button no-select">X</button>
+        <h1 class="modal-title">Settings</h1>
+      </div>
+      <div class="modal-body">
+        <div class="change-title flex align-items-center">
+          <h2 class="description">Change Budget Sheet Title</h2>
+          <input
+            type="text"
+            class="new-title custom-input"
+            maxlength="30"
+            placeholder="Budget Sheet Title"
+          />
+        </div>
+        <div class="edit-categories flex align-items-center">
+          <div class="description header add-category-mode">
+            <p id="categories-header">Add a Category</p>
+            <div class="edit-tools grid">
+              <button id="add-category" class="custom-button">+</button>
+              <button id="edit-category-name" class="custom-button">✏️</button>
+              <button id="remove-category" class="custom-button">🗑️</button>
+            </div>
+          </div>
+          <div class="categories flex align-items-center justify-content-center">
+            <input
+              id="category-input"
+              type="text"
+              class="new-category custom-input"
+              maxlength="15"
+              placeholder="___________"
+            />
+          </div>
+        </div>
+      </div>
+    </dialog>
+
       <div class="navbar-space"></div>
 
       <div class="budgets-page page flex" data-page="budgets">

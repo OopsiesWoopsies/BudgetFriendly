@@ -1,0 +1,168 @@
+/* Modal (settings) */
+.modal {
+  height: 70vh;
+  width: 80vw;
+
+  background-color: var(--background-colour);
+}
+
+.modal-header {
+  position: relative;
+  padding: 5px;
+
+  font-family: var(--fonts);
+
+  background-color: var(--primary-colour);
+}
+
+.modal-back-button {
+  position: absolute;
+  justify-self: center;
+
+  top: 10px;
+  left: 15px;
+}
+
+.modal-title {
+  margin: 0 auto;
+}
+
+/* Modal body (settings) */
+.modal-body {
+  padding: 2px;
+
+  font-family: var(--fonts);
+}
+
+.change-title {
+  flex-direction: column;
+  margin: 5px;
+}
+
+.description {
+  display: flex;
+  margin: 5px;
+  padding: 5px;
+  justify-content: center;
+  align-items: center;
+
+  height: 50px;
+  width: 70%;
+
+  font-size: 1.25rem;
+  font-weight: 800;
+
+  background-color: var(--primary-colour-light1);
+  border: solid black 1px;
+  border-radius: 5px;
+}
+
+.new-title {
+  margin: 5px;
+
+  height: 30px;
+  width: 40%;
+
+  font-family: var(--fonts);
+  font-size: 1rem;
+  text-align: center;
+
+  background-color: var(--plain-colour-dark1);
+  border: solid black 2px;
+  border-radius: 5px;
+}
+
+.edit-categories {
+  flex-direction: column;
+  margin: 5px;
+}
+
+.description.header {
+  position: relative;
+
+  background-color: var(--primary-colour-light1);
+
+  transition: background-color 0.3s ease;
+}
+
+.description.header.add-category-mode {
+  background-color: green;
+}
+
+.description.header.edit-category-name-mode {
+  background-color: var(--primary-colour-light1);
+}
+
+.description.header.remove-category-mode {
+  background-color: red;
+}
+
+.edit-tools {
+  grid-template-columns: repeat(3, 1fr);
+  position: absolute;
+  gap: 5px;
+
+  top: 14px;
+  right: 10px;
+}
+
+.edit-tools button {
+  padding: 0;
+  margin: 0;
+
+  font-size: 1.5rem;
+  font-weight: 900;
+  text-align: center;
+
+  background-color: var(--secondary-colour);
+  border: none;
+  border-radius: 5px;
+}
+
+.edit-tools button:hover {
+  background-color: var(--secondary-colour-dark1);
+}
+
+.edit-tools button:active {
+  background-color: var(--secondary-colour-dark2);
+}
+
+.categories {
+  width: 100%;
+
+  flex-wrap: wrap;
+}
+
+.category {
+  margin: 5px;
+
+  font-family: var(--fonts);
+
+  border: solid black 1px;
+}
+
+.category.remove-confirm {
+  background-color: red;
+}
+
+.new-category {
+  margin: 5px;
+
+  width: 100px;
+
+  font-family: var(--fonts);
+  text-align: center;
+
+  background-color: var(--primary-colour-light1);
+  border: solid black 1px;
+  box-shadow: 3px 5px 10px hsla(0, 0%, 0%, 0.6);
+  transition: box-shadow 0.3s ease;
+}
+
+.new-category:hover {
+  box-shadow: 4px 8px 13px hsla(0, 0%, 0%, 0.7);
+}
+
+.new-category:active {
+  box-shadow: 1px 2px 8px hsla(0, 0%, 0%, 0.5);
+}
