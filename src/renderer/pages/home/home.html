@@ -47,22 +47,24 @@
             />
           </div>
 
-          <div class="budgeting-options flex align-items-center">
+          <div class="flex flex-down align-items-center">
             <h2 class="description">Budgeting Details</h2>
-            <div class="period-options card">
-              <h3>Budget Period Selection</h3>
-              <select class="period-dropdown">
-                <option value="">Select a Budgeting Period</option>
-                <option value="daily">Daily</option>
-                <option value="weekly">Weekly</option>
-                <option value="biweekly">Biweekly</option>
-                <option value="monthly">Monthly</option>
-                <option value="yearly">Yearly</option>
-              </select>
-            </div>
-            <div class="amount card">
-              <h3>Enter budget amount</h3>
-              <input type="number" placeholder="1234.56" />
+            <div class="grid budgeting-options">
+              <div class="flex justify-content-center period-options card">
+                <h3>Budget Period Selection</h3>
+                <select class="period-dropdown">
+                  <option value="">Select a Budgeting Period</option>
+                  <option value="daily">Daily</option>
+                  <option value="weekly">Weekly</option>
+                  <option value="biweekly">Biweekly</option>
+                  <option value="monthly">Monthly</option>
+                  <option value="yearly">Yearly</option>
+                </select>
+              </div>
+              <div class="flex justify-content-center amount card">
+                <h3>Enter budget amount</h3>
+                <input class="custom-input" type="number" placeholder="1234.56" />
+              </div>
             </div>
           </div>
 

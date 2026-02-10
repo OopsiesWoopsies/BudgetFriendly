@@ -1,5 +1,7 @@
 /* Modal (settings) */
 .modal {
+  min-width: 500px;
+  aspect-ratio: 1 / 1;
   height: 70vh;
   width: 80vw;
 
@@ -34,7 +36,7 @@
   font-weight: 100;
   text-decoration: none;
 
-  background-color: inherit;
+  background-color: var(--transparent);
   border: none;
 }
 
@@ -62,7 +64,7 @@
   align-items: center;
 
   height: 50px;
-  width: 70%;
+  width: 80%;
 
   font-size: 1.25rem;
   font-weight: 800;
