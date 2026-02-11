@@ -51,12 +51,34 @@
 
   font-family: var(--fonts);
 
+  background-color: var(--plain-colour-dark1);
   border: solid black 2px;
   border-radius: 8px;
+}
+.period-dropdown:hover {
+  background-color: var(--plain-colour);
+}
+.period-dropdown:focus-visible {
+  background-color: var(--plain-colour);
+}
+
+.submit-button {
+  justify-self: center;
+  position: absolute;
+  right: 20px;
+  top: 10px;
+
+  color: inherit;
+  font-family: Arial;
+  font-size: 1.75rem;
+  font-weight: 100;
+  text-decoration: none;
+
+  background-color: var(--transparent);
+  border: none;
 }
 
 /* Budgets list */
 .budgets-list {
   border: solid black 1px;
-
 }

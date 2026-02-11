@@ -47,6 +47,8 @@
 /* Modal body (settings) */
 .modal-body {
   padding: 2px;
+  
+  height: 90%;
 
   font-family: var(--fonts);
 }
