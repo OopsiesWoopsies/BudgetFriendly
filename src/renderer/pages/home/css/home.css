@@ -62,6 +62,10 @@
   background-color: var(--plain-colour);
 }
 
+.invalid {
+  border: solid hsl(0, 100%, 50%) 3px;
+}
+
 .submit-button {
   justify-self: center;
   position: absolute;

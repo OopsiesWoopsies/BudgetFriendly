@@ -1,4 +1,4 @@
-import { categoryDropdownModel, updateDropdownList } from './settings.js';
+import { categoryDropdownModel, updateDropdownList } from './handleCategorySelection.js';
 
 // Table vars
 const table = document.querySelector('.table');
