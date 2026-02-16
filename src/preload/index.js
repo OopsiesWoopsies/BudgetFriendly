@@ -22,7 +22,7 @@ const dbFunctions = {
     ipcRenderer.invoke('categories:get', {
       budget_sheet_id: budget_sheet_id
     }),
-  createNewCategory: (stagedChanges, budget_sheet_id) =>
+  upsertCategories: (stagedChanges, budget_sheet_id) =>
     ipcRenderer.invoke('categories:create', {
       stagedChanges: stagedChanges,
       budget_sheet_id: budget_sheet_id
