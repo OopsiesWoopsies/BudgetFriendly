@@ -40,7 +40,7 @@ export function initBudgetSheetCreationListeners() {
     // Post to db
     const sheetId = crypto.randomUUID();
     const today = new Date();
-    const year = today.getFullYear();
+    let year = today.getFullYear();
     let month = String(today.getMonth() + 1).padStart(2, '0');
     let day = String(today.getDate()).padStart(2, '0');
     const todayISO = `${year}-${month}-${day}`;
@@ -48,7 +48,7 @@ export function initBudgetSheetCreationListeners() {
     const period = periodDropdown.value;
     let title = titleInput.value.trim();
     if (title === '') title = titleInput.placeholder;
-    await window.db.createNewBudgetSheet(sheetId, title, todayISO, period);
+    // await window.db.createNewBudgetSheet(sheetId, title, todayISO, period);
 
     const budgetId = crypto.randomUUID();
     const budget = parseInt(budgetAmount.value * 100);
@@ -60,7 +60,10 @@ export function initBudgetSheetCreationListeners() {
       case 'biweekly':
         if (today.getDay() !== 0) {
           day = today.getDate() - today.getDay();
-          // !check if it goes behind a month or year
+          const date = new Date(today.getFullYear(), today.getMonth(), day);
+          year = date.getFullYear();
+          month = String(date.getMonth() + 1).padStart(2, '0');
+          day = String(date.getDate()).padStart(2, '0');
           break;
         }
         break;
