@@ -22,15 +22,10 @@ const dbFunctions = {
     ipcRenderer.invoke('categories:get', {
       budget_sheet_id: budget_sheet_id
     }),
-  createNewCategory: (id, name, budget_sheet_id) =>
+  upsertCategories: (stagedChanges, budget_sheet_id) =>
     ipcRenderer.invoke('categories:create', {
-      id: id,
-      name: name,
+      stagedChanges: stagedChanges,
       budget_sheet_id: budget_sheet_id
-    }),
-  deleteCategory: (id) =>
-    ipcRenderer.invoke('categories:delete', {
-      id: id
     }),
 
   // Entry queries

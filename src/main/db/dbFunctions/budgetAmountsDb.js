@@ -54,7 +54,7 @@ function upsertFutureBudgetAmount(newId, amount, effective_from, effective_to, b
     ).run(newId, amount, effective_from, budget_sheet_id);
   });
 
-  transaction();
+  return transaction();
 }
 
 function closeOldBudget(budget_sheet_id, effective_to) {
