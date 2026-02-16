@@ -1,4 +1,9 @@
-import { initCategoryToolsListeners, stagedChanges } from '../../budgeting/js/settings.js';
+import {
+  initCategoryToolsListeners,
+  stagedChanges,
+  updateNewCategoryInput,
+  isAddingCategory
+} from '../../budgeting/js/settings.js';
 import { stagedChangesCleanup } from '../../budgeting/js/handleCategorySelection.js';
 
 const openModalButton = document.querySelector('.open-settings-button');
@@ -8,6 +13,7 @@ const submitButton = document.querySelector('.submit-button');
 const titleInput = document.querySelector('.new-title');
 const periodDropdown = document.querySelector('.period-dropdown');
 const budgetAmount = document.querySelector('.budget-amount');
+const categories = document.querySelector('.categories');
 
 export function initBudgetSheetCreationListeners() {
   openModalButton.addEventListener('click', () => {
@@ -48,7 +54,7 @@ export function initBudgetSheetCreationListeners() {
     const period = periodDropdown.value;
     let title = titleInput.value.trim();
     if (title === '') title = titleInput.placeholder;
-    // await window.db.createNewBudgetSheet(sheetId, title, todayISO, period);
+    await window.db.createNewBudgetSheet(sheetId, title, todayISO, period);
 
     const budgetId = crypto.randomUUID();
     const budget = parseInt(budgetAmount.value * 100);
@@ -58,6 +64,7 @@ export function initBudgetSheetCreationListeners() {
         break;
       case 'weekly':
       case 'biweekly':
+        // Check for underflow
         if (today.getDay() !== 0) {
           day = today.getDate() - today.getDay();
           const date = new Date(today.getFullYear(), today.getMonth(), day);
@@ -93,7 +100,11 @@ export function initBudgetSheetCreationListeners() {
     budgetAmount.placeholder = '1234.56';
     titleInput.value = '';
 
-    // !delete html
+    const keep = document.getElementById('category-input');
+    categories.innerHTML = '';
+    categories.appendChild(keep);
+    updateNewCategoryInput();
+    if (isAddingCategory) keep.classList.remove('display-none');
   });
 }
 

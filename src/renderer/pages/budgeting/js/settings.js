@@ -10,10 +10,10 @@ const editCategoryHeader = document.querySelector('.description.header');
 const categoriesTitle = document.getElementById('categories-header');
 const categoryToolButtons = document.querySelector('.edit-tools');
 const categoryList = document.querySelector('.categories');
-const newCategoryInput = document.getElementById('category-input');
+let newCategoryInput = document.getElementById('category-input');
 
 // Modal (settings) value vars
-let isAddingCategory = true;
+export let isAddingCategory = true;
 let isEditingCategory = false;
 let isRemovingCategory = false;
 
@@ -24,6 +24,11 @@ export const stagedChanges = {
 };
 
 // !GET req for budget sheet title
+
+// Updates var if it gets deleted elsewhere
+export function updateNewCategoryInput() {
+  newCategoryInput = document.getElementById('category-input');
+}
 
 export function initSettingsListeners() {
   // Settings Header listeners
