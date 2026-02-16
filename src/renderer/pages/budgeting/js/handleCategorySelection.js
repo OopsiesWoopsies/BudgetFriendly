@@ -14,7 +14,7 @@ export function updateDropdownList() {
 }
 
 // Update category map and save changes to db
-function saveCategoryChanges() {
+export function saveCategoryChanges() {
   stagedChangesCleanup();
   applyChangesToDropdowns();
 

@@ -66,6 +66,10 @@
   border: solid hsl(0, 100%, 50%) 3px;
 }
 
+.budget-amount {
+  padding: 3px;
+}
+
 .submit-button {
   justify-self: center;
   position: absolute;
