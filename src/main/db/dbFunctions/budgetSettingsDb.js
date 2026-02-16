@@ -7,14 +7,26 @@ function getCategories(budget_sheet_id) {
   return db.prepare('SELECT * FROM category WHERE budget_sheet_id = ?').all(budget_sheet_id);
 }
 
-function insertNewCategory(id, name, budget_sheet_id) {
-  return db
-    .prepare('INSERT INTO category (id, name, budget_sheet_id) VALUES (?, ?, ?)')
-    .run(id, name, budget_sheet_id);
-}
+function upsertCategories(stagedChanges, budget_sheet_id) {
+  const transaction = db.transaction(() => {
+    const deleteStatement = db.prepare('DELETE FROM category WHERE id = ?');
+    const updateStatement = db.prepare('UPDATE category SET name = ? WHERE id = ?');
+    const addStatement = db.prepare(
+      'INSERT INTO category (id, name, budget_sheet_id) VALUES (?, ?, ?)'
+    );
 
-function deleteCategory(id) {
-  return db.prepare('DELETE FROM category WHERE id = ?').run(id).changes;
+    for (const id of stagedChanges.removing.keys()) {
+      deleteStatement.run(id);
+    }
+    for (const [id, value] of stagedChanges.editing) {
+      updateStatement.run(value, id);
+    }
+    for (const [id, value] of stagedChanges.adding) {
+      addStatement.run(id, value, budget_sheet_id);
+    }
+  });
+
+  return transaction();
 }
 
 // Registers db functions for renderer use
@@ -23,11 +35,7 @@ export function registerBudgetSettingsIpc() {
     return enqueue(() => getCategories(budget_sheet_id));
   });
 
-  ipcMain.handle('categories:create', (_event, { id, name, budget_sheet_id }) => {
-    return enqueue(() => insertNewCategory(id, name, budget_sheet_id));
-  });
-
-  ipcMain.handle('categories:delete', (_event, { id }) => {
-    return enqueue(() => deleteCategory(id));
+  ipcMain.handle('categories:create', (_event, { stagedChanges, budget_sheet_id }) => {
+    return enqueue(() => upsertCategories(stagedChanges, budget_sheet_id));
   });
 }
