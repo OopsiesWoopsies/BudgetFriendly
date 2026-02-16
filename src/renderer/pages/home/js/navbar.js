@@ -5,21 +5,23 @@ const sidebar = document.querySelector('.sidebar');
 const sidebarLabels = sidebar.querySelectorAll('.sidebar-labels > .label');
 const pages = document.querySelectorAll('.page');
 
-function initNavbarListeners() {
+export function initNavbarListeners() {
+  // Sidebar icon listener
   hamburger.addEventListener('click', () => {
     sidebar.classList.toggle('open');
   });
 
+  // Sidebar listener
   sidebar.addEventListener('click', (event) => {
     const mouseClick = event.target;
+
     if (mouseClick.classList.contains('label')) {
       sidebar.classList.remove('open');
       pages.forEach((page) => {
         const key = mouseClick.dataset.page;
         if (page.dataset.page === key) {
           page.classList.remove('display-none');
-          if (key === 'budgets') navbarTitle.textContent = 'BudgetFriendly';
-          else navbarTitle.textContent = mouseClick.textContent;
+          navbarTitle.textContent = key === 'budgets' ? 'BudgetFriendly' : mouseClick.textContent;
           return;
         }
         page.classList.add('display-none');
@@ -27,5 +29,3 @@ function initNavbarListeners() {
     }
   });
 }
-
-initNavbarListeners();

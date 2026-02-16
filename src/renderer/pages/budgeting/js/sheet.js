@@ -1,4 +1,4 @@
-import { categoryDropdownModel, updateDropdownList } from './settings.js';
+import { categoryDropdownModel, updateDropdownList } from './handleCategorySelection.js';
 
 // Table vars
 const table = document.querySelector('.table');
@@ -75,8 +75,6 @@ export function initTableListener() {
 
 // !TODO
 // Remove row when if all cells empty (consider creating a delete button) MAKE SURE TO UPDATE THE QUERYSELECTORALL
-
-// Create backend
 
 // Create a function for GET req for:
 //  all the categories and create all the buttons in the settings and in the category drop down

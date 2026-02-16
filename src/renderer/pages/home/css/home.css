@@ -1,0 +1,92 @@
+/* Budget page */
+.budgets-page {
+  flex-direction: column;
+  position: relative;
+
+  margin: 25px;
+  padding: 25px;
+
+  border: solid black 1px;
+  border-radius: 20px;
+}
+
+/* Add budget button */
+.open-settings-button {
+  margin-left: auto;
+  margin-bottom: 25px;
+
+  height: 50px;
+  width: 90px;
+
+  color: inherit;
+  font-size: 2rem;
+  font-weight: 800;
+  text-decoration: none;
+
+  border: none;
+  border-radius: 25px;
+  box-shadow: 0 4px 10px hsla(0, 0%, 0%, 0.25);
+}
+
+/* Budget sheet creation popup */
+.budgeting-options {
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+
+  min-height: 150px;
+}
+.budgeting-options .card {
+  padding: 15px;
+
+  text-align: center;
+
+  border: solid black 1px;
+}
+.budgeting-options .card h3 {
+  margin-top: 5px;
+}
+
+.period-dropdown {
+  height: 30px;
+
+  font-family: var(--fonts);
+
+  background-color: var(--plain-colour-dark1);
+  border: solid black 2px;
+  border-radius: 8px;
+}
+.period-dropdown:hover {
+  background-color: var(--plain-colour);
+}
+.period-dropdown:focus-visible {
+  background-color: var(--plain-colour);
+}
+
+.invalid {
+  border: solid hsl(0, 100%, 50%) 3px;
+}
+
+.budget-amount {
+  padding: 3px;
+}
+
+.submit-button {
+  justify-self: center;
+  position: absolute;
+  right: 20px;
+  top: 10px;
+
+  color: inherit;
+  font-family: Arial;
+  font-size: 1.75rem;
+  font-weight: 100;
+  text-decoration: none;
+
+  background-color: var(--transparent);
+  border: none;
+}
+
+/* Budgets list */
+.budgets-list {
+  border: solid black 1px;
+}

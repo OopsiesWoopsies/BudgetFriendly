@@ -1,0 +1,75 @@
+.budget-sheet {
+  width: 100%;
+}
+
+.table-header {
+  margin: 0 auto;
+  grid-template-columns: 4fr 1.5fr 1fr;
+  width: 90%;
+
+  border: solid black 1px;
+  border-bottom: none;
+}
+
+.column-header {
+  padding: 3px;
+
+  background-color: var(--primary-colour);
+  border: solid black 1px;
+}
+
+.table {
+  margin: 0 auto;
+
+  width: 90%;
+
+  border: solid black 1px;
+  border-top: none;
+}
+
+.filled-table {
+  grid-template-columns: 4fr 1.5fr 1fr;
+}
+
+.new-row {
+  grid-template-columns: 4fr 1.5fr 1fr;
+}
+
+.table button {
+  height: inherit;
+
+  font-size: 1rem;
+}
+
+.table button:hover {
+  background-color: var(--plain-colour);
+}
+
+.cell {
+  box-sizing: border-box;
+  padding: 3px;
+
+  min-height: var(--budget-cell-height);
+  width: 100%;
+
+  font: inherit;
+  font-size: 1rem;
+
+  background-color: var(--plain-colour-dark1);
+  border: solid black 1px;
+  border-radius: 0;
+}
+
+.cell.new {
+  background-color: var(--overlay);
+  border: dashed black 1px;
+}
+
+.cell:hover {
+  background-color: var(--plain-colour);
+}
+
+.cell:focus-visible {
+  outline: none;
+  background-color: var(--plain-colour);
+}

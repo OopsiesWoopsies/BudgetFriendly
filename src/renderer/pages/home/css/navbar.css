@@ -93,39 +93,3 @@
 .sidebar-labels button:last-child {
   border-bottom: 2px solid black;
 }
-
-/* Budget page */
-.budgets-page {
-  flex-direction: column;
-  position: relative;
-
-  margin: 25px;
-  padding: 25px;
-
-  border: solid black 1px;
-  border-radius: 20px;
-}
-
-/* Add budget button */
-.add-budget-button {
-  margin-left: auto;
-  margin-bottom: 25px;
-
-  height: 50px;
-  width: 90px;
-
-  color: inherit;
-  font-size: 2rem;
-  font-weight: 800;
-  text-decoration: none;
-
-  border: none;
-  border-radius: 25px;
-  box-shadow: 0 4px 10px hsla(0, 0%, 0%, 0.25);
-}
-
-/* Budgets list */
-.budgets-list {
-  border: solid black 1px;
-  
-}

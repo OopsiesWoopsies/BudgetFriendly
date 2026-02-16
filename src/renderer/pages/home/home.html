@@ -6,7 +6,11 @@
     <title>BudgetFriendly</title>
     <link rel="stylesheet" href="../../constants.css" />
     <link rel="stylesheet" href="../../main.css" />
-    <link rel="stylesheet" href="home.css" />
+    <link rel="stylesheet" href="../../pages/budgeting/css/settings.css" />
+    <link rel="stylesheet" href="./css/home.css" />
+    <link rel="stylesheet" href="./css/about.css" />
+    <link rel="stylesheet" href="./css/settings.css" />
+    <link rel="stylesheet" href="./css/navbar.css" />
   </head>
   <body class="margin-zero">
     <header class="navbar flex position-fixed align-items-center justify-content-center">
@@ -27,16 +31,76 @@
     </nav>
 
     <main>
+      <dialog id="settings" class="modal padding-zero">
+        <header class="modal-header flex">
+          <button class="modal-back-button back-button no-select">X</button>
+          <h1 class="modal-title">Create Budget Sheet</h1>
+          <button class="submit-button no-select">></button>
+        </header>
+        <div class="modal-body">
+          <div class="change-title flex align-items-center">
+            <h2 class="description">Name of Budget Sheet</h2>
+            <input
+              type="text"
+              class="new-title custom-input"
+              maxlength="30"
+              placeholder="Budget Sheet Title"
+            />
+          </div>
+
+          <div class="flex flex-down align-items-center">
+            <h2 class="description">Budgeting Details</h2>
+            <div class="grid budgeting-options">
+              <div class="flex justify-content-center period-options card">
+                <h3>Budget Period Selection</h3>
+                <select class="period-dropdown">
+                  <option value="">Select a Budgeting Period</option>
+                  <option value="daily">Daily</option>
+                  <option value="weekly">Weekly</option>
+                  <option value="biweekly">Biweekly</option>
+                  <option value="monthly">Monthly</option>
+                  <option value="yearly">Yearly</option>
+                </select>
+              </div>
+              <div class="flex justify-content-center amount card">
+                <h3>Enter Budget Amount</h3>
+                <input class="budget-amount custom-input" type="number" placeholder="1234.56" />
+              </div>
+            </div>
+          </div>
+
+          <div class="edit-categories flex align-items-center">
+            <div class="description header add-category-mode">
+              <p id="categories-header">Add a Category</p>
+              <div class="edit-tools grid">
+                <button id="add-category" class="custom-button">+</button>
+                <button id="edit-category-name" class="custom-button">✏️</button>
+                <button id="remove-category" class="custom-button">🗑️</button>
+              </div>
+            </div>
+            <div class="categories flex align-items-center justify-content-center">
+              <input
+                id="category-input"
+                type="text"
+                class="new-category custom-input"
+                maxlength="15"
+                placeholder="___________"
+              />
+            </div>
+          </div>
+        </div>
+      </dialog>
+
       <div class="navbar-space"></div>
 
       <div class="budgets-page page flex" data-page="budgets">
-        <a
-          class="custom-button add-budget-button flex align-items-center justify-content-center no-select"
-          href="../budgeting/sheet.html"
+        <button
+          class="custom-button open-settings-button flex align-items-center justify-content-center no-select"
           ref="noreferrer"
           draggable="false"
-          >+
-        </a>
+        >
+          +
+        </button>
         <div class="budgets-list"></div>
       </div>
 
@@ -46,6 +110,6 @@
     </main>
 
     <script async src="../../main.js"></script>
-    <script async src="home.js"></script>
+    <script type="module" async src="./main.js"></script>
   </body>
 </html>

@@ -1,8 +1,9 @@
+/* Single-change classes */
 body {
   background-color: var(--background-colour);
 }
 
-button:hover {
+a:hover, button:hover {
   cursor: pointer;
 }
 
@@ -10,12 +11,11 @@ button:hover {
   align-items: center;
 }
 
-.display-none {
-  display: none;
-}
-
 .flex {
   display: flex;
+}
+.flex-down {
+  flex-direction: column;
 }
 
 .grid {
@@ -42,6 +42,11 @@ button:hover {
   position: fixed;
 }
 
+.display-none {
+  display: none;
+}
+
+/* Custom classes */
 .custom-button {
   background-color: var(--primary-colour-light1);
   border-radius: 5px;
@@ -63,6 +68,8 @@ button:hover {
 }
 
 .custom-input {
+  font-family: var(--fonts);
+
   background-color: var(--plain-colour-dark1);
   border: solid black 2px;
   border-radius: 5px;
@@ -86,9 +93,10 @@ button:hover {
 
   background-color: var(--secondary-colour);
   border-radius: 30px;
-  box-shadow: 2px 8px 15px hsla(0, 0%, 10%, 0.2);
+  box-shadow: 4px 7px 10px hsla(0, 0%, 10%, 0.6);
 }
 
+/* Quality of Life */
 input[type='number']::-webkit-inner-spin-button,
 input[type='number']::-webkit-outer-spin-button {
   appearance: none;

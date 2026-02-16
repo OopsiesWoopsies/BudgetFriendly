@@ -6,21 +6,25 @@
     <title>BudgetFriendly</title>
     <link rel="stylesheet" href="../../constants.css" />
     <link rel="stylesheet" href="../../main.css" />
-    <link rel="stylesheet" href="sheet.css" />
+    <link rel="stylesheet" href="./css/main.css" />
+    <link rel="stylesheet" href="./css/settings.css" />
+    <link rel="stylesheet" href="./css/monthSelection.css" />
+    <link rel="stylesheet" href="./css/daySelection.css" />
+    <link rel="stylesheet" href="./css/sheet.css" />
   </head>
   <body class="margin-zero">
     <header class="header flex position-fixed align-items-center justify-content-center">
       <a class="back-button position-fixed no-select" href="../home/home.html" draggable="false"
         >X</a
       >
-      <button class="header-title no-select custom-button">Title of Budget Sheet</button>
+      <button class="header-title no-select custom-button open-settings-button">Title of Budget Sheet</button>
     </header>
 
     <dialog id="settings" class="modal padding-zero">
-      <div class="modal-header flex">
+      <header class="modal-header flex">
         <button class="modal-back-button back-button no-select">X</button>
         <h1 class="modal-title">Settings</h1>
-      </div>
+      </header>
       <div class="modal-body">
         <div class="change-title flex align-items-center">
           <h2 class="description">Change Budget Sheet Title</h2>
@@ -126,6 +130,6 @@
       </div>
     </main>
 
-    <script type="module" async src="js/main.js"></script>
+    <script type="module" async src="./main.js"></script>
   </body>
 </html>
