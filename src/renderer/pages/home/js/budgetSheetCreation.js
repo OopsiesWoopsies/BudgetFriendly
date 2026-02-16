@@ -43,7 +43,7 @@ export function initBudgetSheetCreationListeners() {
     if (budgetAmount.value === '' || periodDropdown === '') {
       return;
     }
-    // Post to db
+    // Creates new sheet and POSTs to budget sheet db
     const sheetId = crypto.randomUUID();
     const today = new Date();
     let year = today.getFullYear();
@@ -56,6 +56,7 @@ export function initBudgetSheetCreationListeners() {
     if (title === '') title = titleInput.placeholder;
     await window.db.createNewBudgetSheet(sheetId, title, todayISO, period);
 
+    // Sets up the budgeting period and POSTs to budget amount db
     const budgetId = crypto.randomUUID();
     const budget = parseInt(budgetAmount.value * 100);
     let effectiveFrom;
@@ -85,12 +86,14 @@ export function initBudgetSheetCreationListeners() {
     effectiveFrom = `${year}-${month}-${day}`;
     await window.db.createNewBudgetAmount(budgetId, budget, effectiveFrom, null, sheetId);
 
+    // Cleans up category list changes and POSTs to categories db
     stagedChangesCleanup();
     await window.db.upsertCategories(stagedChanges, sheetId);
 
     window.location.href = '../budgeting/sheet.html';
   });
 
+  // Resets budget sheet creation page to blank
   modalBackButton.addEventListener('click', () => {
     modal.close();
     periodDropdown.classList.remove('invalid');
