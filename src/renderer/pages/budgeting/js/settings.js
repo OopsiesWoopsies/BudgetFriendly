@@ -25,11 +25,7 @@ export const stagedChanges = {
 
 // !GET req for budget sheet title
 
-// Settings Modal listeners
 export function initSettingsListeners() {
-  // Function Vars
-  let button = null;
-
   // Settings Header listeners
   settingsButton.addEventListener('click', () => {
     settingsModal.showModal();
@@ -46,6 +42,12 @@ export function initSettingsListeners() {
       newTitleInput.blur();
     }
   });
+}
+
+// Settings Modal listeners
+export function initCategoryToolsListeners() {
+  // Function Vars
+  let button = null;
 
   // Category Tools listeners
   function addCategoryButton() {

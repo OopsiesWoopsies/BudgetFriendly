@@ -14,7 +14,7 @@ export function updateDropdownList() {
 }
 
 // Update category map and save changes to db
-export function saveCategoryChanges() {
+function saveCategoryChanges() {
   stagedChangesCleanup();
   applyChangesToDropdowns();
 
@@ -55,7 +55,7 @@ function applyChangesToDropdowns() {
 }
 
 // Removes any categories added in the editing session that wanted to be removed and edits the remainder to reduce DOM manipulation
-function stagedChangesCleanup() {
+export function stagedChangesCleanup() {
   // eslint-disable-next-line
   for (const [id, value] of stagedChanges.removing) {
     if (stagedChanges.adding.get(id) === undefined) continue;
