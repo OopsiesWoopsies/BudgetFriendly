@@ -24,6 +24,11 @@ const dbFunctions = {
       created_at: created_at,
       period: period
     }),
+  updateBudgetSheetTitle: (id, newTitle) =>
+    ipcRenderer.invoke('budgetSheets:updateName', {
+      id: id,
+      newTitle: newTitle
+    }),
   deleteBudgetSheet: (id) =>
     ipcRenderer.invoke('budgetSheets:delete', {
       id: id
