@@ -90,6 +90,9 @@ export function initBudgetSheetCreationListeners() {
     stagedChangesCleanup();
     await window.db.upsertCategories(stagedChanges, sheetId);
 
+    // Setup sheet id to retrieve upon page traversal
+    await window.data.setSheetId(sheetId);
+
     window.location.href = '../budgeting/sheet.html';
   });
 

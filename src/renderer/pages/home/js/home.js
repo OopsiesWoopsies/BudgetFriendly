@@ -44,9 +44,12 @@ export async function setupSheets() {
 // Initialize event listeners in the home page
 export function initHomeListeners() {
   // Budget sheet click listener
-  budgetList.addEventListener('click', (event) => {
-    if (event.target.classList.contains('sheet')) {
-      console.log(event.target);
-    }
+  budgetList.addEventListener('click', async (event) => {
+    const target = event.target.closest('a');
+    if (!target || !target.classList.contains('sheet')) return;
+    // Setup sheet id to retrieve upon page traversal
+    await window.data.setSheetId(target.dataset.id);
+
+    window.location.href = '../budgeting/sheet.html';
   });
 }

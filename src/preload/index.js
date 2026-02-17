@@ -1,7 +1,7 @@
 import { contextBridge, ipcRenderer } from 'electron';
 import { electronAPI } from '@electron-toolkit/preload';
 
-// Expose data storage functions to the renderer
+// Sets up data storage functions to expose to the renderer
 const dataStorageFunctions = {
   setSheetId: (sheetId) =>
     ipcRenderer.invoke('set-sheet-id', {
@@ -10,7 +10,7 @@ const dataStorageFunctions = {
   getSheetId: () => ipcRenderer.invoke('get-sheet-id')
 };
 
-// Expose db functions to the renderer
+// Sets up db functions to expose to the renderer
 const dbFunctions = {
   // Budget sheet queries
   getBudgetSheets: () => ipcRenderer.invoke('budgetSheets:get'),
@@ -74,6 +74,7 @@ const dbFunctions = {
 };
 
 if (process.contextIsolated) {
+  // Exposes functions to renderer
   try {
     contextBridge.exposeInMainWorld('electron', electronAPI);
     contextBridge.exposeInMainWorld('db', dbFunctions);
