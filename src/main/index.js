@@ -6,6 +6,7 @@ import { registerSheetIpc } from './db/dbFunctions/sheetDb';
 import { registerBudgetSettingsIpc } from './db/dbFunctions/budgetSettingsDb';
 import { registerEntriesIpc } from './db/dbFunctions/entriesDb';
 import { registerBudgetAmountsIpc } from './db/dbFunctions/budgetAmountsDb';
+import { registerDataStorageIpc } from './data/data';
 
 function createWindow() {
   const mainWindow = new BrowserWindow({
@@ -72,3 +73,4 @@ registerSheetIpc();
 registerBudgetSettingsIpc();
 registerEntriesIpc();
 registerBudgetAmountsIpc();
+registerDataStorageIpc();
