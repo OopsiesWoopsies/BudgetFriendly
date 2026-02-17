@@ -4,7 +4,7 @@ import { enqueue } from '../dbQueue.js';
 
 // Db functions
 function getBudgetSheets(id) {
-  if (id === null) return db.prepare('SELECT * FROM budget_sheets').all();
+  if (id == null) return db.prepare('SELECT * FROM budget_sheets').all();
   return db.prepare('SELECT * FROM budget_sheets WHERE id = ?').get(id);
 }
 
@@ -25,8 +25,8 @@ function deleteBudgetSheet(id) {
 
 // Registers db functions for renderer use
 export function registerSheetIpc() {
-  ipcMain.handle('budgetSheets:get', () => {
-    return enqueue(() => getBudgetSheets());
+  ipcMain.handle('budgetSheets:get', (_event, { id }) => {
+    return enqueue(() => getBudgetSheets(id));
   });
 
   ipcMain.handle('budgetSheets:create', (_event, { id, title, created_at, period }) => {
