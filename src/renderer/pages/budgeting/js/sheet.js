@@ -44,30 +44,31 @@ function createRow(rowInfo) {
 
 export function initTableListener() {
   table.addEventListener('change', (event) => {
-    if (event.target.classList.contains('new')) {
-      if (event.target.classList.contains('name-cell')) {
-        const name = event.target.value.trim();
+    const target = event.target;
+    if (target.classList.contains('new')) {
+      if (target.classList.contains('name-cell')) {
+        const name = target.value.trim();
         if (name === '') {
-          event.target.value = '';
+          target.value = '';
           return;
         }
 
         createRow([name, '', '']);
-        event.target.value = '';
+        target.value = '';
       }
-      if (event.target.classList.contains('category-cell')) {
-        if (event.target.value == '') return;
+      if (target.classList.contains('category-cell')) {
+        if (target.value == '') return;
 
-        createRow(['', event.target.value, '']);
-        event.target.value = '';
+        createRow(['', target.value, '']);
+        target.value = '';
       }
-      if (event.target.classList.contains('price-cell')) {
-        const price = event.target.value;
+      if (target.classList.contains('price-cell')) {
+        const price = target.value;
 
         if (price === '') return;
 
         createRow(['', '', price]);
-        event.target.value = '';
+        target.value = '';
       }
     }
   });
