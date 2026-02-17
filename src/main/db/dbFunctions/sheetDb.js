@@ -3,8 +3,9 @@ import { ipcMain } from 'electron';
 import { enqueue } from '../dbQueue.js';
 
 // Db functions
-function getBudgetSheets() {
-  return db.prepare('SELECT * FROM budget_sheets').all();
+function getBudgetSheets(id) {
+  if (id === null) return db.prepare('SELECT * FROM budget_sheets').all();
+  return db.prepare('SELECT * FROM budget_sheets WHERE id = ?').get(id);
 }
 
 function insertNewBudgetSheet(id, title, created_at, period) {

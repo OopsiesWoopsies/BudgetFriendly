@@ -13,7 +13,10 @@ const dataStorageFunctions = {
 // Sets up db functions to expose to the renderer
 const dbFunctions = {
   // Budget sheet queries
-  getBudgetSheets: () => ipcRenderer.invoke('budgetSheets:get'),
+  getBudgetSheets: (id = null) =>
+    ipcRenderer.invoke('budgetSheets:get', {
+      id: id
+    }),
   createNewBudgetSheet: (id, title, created_at, period) =>
     ipcRenderer.invoke('budgetSheets:create', {
       id: id,
