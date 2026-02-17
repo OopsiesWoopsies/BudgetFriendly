@@ -1,6 +1,15 @@
 import { contextBridge, ipcRenderer } from 'electron';
 import { electronAPI } from '@electron-toolkit/preload';
 
+// Expose data storage functions to the renderer
+const dataStorageFunctions = {
+  setSheetId: (sheetId) =>
+    ipcRenderer.invoke('set-sheet-id', {
+      id: sheetId
+    }),
+  getSheetId: () => ipcRenderer.invoke('get-sheet-id')
+};
+
 // Expose db functions to the renderer
 const dbFunctions = {
   // Budget sheet queries
@@ -68,6 +77,7 @@ if (process.contextIsolated) {
   try {
     contextBridge.exposeInMainWorld('electron', electronAPI);
     contextBridge.exposeInMainWorld('db', dbFunctions);
+    contextBridge.exposeInMainWorld('data', dataStorageFunctions);
   } catch (error) {
     console.error(error);
   }
