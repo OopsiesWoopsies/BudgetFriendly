@@ -1,11 +1,6 @@
-// Header vars
-const title = document.querySelector('.header-title');
-let budgetSheetTitle = '';
-
 // Modal (settings) DOM vars
 const settingsButton = document.querySelector('.open-settings-button');
 const settingsModal = document.getElementById('settings');
-const newTitleInput = document.querySelector('.new-title');
 const editCategoryHeader = document.querySelector('.description.header');
 const categoriesTitle = document.getElementById('categories-header');
 const categoryToolButtons = document.querySelector('.edit-tools');
@@ -34,18 +29,6 @@ export function initSettingsListeners() {
   // Settings Header listeners
   settingsButton.addEventListener('click', () => {
     settingsModal.showModal();
-  });
-
-  // Budget Sheet Title listeners
-  newTitleInput.addEventListener('change', () => {
-    budgetSheetTitle = newTitleInput.value;
-    title.textContent = budgetSheetTitle;
-  });
-
-  newTitleInput.addEventListener('keydown', (event) => {
-    if (event.key === 'Enter') {
-      newTitleInput.blur();
-    }
   });
 }
 
@@ -220,8 +203,4 @@ export function initCategoryToolsListeners() {
   addCategory();
   editCategory();
   removeCategory();
-}
-
-export function initInitialVals() {
-  newTitleInput.value = budgetSheetTitle;
 }
