@@ -2,6 +2,8 @@ import { stagedChanges } from './settings.js';
 
 const settingsBackButton = document.querySelector('.modal-back-button');
 const settingsModal = document.getElementById('settings');
+const categoryList = document.querySelector('.categories');
+let newCategoryInput = document.getElementById('category-input');
 
 // Table vars
 let categoryDropdownList = document.querySelectorAll('.category-cell');
@@ -78,4 +80,34 @@ export function initCategorySelectionListeners() {
     settingsModal.close();
     saveCategoryChanges();
   });
+}
+
+export async function getCategories(budgetSheedId) {
+  const categories = await window.db.getCategories(budgetSheedId);
+  const fragment = document.createDocumentFragment();
+
+  for (const [, category] of Object.entries(categories)) {
+    const id = category.id;
+    const name = category.name;
+    const div = document.createElement('div');
+    const button = document.createElement('button');
+    const input = document.createElement('input');
+    div.classList.add('category-editor');
+    button.classList.add('category', 'custom-button', 'label');
+    button.dataset.id = id;
+    button.textContent = name;
+    stagedChanges.adding.set(id, name);
+    input.classList.add('new-category', 'custom-input', 'editor', 'display-none');
+    input.maxLength = '15';
+    input.placeholder = '___________';
+
+    div.appendChild(button);
+    div.appendChild(input);
+    fragment.appendChild(div);
+  }
+  saveCategoryChanges();
+
+  const newInput = categoryList.removeChild(newCategoryInput);
+  categoryList.appendChild(fragment);
+  categoryList.appendChild(newInput);
 }

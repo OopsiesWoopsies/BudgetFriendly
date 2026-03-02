@@ -18,8 +18,6 @@ export const stagedChanges = {
   editing: new Map()
 };
 
-// !GET req for budget sheet title
-
 // Updates var if it gets deleted elsewhere
 export function updateNewCategoryInput() {
   newCategoryInput = document.getElementById('category-input');
@@ -62,8 +60,6 @@ export function initCategoryToolsListeners() {
     div.appendChild(input);
     categoryList.appendChild(div);
     categoryList.appendChild(newInput);
-
-    // !POST req to db for new category
   }
 
   // Adds a new category
@@ -96,8 +92,6 @@ export function initCategoryToolsListeners() {
       }
       input.classList.add('display-none');
       button.classList.remove('display-none');
-
-      // !POST req to change category name
     }
 
     // Avoids duplicating listeners
@@ -144,8 +138,6 @@ export function initCategoryToolsListeners() {
         button = null;
         const element = event.target.closest('.category-editor');
         categoryList.removeChild(element);
-
-        // !POST req to remove category
       } else if (event.target.classList.contains('label')) {
         if (!isConfirming) {
           button = event.target;

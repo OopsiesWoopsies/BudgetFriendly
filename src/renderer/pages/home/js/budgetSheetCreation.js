@@ -43,6 +43,7 @@ export function initBudgetSheetCreationListeners() {
     if (budgetAmount.value === '' || periodDropdown === '') {
       return;
     }
+
     // Creates new sheet and POSTs to budget sheet db
     const sheetId = crypto.randomUUID();
     const today = new Date();

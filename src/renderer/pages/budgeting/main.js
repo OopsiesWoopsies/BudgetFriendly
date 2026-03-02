@@ -2,7 +2,7 @@ import '../../main.js';
 import { initTableListener } from './js/sheet.js';
 import { initCardListeners } from './js/calendar.js';
 import { initSettingsListeners, initCategoryToolsListeners } from './js/settings.js';
-import { initCategorySelectionListeners } from './js/handleCategorySelection.js';
+import { initCategorySelectionListeners, getCategories } from './js/handleCategorySelection.js';
 import { initInitialVals, initTitleInputListeners } from './js/header.js';
 
 export async function getSheetId() {
@@ -25,3 +25,4 @@ initInitialVals();
 initSettingsListeners();
 initCategoryToolsListeners();
 initCategorySelectionListeners();
+getCategories(await getSheetId());
