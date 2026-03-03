@@ -5,10 +5,6 @@ import { initSettingsListeners, initCategoryToolsListeners } from './js/settings
 import { initCategorySelectionListeners, getCategories } from './js/handleCategorySelection.js';
 import { initInitialVals, initTitleInputListeners } from './js/header.js';
 
-export async function getSheetId() {
-  return await window.data.getSheetId();
-}
-
 export async function getSheetTitle(id) {
   return (await window.db.getBudgetSheets(id)).title;
 }
@@ -25,4 +21,4 @@ initInitialVals();
 initSettingsListeners();
 initCategoryToolsListeners();
 initCategorySelectionListeners();
-getCategories(await getSheetId());
+getCategories();

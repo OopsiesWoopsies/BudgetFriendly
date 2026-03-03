@@ -1,8 +1,8 @@
-import { getSheetTitle, updateSheetTitle, getSheetId } from '../main.js';
+import { getSheetTitle, updateSheetTitle } from '../main.js';
 
 const newTitleInput = document.querySelector('.new-title');
 const title = document.querySelector('.header-title');
-const sheetId = await getSheetId();
+const sheetId = await window.data.getSheetId();
 let budgetSheetTitle = await getSheetTitle(sheetId);
 
 // Set header title to match with budget sheet title

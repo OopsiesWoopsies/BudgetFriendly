@@ -1,4 +1,3 @@
-import { getSheetId } from '../main.js';
 import { stagedChanges } from './settings.js';
 
 const settingsBackButton = document.querySelector('.modal-back-button');
@@ -6,7 +5,7 @@ const settingsModal = document.getElementById('settings');
 const categoryList = document.querySelector('.categories');
 let newCategoryInput = document.getElementById('category-input');
 
-const budgetSheetId = await getSheetId();
+const budgetSheetId = await window.data.getSheetId();
 
 // Table vars
 let categoryDropdownList = document.querySelectorAll('.category-cell');
@@ -96,8 +95,8 @@ export function initCategorySelectionListeners() {
 }
 
 // Retrieves categories from the database and adds them to dropdowns and the category settings
-export async function getCategories(budgetSheedId) {
-  const categories = await window.db.getCategories(budgetSheedId);
+export async function getCategories() {
+  const categories = await window.db.getCategories(budgetSheetId);
   const fragment = document.createDocumentFragment();
 
   for (const [, category] of Object.entries(categories)) {
