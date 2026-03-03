@@ -8,24 +8,34 @@ let newCategoryInput = document.getElementById('category-input');
 // Table vars
 let categoryDropdownList = document.querySelectorAll('.category-cell');
 export const categoryDropdownModel = new Map([]);
-// !GET req for list of categories
 
 // Updates the category dropdown list
 export function updateDropdownList() {
   categoryDropdownList = document.querySelectorAll('.category-cell');
 }
 
-// Update category map and save changes to db
+// Update category map
 function saveCategoryChanges() {
   stagedChangesCleanup();
   applyChangesToDropdowns();
 
-  // !POST request to db using stagedChanges
   stagedChanges.adding.clear();
   stagedChanges.editing.clear();
   stagedChanges.removing.clear();
 }
 
+// Update category map and save changes to db
+async function updateCategoriesDb(budgetSheetId) {
+  stagedChangesCleanup();
+  await window.db.upsertCategories(stagedChanges, budgetSheetId);
+  applyChangesToDropdowns();
+
+  stagedChanges.adding.clear();
+  stagedChanges.editing.clear();
+  stagedChanges.removing.clear();
+}
+
+// Apply changes made in settings to all visible dropdowns
 function applyChangesToDropdowns() {
   const fragment = document.createDocumentFragment();
   // eslint-disable-next-line
@@ -78,10 +88,11 @@ export function stagedChangesCleanup() {
 export function initCategorySelectionListeners() {
   settingsBackButton.addEventListener('click', () => {
     settingsModal.close();
-    saveCategoryChanges();
+    updateCategoriesDb();
   });
 }
 
+// Retrieves categories from the database and adds them to dropdowns and the category settings
 export async function getCategories(budgetSheedId) {
   const categories = await window.db.getCategories(budgetSheedId);
   const fragment = document.createDocumentFragment();
