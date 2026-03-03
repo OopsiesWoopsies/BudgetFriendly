@@ -17,11 +17,11 @@ const dbFunctions = {
     ipcRenderer.invoke('budgetSheets:get', {
       id: id
     }),
-  createNewBudgetSheet: (id, title, created_at, period) =>
+  createNewBudgetSheet: (id, title, createdAt, period) =>
     ipcRenderer.invoke('budgetSheets:create', {
       id: id,
       title: title,
-      created_at: created_at,
+      createdAt: createdAt,
       period: period
     }),
   updateBudgetSheetTitle: (id, newTitle) =>
@@ -35,30 +35,30 @@ const dbFunctions = {
     }),
 
   // Category queries
-  getCategories: (budget_sheet_id) =>
+  getCategories: (budgetSheetId) =>
     ipcRenderer.invoke('categories:get', {
-      budget_sheet_id: budget_sheet_id
+      budgetSheetId: budgetSheetId
     }),
-  upsertCategories: (stagedChanges, budget_sheet_id) =>
+  upsertCategories: (stagedChanges, budgetSheetId) =>
     ipcRenderer.invoke('categories:create', {
       stagedChanges: stagedChanges,
-      budget_sheet_id: budget_sheet_id
+      budgetSheetId: budgetSheetId
     }),
 
   // Entry queries
-  getEntries: (date, budget_sheet_id) =>
+  getEntries: (date, budgetSheetId) =>
     ipcRenderer.invoke('entries:get', {
       date: date,
-      budget_sheet_id: budget_sheet_id
+      budgetSheetId: budgetSheetId
     }),
-  createEntry: (id, name, category_id, price, date, budget_sheet_id) =>
+  createEntry: (id, name, categoryId, price, date, budgetSheetId) =>
     ipcRenderer.invoke('entries:create', {
       id: id,
       name: name,
-      category_id: category_id,
+      categoryId: categoryId,
       price: price,
       date: date,
-      budget_sheet_id: budget_sheet_id
+      budgetSheetId: budgetSheetId
     }),
   deleteEntry: (id) =>
     ipcRenderer.invoke('entries:delete', {
@@ -66,18 +66,18 @@ const dbFunctions = {
     }),
 
   // Budget amounts queries
-  getBudgetAmount: (date, budget_sheet_id) =>
+  getBudgetAmount: (date, budgetSheetId) =>
     ipcRenderer.invoke('budgetAmounts:get', {
       date: date,
-      budget_sheet_id: budget_sheet_id
+      budgetSheetId: budgetSheetId
     }),
-  createNewBudgetAmount: (newId, amount, effective_from, effective_to, budget_sheet_id) =>
+  createNewBudgetAmount: (newId, amount, effectiveFrom, effectiveTo, budgetSheetId) =>
     ipcRenderer.invoke('budgetAmounts:create', {
       newId: newId,
       amount: amount,
-      effective_from: effective_from,
-      effective_to: effective_to,
-      budget_sheet_id: budget_sheet_id
+      effectiveFrom: effectiveFrom,
+      effectiveTo: effectiveTo,
+      budgetSheetId: budgetSheetId
     })
 };
 
