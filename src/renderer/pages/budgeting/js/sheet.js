@@ -78,8 +78,6 @@ export function initTableListener() {
 // Remove row when if all cells empty (consider creating a delete button) MAKE SURE TO UPDATE THE QUERYSELECTORALL
 
 // Create a function for GET req for:
-//  all the categories and create all the buttons in the settings and in the category drop down
 //  all the names, categories, and prices to fill the table
-//  the title of the budget sheet
 
 // Create POST reqs, consider doing it all upon closing page or having a submit button (POST if crash as well)

@@ -1,9 +1,12 @@
+import { getSheetId } from '../main.js';
 import { stagedChanges } from './settings.js';
 
 const settingsBackButton = document.querySelector('.modal-back-button');
 const settingsModal = document.getElementById('settings');
 const categoryList = document.querySelector('.categories');
 let newCategoryInput = document.getElementById('category-input');
+
+const budgetSheetId = await getSheetId();
 
 // Table vars
 let categoryDropdownList = document.querySelectorAll('.category-cell');
@@ -16,7 +19,7 @@ export function updateDropdownList() {
 
 // Update category map
 function saveCategoryChanges() {
-  stagedChangesCleanup();
+  stagedChangesCleanup(stagedChanges);
   applyChangesToDropdowns();
 
   stagedChanges.adding.clear();
@@ -25,8 +28,8 @@ function saveCategoryChanges() {
 }
 
 // Update category map and save changes to db
-async function updateCategoriesDb(budgetSheetId) {
-  stagedChangesCleanup();
+async function updateCategoriesDb() {
+  stagedChangesCleanup(stagedChanges);
   await window.db.upsertCategories(stagedChanges, budgetSheetId);
   applyChangesToDropdowns();
 
@@ -67,21 +70,21 @@ function applyChangesToDropdowns() {
 }
 
 // Removes any categories added in the editing session that wanted to be removed and edits the remainder to reduce DOM manipulation
-export function stagedChangesCleanup() {
+export function stagedChangesCleanup(changes) {
   // eslint-disable-next-line
-  for (const [id, value] of stagedChanges.removing) {
-    if (stagedChanges.adding.get(id) === undefined) continue;
+  for (const [id, value] of changes.removing) {
+    if (changes.adding.get(id) === undefined) continue;
 
-    stagedChanges.adding.delete(id);
-    stagedChanges.removing.delete(id);
-    stagedChanges.editing.delete(id);
+    changes.adding.delete(id);
+    changes.removing.delete(id);
+    changes.editing.delete(id);
   }
 
-  for (const [id, value] of stagedChanges.editing) {
-    if (stagedChanges.adding.get(id) === undefined) continue;
+  for (const [id, value] of changes.editing) {
+    if (changes.adding.get(id) === undefined) continue;
 
-    stagedChanges.adding.set(id, value);
-    stagedChanges.editing.delete(id);
+    changes.adding.set(id, value);
+    changes.editing.delete(id);
   }
 }
 
