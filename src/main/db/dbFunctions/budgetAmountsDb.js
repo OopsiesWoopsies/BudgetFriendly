@@ -7,7 +7,13 @@ function getBudgetAmount(date, budgetSheetId) {
   return db
     .prepare(
       `
-      SELECT * FROM budget_amounts 
+      SELECT
+        id,
+        amount,
+        effective_from AS effectiveFrom,
+        effective_to AS effectiveTo,
+        budget_sheet_id AS budgetSheetId
+      FROM budget_amounts 
       WHERE budget_sheet_id = ? 
       AND effective_from <= ? 
       AND (effective_to IS NULL OR effective_to >= ?)
