@@ -5,7 +5,17 @@ import { enqueue } from '../dbQueue.js';
 // Db functions
 function getEntries(date, budgetSheetId) {
   return db
-    .prepare('SELECT * FROM entries WHERE date = ? AND budget_sheet_id = ?')
+    .prepare(
+      `
+      SELECT 
+        id,
+        name,
+        category_id AS categoryId,
+        price,
+        date,
+        budget_sheet_id AS budgetSheetId
+      FROM entries WHERE date = ? AND budget_sheet_id = ?`
+    )
     .all(date, budgetSheetId);
 }
 

@@ -4,7 +4,16 @@ import { enqueue } from '../dbQueue.js';
 
 // Db functions
 function getCategories(budgetSheetId) {
-  return db.prepare('SELECT * FROM category WHERE budget_sheet_id = ?').all(budgetSheetId);
+  return db
+    .prepare(
+      `
+      SELECT
+        id,
+        name,
+        budget_sheet_id AS budgetSheetId
+      FROM category WHERE budget_sheet_id = ?`
+    )
+    .all(budgetSheetId);
 }
 
 function upsertCategories(stagedChanges, budgetSheetId) {

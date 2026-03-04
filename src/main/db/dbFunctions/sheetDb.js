@@ -4,7 +4,18 @@ import { enqueue } from '../dbQueue.js';
 
 // Db functions
 function getBudgetSheets(id) {
-  if (id == null) return db.prepare('SELECT * FROM budget_sheets').all();
+  if (id == null)
+    return db
+      .prepare(
+        `
+        SELECT 
+          id,
+          title,
+          created_at AS createdAt,
+          period
+        FROM budget_sheets`
+      )
+      .all();
   return db.prepare('SELECT * FROM budget_sheets WHERE id = ?').get(id);
 }
 
