@@ -51,18 +51,11 @@ const dbFunctions = {
       date: date,
       budgetSheetId: budgetSheetId
     }),
-  createEntry: (id, name, categoryId, price, date, budgetSheetId) =>
-    ipcRenderer.invoke('entries:create', {
-      id: id,
-      name: name,
-      categoryId: categoryId,
-      price: price,
+  upsertEntries: (stagedChanges, date, budgetSheetId) =>
+    ipcRenderer.invoke('entries:upsert', {
+      stagedChanges: stagedChanges,
       date: date,
       budgetSheetId: budgetSheetId
-    }),
-  deleteEntry: (id) =>
-    ipcRenderer.invoke('entries:delete', {
-      id: id
     }),
 
   // Budget amounts queries
