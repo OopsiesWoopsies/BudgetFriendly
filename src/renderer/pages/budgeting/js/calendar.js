@@ -1,3 +1,5 @@
+import { setAllRows, upsertRows } from './sheet.js';
+
 // Card vars
 const daysDiv = document.getElementById('days');
 const calendar = document.querySelector('.calendar');
@@ -107,6 +109,7 @@ export function initCardListeners() {
     // Changes budget sheet and shows budget data for that day
     else if (!budgetSheet.classList.contains('display-none')) {
       if (id === 'left-arrow') {
+        upsertRows(`${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`);
         if (--day < 1) {
           if (--month < 0) {
             year--;
@@ -116,8 +119,11 @@ export function initCardListeners() {
           daysInMonth = new Date(year, month + 1, 0).getDate();
           day = daysInMonth;
         }
+        // !(consider caching)
+        setAllRows(`${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`);
         calendarHeaderTitle.textContent = `${monthName} ${day}, ${year}`;
       } else if (id === 'right-arrow') {
+        upsertRows(`${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`);
         if (++day > daysInMonth) {
           if (++month > 11) {
             year++;
@@ -127,6 +133,8 @@ export function initCardListeners() {
           daysInMonth = new Date(year, month + 1, 0).getDate();
           day = 1;
         }
+
+        setAllRows(`${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`);
         calendarHeaderTitle.textContent = `${monthName} ${day}, ${year}`;
       }
       // Returns to day selection for the current month and year

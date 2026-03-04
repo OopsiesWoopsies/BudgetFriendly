@@ -1,12 +1,23 @@
-import { categoryDropdownModel, updateDropdownList } from './handleCategorySelection.js';
+import {
+  categoryDropdownModel,
+  updateDropdownList,
+  stagedChangesCleanup
+} from './handleCategorySelection.js';
 
-// Table vars
 const table = document.querySelector('.table');
 const filledTable = document.querySelector('.filled-table');
 
+const budgetSheetId = await window.data.getSheetId();
+
+const stagedTableChanges = {
+  adding: new Map(),
+  editing: new Map(),
+  removing: new Map()
+};
+
 // Creates new a new row and copies the cells from the new cells
 function createRow(rowInfo) {
-  const fragment = document.createDocumentFragment();
+  const rowFragment = document.createDocumentFragment();
 
   const nameInput = document.createElement('input');
   const categoryDropdown = document.createElement('select');
@@ -24,28 +35,42 @@ function createRow(rowInfo) {
     categoryDropdown.appendChild(option);
   }
 
-  nameInput.value = rowInfo[0];
-  categoryDropdown.value = rowInfo[1];
-  priceInput.value = rowInfo[2];
+  nameInput.value = rowInfo.name;
+  if (rowInfo.categoryId === null) categoryDropdown.value = '';
+  else categoryDropdown.value = rowInfo.categoryId;
+  priceInput.value = rowInfo.price;
 
   nameInput.type = 'text';
   nameInput.classList.add('cell', 'name-cell', 'custom-input');
+  nameInput.dataset.id = rowInfo.id;
   categoryDropdown.classList.add('cell', 'category-cell');
+  categoryDropdown.dataset.id = rowInfo.id;
   priceInput.type = 'number';
   priceInput.classList.add('cell', 'price-cell', 'custom-input');
+  priceInput.dataset.id = rowInfo.id;
 
-  fragment.appendChild(nameInput);
-  fragment.appendChild(categoryDropdown);
-  fragment.appendChild(priceInput);
+  rowFragment.appendChild(nameInput);
+  rowFragment.appendChild(categoryDropdown);
+  rowFragment.appendChild(priceInput);
 
-  filledTable.appendChild(fragment);
   updateDropdownList();
+  return rowFragment;
 }
 
 export function initTableListener() {
   table.addEventListener('change', (event) => {
     const target = event.target;
+    // Make sure the row is not created if the user clicks on the same row to update
+    // another part of the row
     if (target.classList.contains('new')) {
+      const id = crypto.randomUUID();
+      const info = {
+        rowId: id,
+        name: '',
+        categoryId: '',
+        price: 0
+      };
+
       if (target.classList.contains('name-cell')) {
         const name = target.value.trim();
         if (name === '') {
@@ -53,31 +78,67 @@ export function initTableListener() {
           return;
         }
 
-        createRow([name, '', '']);
+        info.name = name;
+        filledTable.appendChild(createRow(info));
         target.value = '';
       }
       if (target.classList.contains('category-cell')) {
         if (target.value == '') return;
 
-        createRow(['', target.value, '']);
+        info.categoryId = target.value;
+        filledTable.appendChild(createRow(info));
         target.value = '';
       }
       if (target.classList.contains('price-cell')) {
         const price = target.value;
-
         if (price === '') return;
 
-        createRow(['', '', price]);
+        info.price = price;
+        filledTable.appendChild(createRow(info));
         target.value = '';
       }
+
+      let { rowId, name, categoryId, price } = info;
+      if (categoryId === '') categoryId = null;
+      stagedTableChanges.adding.set(rowId, {
+        name: name,
+        categoryId: categoryId,
+        price: price
+      });
     }
   });
 }
 
+// Gets all the entries for the current date and fills them in the table
+export async function setAllRows(date) {
+  filledTable.innerHTML = '';
+  const allRows = await window.db.getEntries(date, budgetSheetId);
+  if (allRows.length == 0) return;
+
+  const tableFragment = document.createDocumentFragment();
+
+  for (const [, info] of Object.entries(allRows)) {
+    tableFragment.appendChild(createRow(info));
+  }
+
+  filledTable.appendChild(tableFragment);
+}
+
+export async function upsertRows(date) {
+  stagedChangesCleanup(stagedTableChanges);
+
+  if (
+    stagedTableChanges.adding.size == 0 &&
+    stagedTableChanges.editing.size == 0 &&
+    stagedTableChanges.removing.size == 0
+  )
+    return;
+
+  await window.db.upsertEntries(stagedTableChanges, date, budgetSheetId);
+  stagedTableChanges.adding.clear();
+  stagedTableChanges.editing.clear();
+  stagedTableChanges.removing.clear();
+}
+
 // !TODO
 // Remove row when if all cells empty (consider creating a delete button) MAKE SURE TO UPDATE THE QUERYSELECTORALL
-
-// Create a function for GET req for:
-//  all the names, categories, and prices to fill the table
-
-// Create POST reqs, consider doing it all upon closing page or having a submit button (POST if crash as well)
