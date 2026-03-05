@@ -19,6 +19,7 @@ const stagedTableChanges = {
 function createRow(rowInfo) {
   const row = document.createElement('div');
   row.classList.add('grid', 'row');
+  row.dataset.id = rowInfo.id;
 
   const nameInput = document.createElement('input');
   const categoryDropdown = document.createElement('select');
@@ -55,55 +56,91 @@ function createRow(rowInfo) {
   return row;
 }
 
+// Listens for new entry
+function newRowListener(target) {
+  if (target.classList.contains('new')) {
+    const rowId = crypto.randomUUID();
+    const info = {
+      id: rowId,
+      name: '',
+      categoryId: '',
+      price: 0
+    };
+
+    if (target.classList.contains('name-cell')) {
+      const name = target.value.trim();
+      if (name === '') {
+        target.value = '';
+        return;
+      }
+
+      info.name = name;
+      filledTable.appendChild(createRow(info));
+      target.value = '';
+    } else if (target.classList.contains('category-cell')) {
+      if (target.value == '') return;
+
+      info.categoryId = target.value;
+      filledTable.appendChild(createRow(info));
+      target.value = '';
+    } else if (target.classList.contains('price-cell')) {
+      const price = target.value;
+      if (price === '') return;
+
+      info.price = price;
+      filledTable.appendChild(createRow(info));
+      target.value = '';
+    }
+
+    let { id, name, categoryId, price } = info;
+    if (categoryId === '') categoryId = null;
+    stagedTableChanges.adding.set(id, {
+      name: name,
+      categoryId: categoryId,
+      price: price
+    });
+  }
+}
+
+// Listens for row editing and removing
+function updateRowListener(target) {
+  if (!target.classList.contains('new')) {
+    const targetRow = target.closest('.row');
+    let name, categoryId, price;
+
+    if (target.classList.contains('name-cell')) {
+      name = target.value.trim();
+
+      categoryId = targetRow.querySelector('.category-cell').value;
+      price = targetRow.querySelector('.price-cell').value;
+    } else if (target.classList.contains('category-cell')) {
+      categoryId = target.value;
+
+      name = targetRow.querySelector('.name-cell').value;
+      price = targetRow.querySelector('.price-cell').value;
+    } else if (target.classList.contains('price-cell')) {
+      price = target.value;
+
+      name = targetRow.querySelector('.name-cell').value;
+      categoryId = targetRow.querySelector('.category-cell').value;
+    }
+
+    const id = targetRow.dataset.id;
+    if (categoryId === '') categoryId = null;
+    stagedTableChanges.editing.set(id, {
+      name: name,
+      categoryId: categoryId,
+      price: price
+    });
+  }
+}
+
 export function initTableListener() {
   table.addEventListener('change', (event) => {
     const target = event.target;
-    // Make sure the row is not created if the user clicks on the same row to update
-    // another part of the row
-    if (target.classList.contains('new')) {
-      const id = crypto.randomUUID();
-      const info = {
-        rowId: id,
-        name: '',
-        categoryId: '',
-        price: 0
-      };
 
-      if (target.classList.contains('name-cell')) {
-        const name = target.value.trim();
-        if (name === '') {
-          target.value = '';
-          return;
-        }
-
-        info.name = name;
-        filledTable.appendChild(createRow(info));
-        target.value = '';
-      }
-      if (target.classList.contains('category-cell')) {
-        if (target.value == '') return;
-
-        info.categoryId = target.value;
-        filledTable.appendChild(createRow(info));
-        target.value = '';
-      }
-      if (target.classList.contains('price-cell')) {
-        const price = target.value;
-        if (price === '') return;
-
-        info.price = price;
-        filledTable.appendChild(createRow(info));
-        target.value = '';
-      }
-
-      let { rowId, name, categoryId, price } = info;
-      if (categoryId === '') categoryId = null;
-      stagedTableChanges.adding.set(rowId, {
-        name: name,
-        categoryId: categoryId,
-        price: price
-      });
-    }
+    newRowListener(target);
+    updateRowListener(target);
   });
 }
 
@@ -122,6 +159,7 @@ export async function setAllRows(date) {
   filledTable.appendChild(tableFragment);
 }
 
+// Inserts and updates entries to the database
 export async function upsertRows(date) {
   stagedChangesCleanup(stagedTableChanges);
 

@@ -168,9 +168,10 @@ export function initCardListeners() {
       const selectedCell = event.target.closest('.day-number');
       if (!selectedCell || selectedCell.textContent === '') return;
 
-      day = Number(selectedCell.textContent);
-      setAllRows(`${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`);
+      day = selectedCell.textContent;
+      setAllRows(`${year}-${String(month + 1).padStart(2, '0')}-${day.padStart(2, '0')}`);
 
+      day = Number(day);
       daySelection.classList.add('display-none');
       budgetSheet.classList.remove('display-none');
       calendarHeaderTitle.textContent = `${monthName} ${day}, ${year}`;
