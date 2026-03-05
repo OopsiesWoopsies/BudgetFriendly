@@ -5,7 +5,7 @@ import {
 } from './handleCategorySelection.js';
 
 const table = document.querySelector('.table');
-const filledTable = document.querySelector('.filled-table');
+const filledTable = document.getElementById('filled-table');
 
 const budgetSheetId = await window.data.getSheetId();
 
@@ -17,7 +17,8 @@ const stagedTableChanges = {
 
 // Creates new a new row and copies the cells from the new cells
 function createRow(rowInfo) {
-  const rowFragment = document.createDocumentFragment();
+  const row = document.createElement('div');
+  row.classList.add('grid', 'row');
 
   const nameInput = document.createElement('input');
   const categoryDropdown = document.createElement('select');
@@ -42,19 +43,16 @@ function createRow(rowInfo) {
 
   nameInput.type = 'text';
   nameInput.classList.add('cell', 'name-cell', 'custom-input');
-  nameInput.dataset.id = rowInfo.id;
   categoryDropdown.classList.add('cell', 'category-cell');
-  categoryDropdown.dataset.id = rowInfo.id;
   priceInput.type = 'number';
   priceInput.classList.add('cell', 'price-cell', 'custom-input');
-  priceInput.dataset.id = rowInfo.id;
 
-  rowFragment.appendChild(nameInput);
-  rowFragment.appendChild(categoryDropdown);
-  rowFragment.appendChild(priceInput);
+  row.appendChild(nameInput);
+  row.appendChild(categoryDropdown);
+  row.appendChild(priceInput);
 
   updateDropdownList();
-  return rowFragment;
+  return row;
 }
 
 export function initTableListener() {
