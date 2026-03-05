@@ -6,6 +6,7 @@ import {
 
 const table = document.querySelector('.table');
 const filledTable = document.getElementById('filled-table');
+const newRow = document.querySelector('.new-row');
 
 const budgetSheetId = await window.data.getSheetId();
 
@@ -13,6 +14,13 @@ const stagedTableChanges = {
   adding: new Map(),
   editing: new Map(),
   removing: new Map()
+};
+let rowId = crypto.randomUUID();
+let newRowInfo = {
+  id: rowId,
+  name: '',
+  categoryId: '',
+  price: ''
 };
 
 // Creates new a new row and copies the cells from the new cells
@@ -59,14 +67,6 @@ function createRow(rowInfo) {
 // Listens for new entry
 function newRowListener(target) {
   if (target.classList.contains('new')) {
-    const rowId = crypto.randomUUID();
-    const info = {
-      id: rowId,
-      name: '',
-      categoryId: '',
-      price: 0
-    };
-
     if (target.classList.contains('name-cell')) {
       const name = target.value.trim();
       if (name === '') {
@@ -74,31 +74,41 @@ function newRowListener(target) {
         return;
       }
 
-      info.name = name;
-      filledTable.appendChild(createRow(info));
-      target.value = '';
+      newRowInfo.name = name;
     } else if (target.classList.contains('category-cell')) {
       if (target.value == '') return;
 
-      info.categoryId = target.value;
-      filledTable.appendChild(createRow(info));
-      target.value = '';
+      newRowInfo.categoryId = target.value;
     } else if (target.classList.contains('price-cell')) {
       const price = target.value;
       if (price === '') return;
 
-      info.price = price;
-      filledTable.appendChild(createRow(info));
-      target.value = '';
+      newRowInfo.price = price;
     }
 
-    let { id, name, categoryId, price } = info;
+    // Ensure all information is filled before data is saved
+    let { id, name, categoryId, price } = newRowInfo;
+    console.log(name, categoryId, price);
+
+    if (name === '' || categoryId === '' || price === '') return;
+    filledTable.appendChild(createRow(newRowInfo));
+
     if (categoryId === '') categoryId = null;
     stagedTableChanges.adding.set(id, {
       name: name,
       categoryId: categoryId,
       price: price
     });
+
+    // Reset new row info and new row inputs
+    newRow.querySelectorAll('.new').forEach((elem) => (elem.value = ''));
+    rowId = crypto.randomUUID();
+    newRowInfo = {
+      id: rowId,
+      name: '',
+      categoryId: '',
+      price: ''
+    };
   }
 }
 
@@ -135,6 +145,7 @@ function updateRowListener(target) {
   }
 }
 
+// Initialize table listeners
 export function initTableListener() {
   table.addEventListener('change', (event) => {
     const target = event.target;
@@ -152,8 +163,8 @@ export async function setAllRows(date) {
 
   const tableFragment = document.createDocumentFragment();
 
-  for (const [, info] of Object.entries(allRows)) {
-    tableFragment.appendChild(createRow(info));
+  for (const [, rowInfo] of Object.entries(allRows)) {
+    tableFragment.appendChild(createRow(rowInfo));
   }
 
   filledTable.appendChild(tableFragment);
