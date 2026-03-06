@@ -88,8 +88,6 @@ function newRowListener(target) {
 
     // Ensure all information is filled before data is saved
     let { id, name, categoryId, price } = newRowInfo;
-    console.log(name, categoryId, price);
-
     if (name === '' || categoryId === '' || price === '') return;
     filledTable.appendChild(createRow(newRowInfo));
 
@@ -172,12 +170,18 @@ export async function setAllRows(date) {
 
 // Inserts and updates entries to the database
 export async function upsertRows(date) {
+  if (
+    stagedTableChanges.adding.size === 0 &&
+    stagedTableChanges.editing.size === 0 &&
+    stagedTableChanges.removing.size === 0
+  )
+    return;
   stagedChangesCleanup(stagedTableChanges);
 
   if (
-    stagedTableChanges.adding.size == 0 &&
-    stagedTableChanges.editing.size == 0 &&
-    stagedTableChanges.removing.size == 0
+    stagedTableChanges.adding.size === 0 &&
+    stagedTableChanges.editing.size === 0 &&
+    stagedTableChanges.removing.size === 0
   )
     return;
 

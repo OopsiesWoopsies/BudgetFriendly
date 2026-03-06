@@ -2,6 +2,7 @@ import { getSheetTitle, updateSheetTitle } from '../main.js';
 
 const newTitleInput = document.querySelector('.new-title');
 const title = document.querySelector('.header-title');
+
 const sheetId = await window.data.getSheetId();
 let budgetSheetTitle = await getSheetTitle(sheetId);
 
