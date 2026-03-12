@@ -1,11 +1,6 @@
-// Header vars
-const title = document.querySelector('.header-title');
-let budgetSheetTitle = '';
-
 // Modal (settings) DOM vars
 const settingsButton = document.querySelector('.open-settings-button');
 const settingsModal = document.getElementById('settings');
-const newTitleInput = document.querySelector('.new-title');
 const editCategoryHeader = document.querySelector('.description.header');
 const categoriesTitle = document.getElementById('categories-header');
 const categoryToolButtons = document.querySelector('.edit-tools');
@@ -19,11 +14,9 @@ let isRemovingCategory = false;
 
 export const stagedChanges = {
   adding: new Map(),
-  removing: new Map(),
-  editing: new Map()
+  editing: new Map(),
+  removing: new Map()
 };
-
-// !GET req for budget sheet title
 
 // Updates var if it gets deleted elsewhere
 export function updateNewCategoryInput() {
@@ -34,18 +27,6 @@ export function initSettingsListeners() {
   // Settings Header listeners
   settingsButton.addEventListener('click', () => {
     settingsModal.showModal();
-  });
-
-  // Budget Sheet Title listeners
-  newTitleInput.addEventListener('change', () => {
-    budgetSheetTitle = newTitleInput.value;
-    title.textContent = budgetSheetTitle;
-  });
-
-  newTitleInput.addEventListener('keydown', (event) => {
-    if (event.key === 'Enter') {
-      newTitleInput.blur();
-    }
   });
 }
 
@@ -79,8 +60,6 @@ export function initCategoryToolsListeners() {
     div.appendChild(input);
     categoryList.appendChild(div);
     categoryList.appendChild(newInput);
-
-    // !POST req to db for new category
   }
 
   // Adds a new category
@@ -113,8 +92,6 @@ export function initCategoryToolsListeners() {
       }
       input.classList.add('display-none');
       button.classList.remove('display-none');
-
-      // !POST req to change category name
     }
 
     // Avoids duplicating listeners
@@ -161,8 +138,6 @@ export function initCategoryToolsListeners() {
         button = null;
         const element = event.target.closest('.category-editor');
         categoryList.removeChild(element);
-
-        // !POST req to remove category
       } else if (event.target.classList.contains('label')) {
         if (!isConfirming) {
           button = event.target;
@@ -220,8 +195,4 @@ export function initCategoryToolsListeners() {
   addCategory();
   editCategory();
   removeCategory();
-}
-
-export function initInitialVals() {
-  newTitleInput.value = budgetSheetTitle;
 }

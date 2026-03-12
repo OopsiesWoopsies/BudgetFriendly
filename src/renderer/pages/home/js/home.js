@@ -32,7 +32,7 @@ export async function setupSheets() {
     // Create date creation
     const dateCreation = document.createElement('p');
     dateCreation.classList.add('date-created');
-    dateCreation.textContent = `Date Created: ${sheet.created_at}`;
+    dateCreation.textContent = `Date Created: ${sheet.createdAt}`;
     anchor.appendChild(dateCreation);
 
     fragment.appendChild(anchor);

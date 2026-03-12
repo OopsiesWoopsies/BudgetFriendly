@@ -14,10 +14,10 @@
   </head>
   <body class="margin-zero">
     <header class="header flex position-fixed align-items-center justify-content-center">
-      <a class="back-button position-fixed no-select" href="../home/home.html" draggable="false"
-        >X</a
+      <button id="exit" class="back-button position-fixed no-select" href="../home/home.html" draggable="false"
+        >X</button
       >
-      <button class="header-title no-select custom-button open-settings-button">Title of Budget Sheet</button>
+      <button class="header-title no-select custom-button open-settings-button">Title</button>
     </header>
 
     <dialog id="settings" class="modal padding-zero">
@@ -112,7 +112,7 @@
           </div>
 
           <div class="table">
-            <div class="filled-table grid"></div>
+            <div id="filled-table"></div>
 
             <div class="new-row grid">
               <input

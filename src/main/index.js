@@ -1,4 +1,4 @@
-import { app, shell, BrowserWindow, ipcMain } from 'electron';
+import { app, shell, BrowserWindow, ipcMain, Menu } from 'electron';
 import { join } from 'path';
 import { electronApp, optimizer } from '@electron-toolkit/utils';
 import icon from '../../resources/icon.png?asset';
@@ -23,6 +23,7 @@ function createWindow() {
     }
   });
 
+  // Full screen
   mainWindow.maximize();
 
   mainWindow.on('ready-to-show', () => {
@@ -36,6 +37,44 @@ function createWindow() {
 
   // Welcome page of BudgetFriendly
   mainWindow.loadFile(join(__dirname, '../../src/renderer/pages/welcome/welcome.html'));
+
+  // Right click menu
+  ipcMain.on('context-menu', (event, type, id) => {
+    const template = [
+      { role: 'copy' },
+      { role: 'paste' },
+      { type: 'separator' },
+      { role: 'undo' },
+      { role: 'redo' }
+    ];
+
+    // Reveal new options specific to significant elements
+    if (type === 'entry') {
+      template.push({ type: 'separator' });
+      template.push({
+        label: 'delete row',
+        click: (_, browserWindow) => {
+          browserWindow.webContents.send('delete-row', id);
+        }
+      });
+    }
+
+    if (type === 'sheet') {
+      template.push({ type: 'separator' });
+      template.push({
+        label: 'delete budget sheet',
+        click: (_, browserWindow) => {
+          browserWindow.webContents.send('delete-sheet', id);
+        }
+      });
+    }
+
+    const menu = Menu.buildFromTemplate(template);
+
+    menu.popup({
+      window: BrowserWindow.fromWebContents(event.sender)
+    });
+  });
 }
 
 // Some APIs can only be used after this event occurs.

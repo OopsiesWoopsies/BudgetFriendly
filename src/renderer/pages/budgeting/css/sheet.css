@@ -27,7 +27,7 @@
   border-top: none;
 }
 
-.filled-table {
+.row {
   grid-template-columns: 4fr 1.5fr 1fr;
 }
 

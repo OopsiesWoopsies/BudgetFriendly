@@ -43,6 +43,7 @@ export function initBudgetSheetCreationListeners() {
     if (budgetAmount.value === '' || periodDropdown === '') {
       return;
     }
+
     // Creates new sheet and POSTs to budget sheet db
     const sheetId = crypto.randomUUID();
     const today = new Date();
@@ -87,7 +88,7 @@ export function initBudgetSheetCreationListeners() {
     await window.db.createNewBudgetAmount(budgetId, budget, effectiveFrom, null, sheetId);
 
     // Cleans up category list changes and POSTs to categories db
-    stagedChangesCleanup();
+    stagedChangesCleanup(stagedChanges);
     await window.db.upsertCategories(stagedChanges, sheetId);
 
     // Setup sheet id to retrieve upon page traversal

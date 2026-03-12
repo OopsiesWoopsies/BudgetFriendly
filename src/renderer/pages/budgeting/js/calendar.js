@@ -1,3 +1,5 @@
+import { setAllRows, upsertRows } from './sheet.js';
+
 // Card vars
 const daysDiv = document.getElementById('days');
 const calendar = document.querySelector('.calendar');
@@ -7,6 +9,7 @@ const monthSelection = document.querySelector('.month-selection');
 const daySelection = document.querySelector('.day-selection');
 const cardHeader = document.querySelector('.card-header');
 const budgetSheet = document.querySelector('.budget-sheet');
+const exitButton = document.getElementById('exit');
 
 // Calendar vars
 let date = new Date();
@@ -107,6 +110,7 @@ export function initCardListeners() {
     // Changes budget sheet and shows budget data for that day
     else if (!budgetSheet.classList.contains('display-none')) {
       if (id === 'left-arrow') {
+        upsertRows(`${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`);
         if (--day < 1) {
           if (--month < 0) {
             year--;
@@ -116,8 +120,11 @@ export function initCardListeners() {
           daysInMonth = new Date(year, month + 1, 0).getDate();
           day = daysInMonth;
         }
+        // !(consider caching)
+        setAllRows(`${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`);
         calendarHeaderTitle.textContent = `${monthName} ${day}, ${year}`;
       } else if (id === 'right-arrow') {
+        upsertRows(`${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`);
         if (++day > daysInMonth) {
           if (++month > 11) {
             year++;
@@ -127,10 +134,13 @@ export function initCardListeners() {
           daysInMonth = new Date(year, month + 1, 0).getDate();
           day = 1;
         }
+
+        setAllRows(`${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`);
         calendarHeaderTitle.textContent = `${monthName} ${day}, ${year}`;
       }
       // Returns to day selection for the current month and year
       else if (event.target.classList.contains('title')) {
+        upsertRows(`${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`);
         budgetSheet.classList.add('display-none');
         daySelection.classList.remove('display-none');
         calendarHeaderTitle.textContent = `${monthName}, ${year}`;
@@ -160,10 +170,20 @@ export function initCardListeners() {
       const selectedCell = event.target.closest('.day-number');
       if (!selectedCell || selectedCell.textContent === '') return;
 
+      day = selectedCell.textContent;
+      setAllRows(`${year}-${String(month + 1).padStart(2, '0')}-${day.padStart(2, '0')}`);
+
+      day = Number(day);
       daySelection.classList.add('display-none');
       budgetSheet.classList.remove('display-none');
-      day = Number(selectedCell.textContent);
       calendarHeaderTitle.textContent = `${monthName} ${day}, ${year}`;
     }
+  });
+}
+
+export function initExitListener() {
+  exitButton.addEventListener('click', () => {
+    upsertRows(`${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`);
+    window.location.href = '../home/home.html';
   });
 }
