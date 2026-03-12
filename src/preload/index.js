@@ -1,6 +1,7 @@
 import { contextBridge, ipcRenderer } from 'electron';
 import { electronAPI } from '@electron-toolkit/preload';
 
+// Sets up right-click functions to expose to the renderer
 const rightClick = {
   sendContextMenu: (type, id) => ipcRenderer.send('context-menu', type, id),
   deleteRow: (callback) => ipcRenderer.on('delete-row', callback),
