@@ -28,14 +28,15 @@ function initRightClick() {
 // Listens for commands from the IPC related to right-click options
 function initRightClickCommands() {
   window.rightClick.deleteRow((_, id) => {
+    const row = document.querySelector(`[data-id="${id}"]`);
     stagedTableChanges.removing.set(id, '');
+    row.remove();
   });
 
   window.rightClick.deleteSheet((_, id) => {
     const sheet = document.querySelector(`[data-id="${id}"]`);
     window.db.deleteBudgetSheet(id);
     sheet.remove();
-    
   });
 }
 
