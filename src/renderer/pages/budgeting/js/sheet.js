@@ -3,6 +3,7 @@ import {
   updateDropdownList,
   stagedChangesCleanup
 } from './handleCategorySelection.js';
+import { stagedTableChanges } from '../../../main.js';
 
 const table = document.querySelector('.table');
 const filledTable = document.getElementById('filled-table');
@@ -10,11 +11,6 @@ const newRow = document.querySelector('.new-row');
 
 const budgetSheetId = await window.data.getSheetId();
 
-const stagedTableChanges = {
-  adding: new Map(),
-  editing: new Map(),
-  removing: new Map()
-};
 let rowId = crypto.randomUUID();
 let newRowInfo = {
   id: rowId,

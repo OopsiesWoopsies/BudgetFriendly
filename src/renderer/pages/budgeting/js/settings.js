@@ -14,8 +14,8 @@ let isRemovingCategory = false;
 
 export const stagedChanges = {
   adding: new Map(),
-  removing: new Map(),
-  editing: new Map()
+  editing: new Map(),
+  removing: new Map()
 };
 
 // Updates var if it gets deleted elsewhere

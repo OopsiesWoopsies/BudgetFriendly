@@ -1,6 +1,12 @@
 import { contextBridge, ipcRenderer } from 'electron';
 import { electronAPI } from '@electron-toolkit/preload';
 
+const rightClick = {
+  sendContextMenu: (type, id) => ipcRenderer.send('context-menu', type, id),
+  deleteRow: (callback) => ipcRenderer.on('delete-row', callback),
+  deleteSheet: (callback) => ipcRenderer.on('delete-sheet', callback)
+};
+
 // Sets up data storage functions to expose to the renderer
 const dataStorageFunctions = {
   setSheetId: (sheetId) =>
@@ -78,6 +84,7 @@ if (process.contextIsolated) {
   // Exposes functions to renderer
   try {
     contextBridge.exposeInMainWorld('electron', electronAPI);
+    contextBridge.exposeInMainWorld('rightClick', rightClick);
     contextBridge.exposeInMainWorld('db', dbFunctions);
     contextBridge.exposeInMainWorld('data', dataStorageFunctions);
   } catch (error) {
