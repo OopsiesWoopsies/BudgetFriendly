@@ -4,6 +4,7 @@ import { initCardListeners, initExitListener } from './js/calendar.js';
 import { initSettingsListeners, initCategoryToolsListeners } from './js/settings.js';
 import { initCategorySelectionListeners, getCategories } from './js/handleCategorySelection.js';
 import { initInitialVals, initTitleInputListeners } from './js/header.js';
+import { initPieChart } from './js/summary.js';
 
 export async function getSheetTitle(id) {
   return (await window.db.getBudgetSheets(id)).title;
@@ -23,3 +24,4 @@ initSettingsListeners();
 initCategoryToolsListeners();
 initCategorySelectionListeners();
 getCategories();
+initPieChart();
