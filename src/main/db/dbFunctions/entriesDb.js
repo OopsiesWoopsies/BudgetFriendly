@@ -54,7 +54,7 @@ function sumEntries(startDate, endDate, budgetSheetId) {
     )
     .get(budgetSheetId, startDate, endDate);
 
-  return row || 0;
+  return row.grandTotal ?? 0;
 }
 
 // Registers db functions for renderer use
