@@ -9,7 +9,7 @@ function getBudgetAmount(date, budgetSheetId) {
       `
       SELECT
         id,
-        amount,
+        amount / 100.0 AS amount,
         effective_from AS effectiveFrom,
         effective_to AS effectiveTo,
         budget_sheet_id AS budgetSheetId
@@ -24,11 +24,12 @@ function getBudgetAmount(date, budgetSheetId) {
 }
 
 function upsertFutureBudgetAmount(newId, amount, effectiveFrom, effectiveTo, budgetSheetId) {
+  amount *= 100;
   // Ensures no concurrent budgeting amount "period" exists
   const transaction = db.transaction(() => {
     const currDate = new Date().toISOString().slice(0, 10);
     const current = getBudgetAmount(currDate, budgetSheetId);
-    const existingFuture = db
+    const existingBudgetSheet = db
       .prepare(
         `
         SELECT * FROM budget_amounts 
@@ -38,14 +39,14 @@ function upsertFutureBudgetAmount(newId, amount, effectiveFrom, effectiveTo, bud
       )
       .get(budgetSheetId, effectiveFrom);
     // Checks if current budget matches future budget and removes redundancy from table by continuing the current period
-    if (current && existingFuture) {
+    if (current && existingBudgetSheet) {
       if (amount !== current.amount) {
         db.prepare('UPDATE budget_amounts SET amount = ? WHERE id = ?').run(
           amount,
-          existingFuture.id
+          existingBudgetSheet.id
         );
       } else {
-        db.prepare('DELETE FROM budget_amounts WHERE id = ?').run(existingFuture.id);
+        db.prepare('DELETE FROM budget_amounts WHERE id = ?').run(existingBudgetSheet.id);
         db.prepare('UPDATE budget_amounts SET effective_to = NULL WHERE id = ?').run(current.id);
       }
       return;
