@@ -59,7 +59,7 @@ export function initBudgetSheetCreationListeners() {
 
     // Sets up the budgeting period and POSTs to budget amount db
     const budgetId = crypto.randomUUID();
-    const budget = parseInt(budgetAmount.value * 100);
+    const budget = budgetAmount.value;
     let effectiveFrom;
     switch (periodDropdown.value) {
       case 'daily':

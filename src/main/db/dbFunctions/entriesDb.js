@@ -56,7 +56,7 @@ function sumEntries(startDate, endDate, budgetSheetId) {
 
   if (row.grandTotal === null) return 0;
 
-  return row.grandTotal / 100;
+  return row.grandTotal / 100.0;
 }
 
 // Registers db functions for renderer use
