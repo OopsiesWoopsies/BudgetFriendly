@@ -37,7 +37,7 @@ function upsertEntries(stagedChanges, date, budgetSheetId) {
       updateStatement.run(info.name, info.categoryId, info.cost, id);
     }
     for (const [id, info] of stagedChanges.adding) {
-      addStatement.run(id, info.name, info.categoryId, info.cost * 100, date, budgetSheetId);
+      addStatement.run(id, info.name, info.categoryId, info.price, date, budgetSheetId);
     }
   });
 
