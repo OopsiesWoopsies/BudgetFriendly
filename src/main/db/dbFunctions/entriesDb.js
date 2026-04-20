@@ -37,7 +37,8 @@ function upsertEntries(stagedChanges, date, budgetSheetId) {
       updateStatement.run(info.name, info.categoryId, info.cost, id);
     }
     for (const [id, info] of stagedChanges.adding) {
-      addStatement.run(id, info.name, info.categoryId, info.cost, date, budgetSheetId);
+      addStatement.run(id, info.name, info.categoryId, info.cost * 100, date, budgetSheetId);
+      console.log(info.price * 100);
     }
   });
 
@@ -54,7 +55,9 @@ function sumEntries(startDate, endDate, budgetSheetId) {
     )
     .get(budgetSheetId, startDate, endDate);
 
-  return row.grandTotal ?? 0;
+  if (row.grandTotal === null) return 0;
+
+  return row.grandTotal / 100;
 }
 
 // Registers db functions for renderer use
