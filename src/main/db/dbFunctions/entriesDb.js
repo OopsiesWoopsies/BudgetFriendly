@@ -11,7 +11,7 @@ function getEntries(date, budgetSheetId) {
         id,
         name,
         category_id AS categoryId,
-        cost,
+        cost / 100.0 AS cost,
         date,
         budget_sheet_id AS budgetSheetId
       FROM entries WHERE date = ? AND budget_sheet_id = ?`
@@ -38,7 +38,6 @@ function upsertEntries(stagedChanges, date, budgetSheetId) {
     }
     for (const [id, info] of stagedChanges.adding) {
       addStatement.run(id, info.name, info.categoryId, info.cost * 100, date, budgetSheetId);
-      console.log(info.price * 100);
     }
   });
 
