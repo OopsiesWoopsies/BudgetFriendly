@@ -1,6 +1,6 @@
 import '../../main.js';
 import { initTableListener } from './js/sheet.js';
-import { initCardListeners, initExitListener } from './js/calendar.js';
+import { initCardListeners, initExitListener, getYearSummation } from './js/calendar.js';
 import { initSettingsListeners, initCategoryToolsListeners } from './js/settings.js';
 import { initCategorySelectionListeners, getCategories } from './js/handleCategorySelection.js';
 import { initInitialVals, initTitleInputListeners } from './js/header.js';
@@ -25,3 +25,6 @@ initCategoryToolsListeners();
 initCategorySelectionListeners();
 getCategories();
 initPieChart();
+
+const year = new Date().getFullYear();
+getYearSummation(year);

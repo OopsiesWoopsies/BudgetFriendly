@@ -34,10 +34,10 @@ function upsertEntries(stagedChanges, date, budgetSheetId) {
       deleteStatement.run(id);
     }
     for (const [id, info] of stagedChanges.editing) {
-      updateStatement.run(info.name, info.categoryId, info.cost, id);
+      updateStatement.run(info.name, info.categoryId, info.cost * 100, id);
     }
     for (const [id, info] of stagedChanges.adding) {
-      addStatement.run(id, info.name, info.categoryId, info.price, date, budgetSheetId);
+      addStatement.run(id, info.name, info.categoryId, info.cost * 100, date, budgetSheetId);
     }
   });
 

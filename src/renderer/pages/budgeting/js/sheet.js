@@ -181,6 +181,3 @@ export async function upsertRows(date) {
   stagedTableChanges.editing.clear();
   stagedTableChanges.removing.clear();
 }
-
-// !TODO
-// Remove row when if all cells empty (consider creating a delete button) MAKE SURE TO UPDATE THE QUERYSELECTORALL

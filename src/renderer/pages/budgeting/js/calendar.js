@@ -1,4 +1,7 @@
 import { setAllRows, upsertRows } from './sheet.js';
+import { getSummation } from './summary.js';
+
+const budgetSheetId = await window.data.getSheetId();
 
 // Card vars
 const daysDiv = document.getElementById('days');
@@ -20,6 +23,28 @@ let day = 0;
 let daysInMonth = new Date(year, month + 1, 0).getDate();
 
 calendarHeaderTitle.textContent = year;
+
+// Sets up the summation for the day, month, and year
+function getDaySummation(year, month, day) {
+  const monthStr = String(month + 1).padStart(2, '0');
+  const dayStr = String(day).padStart(2, '0');
+  getSummation(
+    'Day',
+    `${year}-${monthStr}-${dayStr}`,
+    `${year}-${monthStr}-${dayStr}`,
+    budgetSheetId
+  );
+}
+
+function getMonthSummation(year, month) {
+  const monthStr = String(month + 1).padStart(2, '0');
+  const lastDay = new Date(year, month + 1, 0).getDate();
+  getSummation('Month', `${year}-${monthStr}-01`, `${year}-${monthStr}-${lastDay}`, budgetSheetId);
+}
+
+export function getYearSummation(year) {
+  getSummation('Year', `${year}-01-01`, `${year}-12-31`, budgetSheetId);
+}
 
 // Creates calendar and creates an array containing relevant information
 function createCalendar() {
@@ -73,9 +98,11 @@ export function initCardListeners() {
       if (id === 'left-arrow') {
         year--;
         calendarHeaderTitle.textContent = year;
+        getYearSummation(year);
       } else if (id === 'right-arrow') {
         year++;
         calendarHeaderTitle.textContent = year;
+        getYearSummation(year);
       }
     }
     // Change months and creates day calendar
@@ -89,6 +116,7 @@ export function initCardListeners() {
         calendarHeaderTitle.textContent = `${monthName}, ${year}`;
         calendarBody.innerHTML = '';
         daysInMonth = createCalendar();
+        getMonthSummation(year, month);
       } else if (id === 'right-arrow') {
         if (++month > 11) {
           month = 0;
@@ -98,6 +126,7 @@ export function initCardListeners() {
         calendarHeaderTitle.textContent = `${monthName}, ${year}`;
         calendarBody.innerHTML = '';
         daysInMonth = createCalendar();
+        getMonthSummation(year, month);
       }
       // Returns to month selection for the current year
       else if (event.target.classList.contains('title')) {
@@ -105,6 +134,7 @@ export function initCardListeners() {
         daySelection.classList.add('display-none');
         calendarBody.innerHTML = '';
         calendarHeaderTitle.textContent = year;
+        getYearSummation(year);
       }
     }
     // Changes budget sheet and shows budget data for that day
@@ -123,6 +153,7 @@ export function initCardListeners() {
         // !(consider caching)
         setAllRows(`${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`);
         calendarHeaderTitle.textContent = `${monthName} ${day}, ${year}`;
+        getDaySummation(year, month, day);
       } else if (id === 'right-arrow') {
         upsertRows(`${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`);
         if (++day > daysInMonth) {
@@ -137,6 +168,7 @@ export function initCardListeners() {
 
         setAllRows(`${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`);
         calendarHeaderTitle.textContent = `${monthName} ${day}, ${year}`;
+        getDaySummation(year, month, day);
       }
       // Returns to day selection for the current month and year
       else if (event.target.classList.contains('title')) {
@@ -146,6 +178,7 @@ export function initCardListeners() {
         calendarHeaderTitle.textContent = `${monthName}, ${year}`;
         calendarBody.innerHTML = '';
         createCalendar();
+        getMonthSummation(year, month);
       }
     }
   });
@@ -160,6 +193,7 @@ export function initCardListeners() {
       month = Number(selectedCell.id);
       date = new Date(year, month, 1);
       createCalendar();
+      getMonthSummation(year, month);
       monthSelection.classList.add('display-none');
       daySelection.classList.remove('display-none');
       monthName = selectedCell.textContent;
@@ -172,6 +206,7 @@ export function initCardListeners() {
 
       day = selectedCell.textContent;
       setAllRows(`${year}-${String(month + 1).padStart(2, '0')}-${day.padStart(2, '0')}`);
+      getDaySummation(year, month, day);
 
       day = Number(day);
       daySelection.classList.add('display-none');
@@ -187,3 +222,5 @@ export function initExitListener() {
     window.location.href = '../home/home.html';
   });
 }
+// TODO
+// Add summation to year upon opening budget

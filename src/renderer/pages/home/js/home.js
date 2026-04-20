@@ -26,7 +26,7 @@ export async function setupSheets() {
     const budgetAmount = await window.db.getBudgetAmount(today, sheet.id);
     const budgetPeriod = document.createElement('p');
     budgetPeriod.classList.add('budget-period');
-    budgetPeriod.textContent = `$${budgetAmount.amount / 100} ${sheet.period}`;
+    budgetPeriod.textContent = `$${budgetAmount.amount} ${sheet.period}`;
     anchor.appendChild(budgetPeriod);
 
     // Create date creation
