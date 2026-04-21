@@ -26,6 +26,10 @@ export function initBudgetSheetCreationListeners() {
     }
   });
 
+  budgetAmount.addEventListener('blur', () => {
+    budgetAmount.value = Math.round(parseFloat(budgetAmount.value) * 100) / 100;
+  });
+
   // Check for budget sheet creation
   submitButton.addEventListener('click', async () => {
     if (budgetAmount.value === '') {
@@ -34,6 +38,7 @@ export function initBudgetSheetCreationListeners() {
     } else {
       budgetAmount.classList.remove('invalid');
       budgetAmount.placeholder = '1234.56';
+      budgetAmount.value = Math.round(parseFloat(budgetAmount.value) * 100) / 100;
     }
     if (periodDropdown.value === '') {
       periodDropdown.classList.add('invalid');

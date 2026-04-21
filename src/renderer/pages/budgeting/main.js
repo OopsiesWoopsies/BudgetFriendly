@@ -1,5 +1,5 @@
 import '../../main.js';
-import { initTableListener } from './js/sheet.js';
+import { initTableListeners } from './js/sheet.js';
 import { initCardListeners, initExitListener, getYearSummation } from './js/calendar.js';
 import { initSettingsListeners, initCategoryToolsListeners } from './js/settings.js';
 import { initCategorySelectionListeners, getCategories } from './js/handleCategorySelection.js';
@@ -17,7 +17,7 @@ export async function updateSheetTitle(id, newTitle) {
 // Initialize listeners and initial vars
 initCardListeners();
 initExitListener();
-initTableListener();
+initTableListeners();
 initTitleInputListeners();
 initInitialVals();
 initSettingsListeners();

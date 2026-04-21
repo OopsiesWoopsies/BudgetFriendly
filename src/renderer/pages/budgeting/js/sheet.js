@@ -135,9 +135,12 @@ function updateRowListener(target) {
 }
 
 // Initialize table listeners
-export function initTableListener() {
+export function initTableListeners() {
   table.addEventListener('change', (event) => {
     const target = event.target;
+    if (target.classList.contains('cost-cell')) {
+      target.value = Math.round(parseFloat(target.value) * 100) / 100;
+    }
 
     newRowListener(target);
     updateRowListener(target);
