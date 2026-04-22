@@ -24,6 +24,7 @@ function getCategoriesSum(startDate, endDate, budgetSheetId) {
       c.id AS categoryId,
       c.name,
       COALESCE(SUM(e.cost) / 100.0, 0) AS totalCategoryCost,
+      COALESCE(SUM(SUM(e.cost)) OVER() / 100.0, 0) AS grandTotal,
       c.budget_sheet_id AS budgetSheetId
     FROM category AS c 
     LEFT JOIN entries AS e ON c.id = e.category_id AND e.date >= ? AND e.date <= ?
