@@ -29,6 +29,7 @@ function getCategoriesSum(startDate, endDate, budgetSheetId) {
     LEFT JOIN entries AS e ON c.id = e.category_id AND e.date >= ? AND e.date <= ?
     WHERE c.budget_sheet_id = ?
     GROUP BY c.id, c.name, c.budget_sheet_id
+    ORDER BY totalCategoryCost DESC
     `
     )
     .all(startDate, endDate, budgetSheetId);
