@@ -24,7 +24,7 @@ initSettingsListeners();
 initCategoryToolsListeners();
 initCategorySelectionListeners();
 getCategories();
-makePieChart();
+makePieChart('2026-01-01', '2026-12-31');
 
 const year = new Date().getFullYear();
 getYearSummation(year);

@@ -6,9 +6,12 @@ const legend = document.querySelector('.pie-chart');
 
 const budgetSheetId = await window.data.getSheetId();
 
-export async function makePieChart() {
+export async function makePieChart(startDate, endDate) {
+  pie.style.background = 'black';
+  const categoriesSum = await window.db.getCategoriesSum(startDate, endDate, budgetSheetId);
+  if (categoriesSum[0].grandTotal === 0) return;
+
   const colors = ['red', 'orange', 'yellow', 'green', 'blue', 'purple'];
-  const categoriesSum = await window.db.getCategoriesSum('2026-01-01', '2026-12-31', budgetSheetId);
   const colourNum = colors.length;
   let startPercentage = 0;
 
@@ -61,5 +64,5 @@ export async function getSummation(lastKnownDate, startDate, endDate, budgetShee
       totalBudget.classList.remove('display-none');
   }
 
-  // Make legend and pie chart work
+  makePieChart(startDate, endDate);
 }
