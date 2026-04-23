@@ -4,17 +4,20 @@ const totalBudget = document.querySelector('.total-budget');
 const pie = document.querySelector('.pie-chart');
 const legend = document.querySelector('.pie-chart');
 
-export function initPieChart() {
-  const data = [10, 20, 70];
-  let start = 0;
+const budgetSheetId = await window.data.getSheetId();
 
-  const colors = ['red', 'blue', 'green']; // Add a list of categories
+export async function makePieChart() {
+  const colors = ['red', 'orange', 'yellow', 'green', 'blue', 'purple'];
+  const categoriesSum = await window.db.getCategoriesSum('2026-01-01', '2026-12-31', budgetSheetId);
+  const colourNum = colors.length;
+  let startPercentage = 0;
 
-  let gradient = data
+  let gradient = categoriesSum
     .map((val, i) => {
-      let end = start + val;
-      let g = `${colors[i]} ${start}% ${end}%`;
-      start = end;
+      let relativePercentage = Math.round((val.totalCategoryCost / val.grandTotal) * 100000);
+      let totalPercentage = startPercentage + relativePercentage;
+      let g = `${colors[i % colourNum]} ${startPercentage / 1000}% ${totalPercentage / 1000}%`;
+      startPercentage = totalPercentage;
       return g;
     })
     .join(',');
