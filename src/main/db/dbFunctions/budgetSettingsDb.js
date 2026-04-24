@@ -16,6 +16,26 @@ function getCategories(budgetSheetId) {
     .all(budgetSheetId);
 }
 
+function getCategoriesSum(startDate, endDate, budgetSheetId) {
+  return db
+    .prepare(
+      `
+    SELECT
+      c.id AS categoryId,
+      c.name,
+      COALESCE(SUM(e.cost) / 100.0, 0) AS totalCategoryCost,
+      COALESCE(SUM(SUM(e.cost)) OVER() / 100.0, 0) AS grandTotal,
+      c.budget_sheet_id AS budgetSheetId
+    FROM category AS c 
+    LEFT JOIN entries AS e ON c.id = e.category_id AND e.date >= ? AND e.date <= ?
+    WHERE c.budget_sheet_id = ?
+    GROUP BY c.id, c.name, c.budget_sheet_id
+    ORDER BY totalCategoryCost DESC
+    `
+    )
+    .all(startDate, endDate, budgetSheetId);
+}
+
 function upsertCategories(stagedChanges, budgetSheetId) {
   const transaction = db.transaction(() => {
     const deleteStatement = db.prepare('DELETE FROM category WHERE id = ?');
@@ -42,6 +62,10 @@ function upsertCategories(stagedChanges, budgetSheetId) {
 export function registerBudgetSettingsIpc() {
   ipcMain.handle('categories:get', (_event, { budgetSheetId }) => {
     return enqueue(() => getCategories(budgetSheetId));
+  });
+
+  ipcMain.handle('categories:sum', (_event, { startDate, endDate, budgetSheetId }) => {
+    return enqueue(() => getCategoriesSum(startDate, endDate, budgetSheetId));
   });
 
   ipcMain.handle('categories:create', (_event, { stagedChanges, budgetSheetId }) => {

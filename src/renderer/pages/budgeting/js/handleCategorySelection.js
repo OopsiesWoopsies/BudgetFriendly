@@ -8,13 +8,7 @@ let newCategoryInput = document.getElementById('category-input');
 const budgetSheetId = await window.data.getSheetId();
 
 // Table vars
-let categoryDropdownList = document.querySelectorAll('.category-cell');
 export const categoryDropdownModel = new Map([]);
-
-// Updates the category dropdown list
-export function updateDropdownList() {
-  categoryDropdownList = document.querySelectorAll('.category-cell');
-}
 
 // Update category map
 function saveCategoryChanges() {
@@ -40,6 +34,7 @@ async function updateCategoriesDb() {
 // Apply changes made in settings to all visible dropdowns
 function applyChangesToDropdowns() {
   const fragment = document.createDocumentFragment();
+  const categoryDropdownList = document.querySelectorAll('.category-cell');
   // eslint-disable-next-line
   for (const [id, value] of stagedChanges.removing) {
     categoryDropdownList.forEach((categoryDropdown) => {

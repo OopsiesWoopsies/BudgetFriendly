@@ -36,12 +36,12 @@ db.prepare(
         id TEXT PRIMARY KEY,
         name TEXT,
         category_id TEXT,
-        price INTEGER,
+        cost INTEGER,
         date TEXT NOT NULL,
         budget_sheet_id TEXT NOT NULL,
         FOREIGN KEY (category_id) REFERENCES category(id) ON DELETE SET NULL,
         FOREIGN KEY (budget_sheet_id) REFERENCES budget_sheets(id) ON DELETE CASCADE,
-        CHECK (price >= 0)
+        CHECK (cost >= 0)
     );
 `
 ).run();

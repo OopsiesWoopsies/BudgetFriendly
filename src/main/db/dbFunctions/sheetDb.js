@@ -16,7 +16,18 @@ function getBudgetSheets(id) {
         FROM budget_sheets`
       )
       .all();
-  return db.prepare('SELECT * FROM budget_sheets WHERE id = ?').get(id);
+  return db
+    .prepare(
+      `
+        SELECT 
+          id,
+          title,
+          created_at AS createdAt,
+          period
+        FROM budget_sheets
+        WHERE id = ?`
+    )
+    .get(id);
 }
 
 function insertNewBudgetSheet(id, title, createdAt, period) {

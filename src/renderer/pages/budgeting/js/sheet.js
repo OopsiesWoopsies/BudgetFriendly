@@ -1,8 +1,4 @@
-import {
-  categoryDropdownModel,
-  updateDropdownList,
-  stagedChangesCleanup
-} from './handleCategorySelection.js';
+import { categoryDropdownModel, stagedChangesCleanup } from './handleCategorySelection.js';
 import { stagedTableChanges } from '../../../main.js';
 
 const table = document.querySelector('.table');
@@ -16,7 +12,7 @@ let newRowInfo = {
   id: rowId,
   name: '',
   categoryId: '',
-  price: ''
+  cost: ''
 };
 
 // Creates new a new row and copies the cells from the new cells
@@ -27,7 +23,7 @@ function createRow(rowInfo) {
 
   const nameInput = document.createElement('input');
   const categoryDropdown = document.createElement('select');
-  const priceInput = document.createElement('input');
+  const costInput = document.createElement('input');
   const option = document.createElement('option');
   option.textContent = 'Select Category';
   option.value = '';
@@ -44,19 +40,18 @@ function createRow(rowInfo) {
   nameInput.value = rowInfo.name;
   if (rowInfo.categoryId === null) categoryDropdown.value = '';
   else categoryDropdown.value = rowInfo.categoryId;
-  priceInput.value = rowInfo.price;
+  costInput.value = rowInfo.cost;
 
   nameInput.type = 'text';
   nameInput.classList.add('cell', 'name-cell', 'custom-input');
   categoryDropdown.classList.add('cell', 'category-cell');
-  priceInput.type = 'number';
-  priceInput.classList.add('cell', 'price-cell', 'custom-input');
+  costInput.type = 'number';
+  costInput.classList.add('cell', 'cost-cell', 'custom-input');
 
   row.appendChild(nameInput);
   row.appendChild(categoryDropdown);
-  row.appendChild(priceInput);
+  row.appendChild(costInput);
 
-  updateDropdownList();
   return row;
 }
 
@@ -75,23 +70,23 @@ function newRowListener(target) {
       if (target.value == '') return;
 
       newRowInfo.categoryId = target.value;
-    } else if (target.classList.contains('price-cell')) {
-      const price = target.value;
-      if (price === '') return;
+    } else if (target.classList.contains('cost-cell')) {
+      const cost = target.value;
+      if (cost === '') return;
 
-      newRowInfo.price = price;
+      newRowInfo.cost = cost;
     }
 
     // Ensure all information is filled before data is saved
-    let { id, name, categoryId, price } = newRowInfo;
-    if (name === '' || categoryId === '' || price === '') return;
+    let { id, name, categoryId, cost } = newRowInfo;
+    if (name === '' || categoryId === '' || cost === '') return;
     filledTable.appendChild(createRow(newRowInfo));
 
     if (categoryId === '') categoryId = null;
     stagedTableChanges.adding.set(id, {
       name: name,
       categoryId: categoryId,
-      price: price
+      cost: cost
     });
 
     // Reset new row info and new row inputs
@@ -101,7 +96,7 @@ function newRowListener(target) {
       id: rowId,
       name: '',
       categoryId: '',
-      price: ''
+      cost: ''
     };
   }
 }
@@ -110,20 +105,20 @@ function newRowListener(target) {
 function updateRowListener(target) {
   if (!target.classList.contains('new')) {
     const targetRow = target.closest('.row');
-    let name, categoryId, price;
+    let name, categoryId, cost;
 
     if (target.classList.contains('name-cell')) {
       name = target.value.trim();
 
       categoryId = targetRow.querySelector('.category-cell').value;
-      price = targetRow.querySelector('.price-cell').value;
+      cost = targetRow.querySelector('.cost-cell').value;
     } else if (target.classList.contains('category-cell')) {
       categoryId = target.value;
 
       name = targetRow.querySelector('.name-cell').value;
-      price = targetRow.querySelector('.price-cell').value;
-    } else if (target.classList.contains('price-cell')) {
-      price = target.value;
+      cost = targetRow.querySelector('.cost-cell').value;
+    } else if (target.classList.contains('cost-cell')) {
+      cost = target.value;
 
       name = targetRow.querySelector('.name-cell').value;
       categoryId = targetRow.querySelector('.category-cell').value;
@@ -134,15 +129,18 @@ function updateRowListener(target) {
     stagedTableChanges.editing.set(id, {
       name: name,
       categoryId: categoryId,
-      price: price
+      cost: cost
     });
   }
 }
 
 // Initialize table listeners
-export function initTableListener() {
+export function initTableListeners() {
   table.addEventListener('change', (event) => {
     const target = event.target;
+    if (target.classList.contains('cost-cell')) {
+      target.value = Math.round(parseFloat(target.value) * 100) / 100;
+    }
 
     newRowListener(target);
     updateRowListener(target);
@@ -186,6 +184,3 @@ export async function upsertRows(date) {
   stagedTableChanges.editing.clear();
   stagedTableChanges.removing.clear();
 }
-
-// !TODO
-// Remove row when if all cells empty (consider creating a delete button) MAKE SURE TO UPDATE THE QUERYSELECTORALL

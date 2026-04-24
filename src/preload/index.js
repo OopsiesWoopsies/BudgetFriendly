@@ -46,6 +46,12 @@ const dbFunctions = {
     ipcRenderer.invoke('categories:get', {
       budgetSheetId: budgetSheetId
     }),
+  getCategoriesSum: (startDate, endDate, budgetSheetId) =>
+    ipcRenderer.invoke('categories:sum', {
+      startDate: startDate,
+      endDate: endDate,
+      budgetSheetId: budgetSheetId
+    }),
   upsertCategories: (stagedChanges, budgetSheetId) =>
     ipcRenderer.invoke('categories:create', {
       stagedChanges: stagedChanges,
@@ -62,6 +68,12 @@ const dbFunctions = {
     ipcRenderer.invoke('entries:upsert', {
       stagedChanges: stagedChanges,
       date: date,
+      budgetSheetId: budgetSheetId
+    }),
+  sumEntries: (startDate, endDate, budgetSheetId) =>
+    ipcRenderer.invoke('entries:sum', {
+      startDate: startDate,
+      endDate: endDate,
       budgetSheetId: budgetSheetId
     }),
 

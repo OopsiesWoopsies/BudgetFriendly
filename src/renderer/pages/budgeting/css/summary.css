@@ -1,0 +1,87 @@
+.summary {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.summary-header {
+  margin: 0px;
+  margin-top: 10px;
+  font-size: 2.25rem;
+  font-weight: 900;
+
+  text-align: center;
+}
+
+.expenditures-header {
+  margin-top: 0px;
+  font-size: 2.25rem;
+  font-weight: 900;
+}
+
+.summary-body {
+  margin-bottom: 40px;
+}
+
+.summation {
+  font-size: 1.8rem;
+  font-weight: 900;
+}
+
+.total-budget {
+  margin-top: auto;
+
+  font-size: 1.25rem;
+}
+
+.visual-summary {
+  margin-left: auto;
+  margin-right: 30px;
+}
+
+.visual-summary-header {
+  font-size: 1.75rem;
+  font-weight: 900;
+}
+
+.pie-chart {
+  margin: 10px;
+
+  width: 200px;
+  height: 200px;
+
+  border: solid black 2px;
+  border-radius: 50%;
+}
+
+.legend {
+  margin: 0px;
+  padding: 15px;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: flex-start;
+
+  width: fit-content;
+  max-width: 400px;
+  min-width: 200px;
+
+  border: solid black 2px;
+}
+
+.legend-label {
+  padding: 5px;
+  grid-template-columns: repeat(3, auto);
+  gap: 5px;
+
+  width: fit-content;
+  height: fit-content;
+}
+.legend-label > p {
+  margin: 0px;
+}
+
+.colour-code {
+  width: 6px;
+  height: 6px;
+
+  border: solid black 3px;
+;}
