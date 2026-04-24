@@ -4,7 +4,6 @@ import { initCardListeners, initExitListener, getYearSummation } from './js/cale
 import { initSettingsListeners, initCategoryToolsListeners } from './js/settings.js';
 import { initCategorySelectionListeners, getCategories } from './js/handleCategorySelection.js';
 import { initInitialVals, initTitleInputListeners } from './js/header.js';
-import { makePieChart } from './js/summary.js';
 
 export async function getSheetTitle(id) {
   return (await window.db.getBudgetSheets(id)).title;
@@ -24,7 +23,6 @@ initSettingsListeners();
 initCategoryToolsListeners();
 initCategorySelectionListeners();
 getCategories();
-makePieChart('2026-01-01', '2026-12-31');
 
 const year = new Date().getFullYear();
 getYearSummation(year);

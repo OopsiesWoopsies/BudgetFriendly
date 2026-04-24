@@ -8,7 +8,7 @@
   margin-top: 10px;
   font-size: 2.25rem;
   font-weight: 900;
-  
+
   text-align: center;
 }
 
@@ -39,8 +39,8 @@
 }
 
 .visual-summary-header {
-    font-size: 1.75rem;
-    font-weight: 900;
+  font-size: 1.75rem;
+  font-weight: 900;
 }
 
 .pie-chart {
@@ -54,6 +54,34 @@
 }
 
 .legend {
-  margin-top: 20px;
-  width: 300px;
+  margin: 0px;
+  padding: 15px;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: flex-start;
+
+  width: fit-content;
+  max-width: 400px;
+  min-width: 200px;
+
+  border: solid black 2px;
 }
+
+.legend-label {
+  padding: 5px;
+  grid-template-columns: repeat(3, auto);
+  gap: 5px;
+
+  width: fit-content;
+  height: fit-content;
+}
+.legend-label > p {
+  margin: 0px;
+}
+
+.colour-code {
+  width: 6px;
+  height: 6px;
+
+  border: solid black 3px;
+;}
