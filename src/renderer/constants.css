@@ -20,5 +20,6 @@
 }
 
 :root {
+  --title-header-height: 75px;
   --fonts: cursive, Arial;
 }

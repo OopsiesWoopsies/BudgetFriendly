@@ -11,25 +11,12 @@
     <link rel="stylesheet" href="./css/home.css" />
     <link rel="stylesheet" href="./css/about.css" />
     <link rel="stylesheet" href="./css/settings.css" />
-    <link rel="stylesheet" href="./css/navbar.css" />
+    <link rel="stylesheet" href="./css/header.css" />
   </head>
   <body class="margin-zero">
-    <header class="navbar flex position-fixed align-items-center justify-content-center">
-      <div class="hamburger flex margin-zero padding-zero">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-      <h1 class="navbar-title no-select">BudgetFriendly</h1>
+    <header class="header flex position-fixed align-items-center justify-content-center">
+      <h1 class="header-title no-select">BudgetFriendly</h1>
     </header>
-
-    <nav class="sidebar flex position-fixed">
-      <div class="sidebar-labels no-select">
-        <button class="label" data-page="budgets">Home</button>
-        <button class="label" data-page="settings">Settings</button>
-        <button class="label" data-page="about">About</button>
-      </div>
-    </nav>
 
     <main>
       <dialog id="settings" class="modal padding-zero">
@@ -92,7 +79,7 @@
         </div>
       </dialog>
 
-      <div class="navbar-space"></div>
+      <div class="header-space"></div>
 
       <div class="budgets-page page flex" data-page="budgets">
         <button

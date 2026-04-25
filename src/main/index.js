@@ -36,7 +36,7 @@ function createWindow() {
   });
 
   // Welcome page of BudgetFriendly
-  mainWindow.loadFile(join(__dirname, '../../src/renderer/pages/welcome/welcome.html'));
+  mainWindow.loadFile(join(__dirname, '../../src/renderer/pages/home/home.html'));
 
   // Right click menu
   ipcMain.on('context-menu', (event, type, id) => {
