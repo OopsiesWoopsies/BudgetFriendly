@@ -9,14 +9,20 @@
     <link rel="stylesheet" href="../../pages/budgeting/css/settings.css" />
     <link rel="stylesheet" href="./css/budgetSheetCreation.css" />
     <link rel="stylesheet" href="./css/home.css" />
-    <link rel="stylesheet" href="./css/about.css" />
     <link rel="stylesheet" href="./css/settings.css" />
     <link rel="stylesheet" href="./css/header.css" />
   </head>
   <body class="margin-zero">
     <header class="header flex position-fixed align-items-center justify-content-center">
-      <h1 class="header-title no-select">BudgetFriendly</h1>
+      <button id="configButton" class="header-title custom-button no-select">BudgetFriendly</button>
     </header>
+
+    <dialog id="config" class="modal">
+      <header class="modal-header flex">
+        <button id="closeConfig" class="modal-back-button close-modal no-select">X</button>
+        <h1 class="modal-title">Configurations</h1>
+      </header>
+    </dialog>
 
     <main>
       <dialog id="settings" class="modal padding-zero">

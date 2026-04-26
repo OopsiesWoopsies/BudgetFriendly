@@ -1,7 +1,6 @@
 /* Modal (settings) */
 .modal {
   min-width: 500px;
-  aspect-ratio: 1 / 1;
   height: 70vh;
   width: 80vw;
 

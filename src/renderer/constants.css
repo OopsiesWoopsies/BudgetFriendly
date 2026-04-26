@@ -21,5 +21,5 @@
 
 :root {
   --title-header-height: 75px;
-  --fonts: cursive, Arial;
+  --fonts: cursive, Arial, Helvetica, sans-serif;
 }

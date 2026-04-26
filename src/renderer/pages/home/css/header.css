@@ -9,12 +9,15 @@
 }
 
 .header-title {
-  font-family: cursive, Arial, Helvetica, sans-serif;
-  font-size: 2rem;
+  padding: 5px;
+
+  font-family: var(--fonts);
+  font-size: 1.75rem;
   font-weight: 700;
+
+  border-radius: 12px;
 }
 
 .header-space {
   padding-top: var(--title-header-height);
 }
-
