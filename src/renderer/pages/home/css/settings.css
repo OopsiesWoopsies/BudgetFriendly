@@ -16,3 +16,8 @@ dialog {
   background-color: var(--transparent);
   border: none;
 }
+
+.custom-theme {
+  grid-template-columns: 1fr 3fr;
+  border: solid black 1px;
+}

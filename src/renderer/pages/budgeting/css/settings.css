@@ -1,4 +1,7 @@
-/* Modal (settings) */
+:root {
+  --modal-header-height: 50px;
+}
+
 .modal {
   min-width: 500px;
   height: 70vh;
@@ -10,6 +13,8 @@
 .modal-header {
   position: relative;
   padding: 5px;
+
+  height: var(--modal-header-height);
 
   font-family: var(--fonts);
 
@@ -47,7 +52,8 @@
 .modal-body {
   padding: 2px;
   
-  height: 90%;
+  height: calc(100% - var(--modal-header-height) - 14px);
+  min-height: fit-content;
 
   font-family: var(--fonts);
 }
