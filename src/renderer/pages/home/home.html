@@ -23,15 +23,55 @@
         <h1 class="modal-title">Configurations</h1>
       </header>
       <div class="modal-body">
-        <section id="colour-palette" class="grid custom-theme">
-          <section id="" class="flex flex-down">
-            <h3>Make a Theme</h3>
+        <section id="theme-config" class="grid custom-theme">
+          <section id="createTheme" class="flex flex-down theme-creation text-align-center">
+            <h3 class="card">Make a Theme</h3>
+            <div class="grid">
+              <div>
+                <label>Background</label>
+                <input
+                  type="color"
+                  id="colourPickerBackground"
+                  class="colour-picker"
+                  value="#e5f6ff"
+                />
+              </div>
+              <div>
+                <label>Primary</label>
+                <input
+                  type="color"
+                  id="colourPickerPrimary"
+                  class="colour-picker"
+                  value="#ffd900"
+                />
+              </div>
+              <div>
+                <label>Secondary</label>
+                <input
+                  type="color"
+                  id="colourPickerSecondary"
+                  class="colour-picker"
+                  value="#cceeff"
+                />
+              </div>
+              <div>
+                <label>Tertiary</label>
+                <input
+                  type="color"
+                  id="colourPickerTertiary"
+                  class="colour-picker"
+                  value="#ffffff"
+                />
+              </div>
+              <!-- save button and some showcase (i.e. inputs) -->
+            </div>
           </section>
-          <section id="" class="flex flex-down">
-            <section>
+          <section id="selectTheme" class="flex flex-down theme-selection">
+            <section class="select-originals text-align-center">
               <h3>Original Themes</h3>
+              <div>wdad</div>
             </section>
-            <section>
+            <section class="select-customs text-align-center">
               <h3>Your Themes</h3>
             </section>
           </section>

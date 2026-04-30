@@ -8,6 +8,8 @@
   width: 100%;
   z-index: 9999;
 
+  color: var(--primary-text);
+
   background-color: var(--primary-colour);
 }
 
@@ -18,6 +20,7 @@
 
   font-size: 1.5rem;
   font-family: var(--fonts);
+  color: var(--primary-text-light1);
 
   background-color: var(--primary-colour-light1);
   border-radius: 10px;

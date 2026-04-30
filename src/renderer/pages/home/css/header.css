@@ -4,6 +4,8 @@
 
   height: var(--title-header-height);
   width: 100vw;
+  
+  color: var(--primary-text);
 
   background-color: var(--primary-colour);
 }

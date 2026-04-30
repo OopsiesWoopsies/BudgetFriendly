@@ -42,3 +42,53 @@ function initRightClickCommands() {
 
 initRightClick();
 initRightClickCommands();
+
+// Theme config
+
+// Get theme > determine text colours
+
+export function determineBackgroundTextColour(lightness) {
+  document.documentElement.style.setProperty(
+    '--background-text',
+    determineTextColour(lightness, 0)
+  );
+}
+
+export function determinePrimTextColour(lightness) {
+  document.documentElement.style.setProperty('--primary-text', determineTextColour(lightness, 0));
+
+  let max = 3;
+
+  for (let i = 1; i <= 3; i++) {
+    document.documentElement.style.setProperty(
+      `--primary-text-light${i}`,
+      determineTextColour(lightness, 10 * (i - max + 1))
+    );
+  }
+}
+
+export function determineSecTextColour(lightness) {
+  document.documentElement.style.setProperty('--secondary-text', determineTextColour(lightness, 0));
+
+  for (let i = 1; i <= 3; i++) {
+    document.documentElement.style.setProperty(
+      `--secondary-text-dark${i}`,
+      determineTextColour(lightness, 10 * i)
+    );
+  }
+}
+
+export function determineTerTextColour(lightness) {
+  document.documentElement.style.setProperty('--tertiary-text', determineTextColour(lightness, 0));
+
+  for (let i = 1; i <= 3; i++) {
+    document.documentElement.style.setProperty(
+      `--tertiary-text-dark${i}`,
+      determineTextColour(lightness, 10 * i)
+    );
+  }
+}
+
+export function determineTextColour(lightness, offset) {
+  return lightness >= 50 + offset ? '#000000' : '#FFFFFF';
+}

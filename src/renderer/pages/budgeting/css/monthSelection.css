@@ -24,17 +24,22 @@
 
   font-size: 1.5rem;
   font-weight: 700;
+  color: var(--primary-text-light1);
 
   background-color: var(--primary-colour-light1);
   border: solid black 1px;
 }
 
 .month-name:hover {
+  color: var(--primary-text-light2);
+
   background-color: var(--primary-colour-light2);
 
   cursor: pointer;
 }
 
 .month-name:active {
+  color: var(--primary-text-light3);
+
   background-color: var(--primary-colour-light3);
 }

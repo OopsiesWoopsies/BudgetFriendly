@@ -1,9 +1,12 @@
 /* Single-change classes */
 body {
+  color: var(--background-text);
+
   background-color: var(--background-colour);
 }
 
-a:hover, button:hover {
+a:hover,
+button:hover {
   cursor: pointer;
 }
 
@@ -42,12 +45,18 @@ a:hover, button:hover {
   position: fixed;
 }
 
+.text-align-center {
+  text-align: center;
+}
+
 .display-none {
   display: none;
 }
 
 /* Custom classes */
 .custom-button {
+  color: var(--primary-text-light1);
+
   background-color: var(--primary-colour-light1);
   border-radius: 5px;
   box-shadow: 3px 5px 10px hsla(0, 0%, 0%, 0.6);
@@ -58,30 +67,40 @@ a:hover, button:hover {
 }
 
 .custom-button:hover {
+  color: var(--primary-text-light2);
+
   background-color: var(--primary-colour-light2);
   box-shadow: 4px 8px 13px hsla(0, 0%, 0%, 0.7);
 }
 
 .custom-button:active {
+  color: var(--primary-text-light3);
+
   background-color: var(--primary-colour-light3);
   box-shadow: 1px 2px 8px hsla(0, 0%, 0%, 0.5);
 }
 
 .custom-input {
   font-family: var(--fonts);
+  color: var(--tertiary-text-dark1);
 
-  background-color: var(--plain-colour-dark1);
+  background-color: var(--tertiary-colour-dark1);
   border: solid black 2px;
   border-radius: 5px;
 }
 
 .custom-input:hover {
-  background-color: var(--plain-colour);
+  color: var(--tertiary-text);
+
+  background-color: var(--tertiary-colour);
 }
 
 .custom-input:focus-visible {
   outline: none;
-  background-color: var(--plain-colour);
+
+  color: var(--tertiary-text);
+
+  background-color: var(--tertiary-colour);
 }
 
 .card {
@@ -90,6 +109,8 @@ a:hover, button:hover {
   padding: 20px;
 
   height: auto;
+
+  color: var(--secondary-text);
 
   background-color: var(--secondary-colour);
   border-radius: 30px;
