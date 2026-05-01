@@ -61,6 +61,19 @@ db.prepare(
   `
 ).run();
 
+db.prepare(
+  `
+    CREATE TABLE IF NOT EXISTS custom_themes (
+      id TEXT PRIMARY KEY,
+      name TEXT,
+      background_hex TEXT,
+      primary_hex TEXT,
+      secondary_hex TEXT,
+      tertiary_hex TEXT
+    );
+  `
+);
+
 db.prepare('CREATE INDEX IF NOT EXISTS idx_entries_date ON entries(date);').run();
 
 db.prepare('CREATE INDEX IF NOT EXISTS idx_entries_category ON entries(category_id);').run();

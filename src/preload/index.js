@@ -90,7 +90,20 @@ const dbFunctions = {
       effectiveFrom: effectiveFrom,
       effectiveTo: effectiveTo,
       budgetSheetId: budgetSheetId
-    })
+    }),
+
+  // Themes queries
+  getThemes: () => ipcRenderer.invoke('themes:get'),
+  createTheme: (id, name, bgHex, primHex, secHex, terHex) =>
+    ipcRenderer.invoke('themes:create', {
+      id: id,
+      name: name,
+      backgroundHex: bgHex,
+      primaryHex: primHex,
+      secondaryHex: secHex,
+      tertiaryHex: terHex
+    }),
+  deleteTheme: (id) => ipcRenderer.invoke('themes:delete', { id: id })
 };
 
 if (process.contextIsolated) {
