@@ -6,6 +6,7 @@ import { registerSheetIpc } from './db/dbFunctions/sheetDb';
 import { registerBudgetSettingsIpc } from './db/dbFunctions/budgetSettingsDb';
 import { registerEntriesIpc } from './db/dbFunctions/entriesDb';
 import { registerBudgetAmountsIpc } from './db/dbFunctions/budgetAmountsDb';
+import { registerThemeIpc } from './db/dbFunctions/themeDb';
 import { registerDataStorageIpc } from './data/data';
 
 function createWindow() {
@@ -113,3 +114,4 @@ registerBudgetSettingsIpc();
 registerEntriesIpc();
 registerBudgetAmountsIpc();
 registerDataStorageIpc();
+registerThemeIpc();

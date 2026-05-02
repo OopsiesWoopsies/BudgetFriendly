@@ -1,0 +1,49 @@
+dialog {
+  padding: 0px;
+}
+
+.close-modal {
+  left: 20px;
+  padding-left: 5px;
+  padding-right: 5px;
+
+  color: inherit;
+  font-family: Arial;
+  font-size: 1.75rem;
+  font-weight: 100;
+  text-decoration: none;
+
+  background-color: var(--transparent);
+  border: none;
+}
+
+/* Themes */
+.custom-theme {
+  grid-template-columns: 1fr 3fr;
+}
+
+.theme-creation {
+}
+.theme-creation > .card {
+  border-radius: 15px;
+}
+.theme-creation > .grid {
+  padding: 10px;
+}
+.theme-creation > .grid > div {
+  justify-content: space-between;
+  align-items: center;
+
+  width: 80%;
+}
+
+.theme-selection {
+}
+
+.select-originals {
+  border: solid black 1px;
+}
+
+.select-customs {
+  border: solid black 1px;
+}
