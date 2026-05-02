@@ -72,7 +72,7 @@ db.prepare(
       tertiary_hex TEXT
     );
   `
-);
+).run();
 
 db.prepare('CREATE INDEX IF NOT EXISTS idx_entries_date ON entries(date);').run();
 
