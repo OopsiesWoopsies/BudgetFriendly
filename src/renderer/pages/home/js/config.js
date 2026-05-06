@@ -2,12 +2,17 @@ import {
   determineBackgroundTextColour,
   determinePrimTextColour,
   determineSecTextColour,
-  determineTerTextColour
+  determineTerTextColour,
+  determineTextColour
 } from '../../../main.js';
 
 const openConfig = document.getElementById('configButton');
 const config = document.getElementById('config');
 const closeConfig = document.getElementById('closeConfig');
+
+const userThemes = document.getElementById('userThemes');
+const themeNameInput = document.getElementById('themeNameInput');
+const saveThemeBut = document.getElementById('saveThemeButton');
 
 const colourPickerBackground = document.getElementById('colourPickerBackground');
 const colourPickerPrimary = document.getElementById('colourPickerPrimary');
@@ -16,16 +21,62 @@ const colourPickerTertiary = document.getElementById('colourPickerTertiary');
 
 export function initConfigListeners() {
   openConfig.addEventListener('click', () => {
+    displayThemes();
+
     config.showModal();
   });
 
   closeConfig.addEventListener('click', () => {
     // set to current theme (consider importing that function from main)
 
+    themeNameInput.placeholder = 'name';
     config.close();
   });
 
   themeConfigListeners();
+}
+
+async function displayThemes() {
+  const fragment = document.createDocumentFragment();
+  const allThemes = await window.db.getThemes();
+  console.log(allThemes);
+
+  for (const theme of allThemes) {
+    const result = generateButton(theme);
+
+    fragment.appendChild(result);
+  }
+
+  userThemes.appendChild(fragment);
+}
+
+function generateButton(theme) {
+  const flexbox = document.createElement('button');
+  const label = document.createElement('label');
+  const grid = document.createElement('div');
+  const primBg = document.createElement('div');
+  const secBg = document.createElement('div');
+  const terBg = document.createElement('div');
+
+  primBg.style.backgroundColor = theme.primaryHex;
+  secBg.style.backgroundColor = theme.secondaryHex;
+  terBg.style.backgroundColor = theme.tertiaryHex;
+  primBg.dataset.hex = theme.primaryHex;
+  secBg.dataset.hex = theme.secondaryHex;
+  terBg.dataset.hex = theme.tertiaryHex;
+  label.textContent = theme.name;
+  label.style.color = determineTextColour(hexToHSL(theme.backgroundHex).l);
+  grid.classList.add('display-colours', 'grid');
+  grid.appendChild(primBg);
+  grid.appendChild(secBg);
+  grid.appendChild(terBg);
+
+  flexbox.classList.add('flex', 'custom-button', 'theme');
+  flexbox.style.backgroundColor = theme.backgroundHex;
+  flexbox.appendChild(label);
+  flexbox.appendChild(grid);
+
+  return flexbox;
 }
 
 function themeConfigListeners() {
@@ -105,7 +156,35 @@ function themeConfigListeners() {
     tertiaryColour = target.value;
   });
 
-  // save button
+  saveThemeBut.addEventListener('click', () => {
+    if (themeNameInput.value === '') {
+      themeNameInput.placeholder = 'CANNOT BE EMPTY';
+      return;
+    }
+    const name = themeNameInput.value;
+
+    window.db.createTheme(
+      crypto.randomUUID(),
+      name,
+      backgroundColour,
+      primaryColour,
+      secondaryColour,
+      tertiaryColour
+    );
+    themeNameInput.value = '';
+
+    // Add to theme display
+    const theme = {
+      name: name,
+      backgroundHex: backgroundColour,
+      primaryHex: primaryColour,
+      secondaryHex: secondaryColour,
+      tertiaryHex: tertiaryColour
+    };
+    const result = generateButton(theme);
+    userThemes.appendChild(result);
+    // set active theme to saved theme
+  });
 }
 
 function hexToHSL(hex) {

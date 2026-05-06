@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="../../pages/budgeting/css/settings.css" />
     <link rel="stylesheet" href="./css/budgetSheetCreation.css" />
     <link rel="stylesheet" href="./css/home.css" />
-    <link rel="stylesheet" href="./css/settings.css" />
+    <link rel="stylesheet" href="./css/config.css" />
     <link rel="stylesheet" href="./css/header.css" />
   </head>
   <body class="margin-zero">
@@ -27,7 +27,7 @@
           <section id="createTheme" class="flex flex-down theme-creation text-align-center">
             <h3 class="card">Make a Theme</h3>
             <div class="grid">
-              <div>
+              <div class="flex">
                 <label>Background</label>
                 <input
                   type="color"
@@ -36,7 +36,7 @@
                   value="#e5f6ff"
                 />
               </div>
-              <div>
+              <div class="flex">
                 <label>Primary</label>
                 <input
                   type="color"
@@ -45,7 +45,7 @@
                   value="#ffd900"
                 />
               </div>
-              <div>
+              <div class="flex">
                 <label>Secondary</label>
                 <input
                   type="color"
@@ -54,7 +54,7 @@
                   value="#cceeff"
                 />
               </div>
-              <div>
+              <div class="flex">
                 <label>Tertiary</label>
                 <input
                   type="color"
@@ -63,16 +63,53 @@
                   value="#ffffff"
                 />
               </div>
-              <!-- save button and some showcase (i.e. inputs) -->
+              <div class="flex">
+                <label>Name</label>
+                <input
+                  id="themeNameInput"
+                  type="text"
+                  class="theme-name-input custom-input"
+                  maxlength="15"
+                  placeholder="name"
+                  required
+                />
+              </div>
             </div>
+            <button id="saveThemeButton" class="custom-button save-theme-but">Save</button>
           </section>
           <section id="selectTheme" class="flex flex-down theme-selection">
             <section class="select-originals text-align-center">
               <h3>Original Themes</h3>
-              <div>wdad</div>
+              <div id="originalThemes" class="grid theme-list">
+                <button class="flex custom-button theme" style="background-color: #e5f6ff;">
+                  <label>Sunny Days</label>
+                  <div class="grid display-colours">
+                    <div style="background-color: #ffd900"></div>
+                    <div style="background-color: #cceeff"></div>
+                    <div style="background-color: #ffffff"></div>
+                  </div>
+                </button>
+                <button class="flex custom-button theme" style="background-color: #bfbfbf;">
+                  <label>Moonlight</label>
+                  <div class="grid display-colours">
+                    <div style="background-color: #808080"></div>
+                    <div style="background-color: #e6e6e6"></div>
+                    <div style="background-color: #ffffff"></div>
+                  </div>
+                </button>
+                <button class="flex custom-button theme" style="background-color: #fee7f5;">
+                  <label>Strawberry</label>
+                  <div class="grid display-colours">
+                    <div style="background-color: #ff337a"></div>
+                    <div style="background-color: #ffcce7"></div>
+                    <div style="background-color: #ffffff"></div>
+                  </div>
+                </button>
+              </div>
             </section>
             <section class="select-customs text-align-center">
               <h3>Your Themes</h3>
+              <div id="userThemes" class="grid theme-list">              </div>
             </section>
           </section>
         </section>

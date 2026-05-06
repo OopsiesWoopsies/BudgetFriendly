@@ -37,13 +37,69 @@ dialog {
   width: 80%;
 }
 
+.theme-name-input {
+  max-width: 150px;
+  width: 100%;
+}
+
+.save-theme-but {
+  margin: 0 auto;
+
+  max-width: 200px;
+  width: 100%;
+  max-height: 30px;
+  height: 100%;
+
+  font-size: 1.1rem;
+  text-align: center;
+}
+
 .theme-selection {
 }
 
 .select-originals {
-  border: solid black 1px;
+  padding-bottom: 20px;
+
+  border-bottom: dashed black 2px;
 }
 
 .select-customs {
-  border: solid black 1px;
+}
+
+.theme-list {
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  justify-content: center;
+  justify-items: center;
+  gap: 10px;
+
+  width: 100%;
+}
+
+.theme {
+  padding: 0px;
+  padding-right: 5px;
+  padding-left: 5px;
+
+  width: 200px;
+  height: 50px;
+
+  justify-content: space-between;
+}
+.theme > label {
+  align-self: center;
+  justify-content: center;
+  width: 100%;
+
+  font-family: var(--fonts);
+  text-align: center;
+}
+.display-colours {
+  width: 70px;
+  height: 100%;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 5px;
+}
+.display-colours > div {
+  border-left: solid black 1px;
+  border-right: solid black 1px;
 }

@@ -45,17 +45,14 @@ initRightClickCommands();
 
 // Theme config
 
-// Get theme > determine text colours
+// Get active theme > determine text colours
 
 export function determineBackgroundTextColour(lightness) {
-  document.documentElement.style.setProperty(
-    '--background-text',
-    determineTextColour(lightness, 0)
-  );
+  document.documentElement.style.setProperty('--background-text', determineTextColour(lightness));
 }
 
 export function determinePrimTextColour(lightness) {
-  document.documentElement.style.setProperty('--primary-text', determineTextColour(lightness, 0));
+  document.documentElement.style.setProperty('--primary-text', determineTextColour(lightness));
 
   let max = 3;
 
@@ -68,7 +65,7 @@ export function determinePrimTextColour(lightness) {
 }
 
 export function determineSecTextColour(lightness) {
-  document.documentElement.style.setProperty('--secondary-text', determineTextColour(lightness, 0));
+  document.documentElement.style.setProperty('--secondary-text', determineTextColour(lightness));
 
   for (let i = 1; i <= 3; i++) {
     document.documentElement.style.setProperty(
@@ -79,7 +76,7 @@ export function determineSecTextColour(lightness) {
 }
 
 export function determineTerTextColour(lightness) {
-  document.documentElement.style.setProperty('--tertiary-text', determineTextColour(lightness, 0));
+  document.documentElement.style.setProperty('--tertiary-text', determineTextColour(lightness));
 
   for (let i = 1; i <= 3; i++) {
     document.documentElement.style.setProperty(
@@ -89,6 +86,6 @@ export function determineTerTextColour(lightness) {
   }
 }
 
-export function determineTextColour(lightness, offset) {
-  return lightness >= 50 + offset ? '#000000' : '#FFFFFF';
+export function determineTextColour(lightness, offset = 0) {
+  return lightness >= 25 + offset ? '#000000' : '#FFFFFF';
 }
