@@ -2,10 +2,22 @@ import db from '../db.js';
 import { ipcMain } from 'electron';
 import { enqueue } from '../dbQueue.js';
 
-function getThemes() {
-  return db
-    .prepare(
-      `
+function getThemes(id) {
+  const theme = db.prepare(
+    `
+    SELECT 
+      id,
+      name,
+      background_hex AS backgroundHex,
+      primary_hex AS primaryHex,
+      secondary_hex AS secondaryHex,
+      tertiary_hex AS tertiaryHex
+    FROM custom_themes
+    WHERE id = ?
+    `
+  );
+  const themes = db.prepare(
+    `
     SELECT 
       id,
       name,
@@ -15,8 +27,9 @@ function getThemes() {
       tertiary_hex AS tertiaryHex
     FROM custom_themes
     `
-    )
-    .all();
+  );
+
+  return id == null ? themes.all() : theme.get(id);
 }
 
 function saveTheme(id, name, backgroundHex, primaryHex, secondaryHex, tertiaryHex) {
@@ -37,8 +50,8 @@ function deleteTheme(id) {
 
 // Registers db function for renderer use
 export function registerThemeIpc() {
-  ipcMain.handle('themes:get', () => {
-    return enqueue(() => getThemes());
+  ipcMain.handle('themes:get', (_event, { id }) => {
+    return enqueue(() => getThemes(id));
   });
 
   ipcMain.handle(
