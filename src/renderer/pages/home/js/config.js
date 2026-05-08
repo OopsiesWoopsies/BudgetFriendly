@@ -3,7 +3,9 @@ import {
   determinePrimTextColour,
   determineSecTextColour,
   determineTerTextColour,
-  determineTextColour
+  determineTextColour,
+  hexToHSL,
+  setupTheme
 } from '../../../main.js';
 
 const openConfig = document.getElementById('configButton');
@@ -11,6 +13,7 @@ const config = document.getElementById('config');
 const closeConfig = document.getElementById('closeConfig');
 
 const userThemes = document.getElementById('userThemes');
+const originalThemes = document.getElementById('originalThemes');
 const themeNameInput = document.getElementById('themeNameInput');
 const saveThemeBut = document.getElementById('saveThemeButton');
 
@@ -37,9 +40,9 @@ export function initConfigListeners() {
 }
 
 async function displayThemes() {
+  userThemes.innerHTML = '';
   const fragment = document.createDocumentFragment();
   const allThemes = await window.db.getThemes();
-  console.log(allThemes);
 
   for (const theme of allThemes) {
     const result = generateButton(theme);
@@ -71,6 +74,7 @@ function generateButton(theme) {
   grid.appendChild(secBg);
   grid.appendChild(terBg);
 
+  flexbox.dataset.id = theme.id;
   flexbox.classList.add('flex', 'custom-button', 'theme');
   flexbox.style.backgroundColor = theme.backgroundHex;
   flexbox.appendChild(label);
@@ -90,7 +94,6 @@ function themeConfigListeners() {
     const hsl = hexToHSL(target.value);
     determineBackgroundTextColour(hsl.l);
   });
-
   colourPickerBackground.addEventListener('change', ({ target }) => {
     backgroundColour = target.value;
   });
@@ -162,9 +165,10 @@ function themeConfigListeners() {
       return;
     }
     const name = themeNameInput.value;
+    const themeId = crypto.randomUUID();
 
     window.db.createTheme(
-      crypto.randomUUID(),
+      themeId,
       name,
       backgroundColour,
       primaryColour,
@@ -183,48 +187,19 @@ function themeConfigListeners() {
     };
     const result = generateButton(theme);
     userThemes.appendChild(result);
-    // set active theme to saved theme
+
+    localStorage.setItem('activeThemeId', themeId);
   });
-}
 
-function hexToHSL(hex) {
-  let r = 0,
-    g = 0,
-    b = 0;
-  hex = hex.slice(1);
+  originalThemes.addEventListener('click', ({ target }) => {
+    if (target.id == null) return;
+    localStorage.setItem('activeThemeId', target.id);
+    setupTheme();
+  });
 
-  r = parseInt(hex.substring(0, 2), 16) / 255;
-  g = parseInt(hex.substring(2, 4), 16) / 255;
-  b = parseInt(hex.substring(4, 6), 16) / 255;
-
-  const max = Math.max(r, g, b),
-    min = Math.min(r, g, b);
-  let h,
-    s,
-    l = (max + min) / 2;
-
-  if (max === min) {
-    h = s = 0;
-  } else {
-    const d = max - min;
-    s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
-    switch (max) {
-      case r:
-        h = (g - b) / d + (g < b ? 6 : 0);
-        break;
-      case g:
-        h = (b - r) / d + 2;
-        break;
-      case b:
-        h = (r - g) / d + 4;
-        break;
-    }
-    h /= 6;
-  }
-
-  return {
-    h: Math.round(h * 360),
-    s: Math.round(s * 100),
-    l: Math.round(l * 100)
-  };
+  userThemes.addEventListener('click', ({ target }) => {
+    if (target.id == null) return;
+    localStorage.setItem('activeThemeId', target.id);
+    setupTheme();
+  });
 }
