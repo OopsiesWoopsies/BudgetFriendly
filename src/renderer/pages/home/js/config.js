@@ -30,8 +30,6 @@ export function initConfigListeners() {
   });
 
   closeConfig.addEventListener('click', () => {
-    // set to current theme (consider importing that function from main)
-
     themeNameInput.placeholder = 'name';
     config.close();
   });

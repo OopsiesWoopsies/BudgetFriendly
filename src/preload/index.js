@@ -5,7 +5,8 @@ import { electronAPI } from '@electron-toolkit/preload';
 const rightClick = {
   sendContextMenu: (type, id) => ipcRenderer.send('context-menu', type, id),
   deleteRow: (callback) => ipcRenderer.on('delete-row', callback),
-  deleteSheet: (callback) => ipcRenderer.on('delete-sheet', callback)
+  deleteSheet: (callback) => ipcRenderer.on('delete-sheet', callback),
+  deleteTheme: (callback) => ipcRenderer.on('delete-theme', callback)
 };
 
 // Sets up data storage functions to expose to the renderer

@@ -35,6 +35,7 @@ function initRightClick() {
     // Checks for right click on significant elements
     const row = event.target.closest('.row');
     const sheet = event.target.closest('.sheet');
+    const theme = event.target.closest('.theme');
     if (row) {
       type = 'entry';
       id = row.dataset.id;
@@ -42,6 +43,10 @@ function initRightClick() {
     if (sheet) {
       type = 'sheet';
       id = sheet.dataset.id;
+    }
+    if (theme) {
+      type = 'theme';
+      id = theme.dataset.id;
     }
     window.rightClick.sendContextMenu(type, id);
   });
@@ -59,6 +64,12 @@ function initRightClickCommands() {
     const sheet = document.querySelector(`[data-id="${id}"]`);
     window.db.deleteBudgetSheet(id);
     sheet.remove();
+  });
+
+  window.rightClick.deleteTheme((_, id) => {
+    const theme = document.querySelector(`[data-id="${id}"]`);
+    window.db.deleteTheme(id);
+    theme.remove();
   });
 }
 
@@ -205,4 +216,8 @@ export function hexToHSL(hex) {
   };
 }
 
+document.documentElement.classList.add('no-transition');
 setupTheme();
+requestAnimationFrame(() => {
+  document.documentElement.classList.remove('no-transition');
+});
