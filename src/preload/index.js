@@ -93,7 +93,10 @@ const dbFunctions = {
     }),
 
   // Themes queries
-  getThemes: () => ipcRenderer.invoke('themes:get'),
+  getThemes: (id = null) =>
+    ipcRenderer.invoke('themes:get', {
+      id: id
+    }),
   createTheme: (id, name, bgHex, primHex, secHex, terHex) =>
     ipcRenderer.invoke('themes:create', {
       id: id,
