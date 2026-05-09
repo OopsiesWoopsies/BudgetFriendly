@@ -199,7 +199,7 @@ function themeConfigListeners() {
 
   userThemes.addEventListener('click', ({ target }) => {
     if (target.id == null) return;
-    localStorage.setItem('activeThemeId', target.id);
+    localStorage.setItem('activeThemeId', target.dataset.id);
     setupTheme();
   });
 }

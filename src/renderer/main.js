@@ -75,7 +75,6 @@ export async function setupTheme() {
   } else {
     theme = await window.db.getThemes(activeThemeId);
   }
-
   const primHsl = hexToHSL(theme.primaryHex);
   const secHsl = hexToHSL(theme.secondaryHex);
   const terHsl = hexToHSL(theme.tertiaryHex);
