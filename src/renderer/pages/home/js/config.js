@@ -5,7 +5,8 @@ import {
   determineTerTextColour,
   determineTextColour,
   hexToHSL,
-  setupTheme
+  setupTheme,
+  ogThemes
 } from '../../../main.js';
 
 const openConfig = document.getElementById('configButton');
@@ -190,15 +191,37 @@ function themeConfigListeners() {
     localStorage.setItem('activeThemeId', themeId);
   });
 
-  originalThemes.addEventListener('click', ({ target }) => {
+  originalThemes.addEventListener('click', async ({ target }) => {
     if (target.id == null) return;
     localStorage.setItem('activeThemeId', target.id);
+    let theme;
+    if (target.id == null) return;
+    if (target.id.length === 3) {
+      theme = ogThemes[target.id];
+    } else {
+      theme = await window.db.getThemes(target.id);
+    }
     setupTheme();
+    colourPickerBackground.value = theme.backgroundHex;
+    colourPickerPrimary.value = theme.primaryHex;
+    colourPickerSecondary.value = theme.secondaryHex;
+    colourPickerTertiary.value = theme.tertiaryHex;
   });
 
-  userThemes.addEventListener('click', ({ target }) => {
+  userThemes.addEventListener('click', async ({ target }) => {
     if (target.id == null) return;
     localStorage.setItem('activeThemeId', target.dataset.id);
+    let theme;
+    if (target.id == null) return;
+    if (target.id.length === 3) {
+      theme = ogThemes[target.id];
+    } else {
+      theme = await window.db.getThemes(target.id);
+    }
     setupTheme();
+    colourPickerBackground.value = theme.backgroundHex;
+    colourPickerPrimary.value = theme.primaryHex;
+    colourPickerSecondary.value = theme.secondaryHex;
+    colourPickerTertiary.value = theme.tertiaryHex;
   });
 }
