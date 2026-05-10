@@ -177,6 +177,7 @@ function themeConfigListeners() {
 
     // Add to theme display
     const theme = {
+      id: themeId,
       name: name,
       backgroundHex: backgroundColour,
       primaryHex: primaryColour,
