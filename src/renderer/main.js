@@ -77,6 +77,11 @@ initRightClick();
 initRightClickCommands();
 
 // Theme config
+const bgPick = document.getElementById('colourPickerBackground');
+const primPick = document.getElementById('colourPickerPrimary');
+const secPick = document.getElementById('colourPickerSecondary');
+const terPick = document.getElementById('colourPickerTertiary');
+
 export async function setupTheme() {
   const activeThemeId = localStorage.getItem('activeThemeId');
   let theme;
@@ -90,6 +95,10 @@ export async function setupTheme() {
   const secHsl = hexToHSL(theme.secondaryHex);
   const terHsl = hexToHSL(theme.tertiaryHex);
   const bgHsl = hexToHSL(theme.backgroundHex);
+  bgPick.value = theme.backgroundHex;
+  primPick.value = theme.primaryHex;
+  secPick.value = theme.secondaryHex;
+  terPick.value = theme.tertiaryHex;
 
   document.documentElement.style.setProperty(
     '--background-colour',
