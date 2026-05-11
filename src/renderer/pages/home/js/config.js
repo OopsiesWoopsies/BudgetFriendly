@@ -67,6 +67,9 @@ function generateButton(theme) {
   terBg.dataset.hex = theme.tertiaryHex;
   label.textContent = theme.name;
   label.style.color = determineTextColour(hexToHSL(theme.backgroundHex).l);
+  primBg.style.borderColor = label.style.color;
+  secBg.style.borderColor = label.style.color;
+  terBg.style.borderColor = label.style.color;
   grid.classList.add('display-colours', 'grid');
   grid.appendChild(primBg);
   grid.appendChild(secBg);
