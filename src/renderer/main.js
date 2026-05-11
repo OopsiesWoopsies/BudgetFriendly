@@ -25,7 +25,7 @@ const ogThemes = {
     backgroundHex: '#fee7f5'
   },
   '003': {
-    primaryHex: '#1c0a29',
+    primaryHex: '#2a0f3e',
     secondaryHex: '#6600cc',
     tertiaryHex: '#d69afe',
     backgroundHex: '#0f0019'
@@ -209,7 +209,7 @@ export function determineTerTextColour(lightness) {
 }
 
 export function determineTextColour(lightness, offset = 0) {
-  return lightness >= 25 + offset ? '#000000' : '#FFFFFF';
+  return lightness >= 30 + offset ? '#000000' : '#FFFFFF';
 }
 
 export function hexToHSL(hex) {
