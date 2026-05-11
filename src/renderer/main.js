@@ -23,6 +23,18 @@ const ogThemes = {
     secondaryHex: '#ffcce7',
     tertiaryHex: '#ffffff',
     backgroundHex: '#fee7f5'
+  },
+  '003': {
+    primaryHex: '#1c0a29',
+    secondaryHex: '#6600cc',
+    tertiaryHex: '#d69afe',
+    backgroundHex: '#0f0019'
+  },
+  '004': {
+    primaryHex: '#0062ff',
+    secondaryHex: '#4dc3ff',
+    tertiaryHex: '#ccd2ff',
+    backgroundHex: '#b3e4ff'
   }
 };
 

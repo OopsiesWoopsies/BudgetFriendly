@@ -34,6 +34,7 @@
   --tertiary-text-dark3: black;
 
   --overlay: hsla(0, 0%, 100%, 0.3);
+  --box-shadow-light: 0%;
 }
 
 :root {
