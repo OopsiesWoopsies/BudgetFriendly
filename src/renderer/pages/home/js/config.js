@@ -1,4 +1,5 @@
 import {
+  determineBorderAndBoxShadowColour,
   determineBackgroundTextColour,
   determinePrimTextColour,
   determineSecTextColour,
@@ -67,9 +68,9 @@ function generateButton(theme) {
   terBg.dataset.hex = theme.tertiaryHex;
   label.textContent = theme.name;
   label.style.color = determineTextColour(hexToHSL(theme.backgroundHex).l);
-  primBg.style.borderColor = label.style.color;
-  secBg.style.borderColor = label.style.color;
-  terBg.style.borderColor = label.style.color;
+  primBg.style.setProperty('border-color', label.style.color, 'important');
+  secBg.style.setProperty('border-color', label.style.color, 'important');
+  terBg.style.setProperty('border-color', label.style.color, 'important');
   grid.classList.add('display-colours', 'grid');
   grid.appendChild(primBg);
   grid.appendChild(secBg);
@@ -94,6 +95,7 @@ function themeConfigListeners() {
     document.documentElement.style.setProperty('--background-colour', target.value);
     const hsl = hexToHSL(target.value);
     determineBackgroundTextColour(hsl.l);
+    determineBorderAndBoxShadowColour(hsl.l);
   });
   colourPickerBackground.addEventListener('change', ({ target }) => {
     backgroundColour = target.value;

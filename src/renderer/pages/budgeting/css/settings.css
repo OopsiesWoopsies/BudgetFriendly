@@ -200,14 +200,14 @@
 
   background-color: var(--primary-colour-light1);
   border: solid black 1px;
-  box-shadow: 3px 5px 10px hsla(0, 0%, 0%, 0.6);
+  box-shadow: 3px 5px 10px hsla(0, 0%, var(--box-shadow-light), 0.6);
   transition: box-shadow 0.3s ease;
 }
 
 .new-category:hover {
-  box-shadow: 4px 8px 13px hsla(0, 0%, 0%, 0.7);
+  box-shadow: 4px 8px 13px hsla(0, 0%, var(--box-shadow-light), 0.7);
 }
 
 .new-category:active {
-  box-shadow: 1px 2px 8px hsla(0, 0%, 0%, 0.5);
+  box-shadow: 1px 2px 8px hsla(0, 0%, var(--box-shadow-light), 0.5);
 }

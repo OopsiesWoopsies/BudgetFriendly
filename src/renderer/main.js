@@ -103,6 +103,10 @@ export async function setupTheme() {
   } else {
     theme = await window.db.getThemes(activeThemeId);
   }
+  if (theme == null) {
+    theme = ogThemes['000'];
+    localStorage.setItem('activeThemeId', '001');
+  }
   const primHsl = hexToHSL(theme.primaryHex);
   const secHsl = hexToHSL(theme.secondaryHex);
   const terHsl = hexToHSL(theme.tertiaryHex);
@@ -153,6 +157,16 @@ export async function setupTheme() {
   determinePrimTextColour(primHsl.l);
   determineSecTextColour(secHsl.l);
   determineTerTextColour(terHsl.l);
+  determineBorderAndBoxShadowColour(bgHsl.l);
+}
+
+export function determineBorderAndBoxShadowColour(lightness) {
+  const colour = determineTextColour(lightness);
+  document.documentElement.style.setProperty('--custom-border-colour', colour);
+  document.documentElement.style.setProperty(
+    '--box-shadow-light',
+    colour === '#FFFFFF' ? '100%' : '0%'
+  );
 }
 
 export function determineBackgroundTextColour(lightness) {
@@ -242,6 +256,7 @@ export function hexToHSL(hex) {
 
 document.documentElement.classList.add('no-transition');
 setupTheme();
+// Remove colour transition to first cleanly apply theme
 requestAnimationFrame(() => {
   requestAnimationFrame(() => {
     document.documentElement.classList.remove('no-transition');
