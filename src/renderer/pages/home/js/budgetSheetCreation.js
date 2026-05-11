@@ -17,6 +17,7 @@ const categories = document.querySelector('.categories');
 
 export function initBudgetSheetCreationListeners() {
   openModalButton.addEventListener('click', () => {
+    periodDropdown.value = 'monthly';
     modal.showModal();
   });
 
@@ -35,18 +36,11 @@ export function initBudgetSheetCreationListeners() {
     if (budgetAmount.value === '') {
       budgetAmount.classList.add('invalid');
       budgetAmount.placeholder = 'CANNOT BE EMPTY';
+      return;
     } else {
       budgetAmount.classList.remove('invalid');
       budgetAmount.placeholder = '1234.56';
       budgetAmount.value = Math.round(parseFloat(budgetAmount.value) * 100) / 100;
-    }
-    if (periodDropdown.value === '') {
-      periodDropdown.classList.add('invalid');
-    } else {
-      periodDropdown.classList.remove('invalid');
-    }
-    if (budgetAmount.value === '' || periodDropdown === '') {
-      return;
     }
 
     // Creates new sheet and POSTs to budget sheet db
@@ -105,9 +99,7 @@ export function initBudgetSheetCreationListeners() {
   // Resets budget sheet creation page to blank
   modalBackButton.addEventListener('click', () => {
     modal.close();
-    periodDropdown.classList.remove('invalid');
     budgetAmount.classList.remove('invalid');
-    periodDropdown.value = '';
     budgetAmount.value = '';
     budgetAmount.placeholder = '1234.56';
     titleInput.value = '';
