@@ -199,11 +199,19 @@ function themeConfigListeners() {
     if (target.id == null) return;
     localStorage.setItem('activeThemeId', target.id);
     setupTheme();
+    backgroundColour = colourPickerBackground.value;
+    primaryColour = colourPickerPrimary.value;
+    secondaryColour = colourPickerSecondary.value;
+    tertiaryColour = colourPickerTertiary.value;
   });
 
   userThemes.addEventListener('click', ({ target }) => {
     if (target.id == null) return;
     localStorage.setItem('activeThemeId', target.dataset.id);
     setupTheme();
+    backgroundColour = colourPickerBackground.value;
+    primaryColour = colourPickerPrimary.value;
+    secondaryColour = colourPickerSecondary.value;
+    tertiaryColour = colourPickerTertiary.value;
   });
 }

@@ -57,8 +57,8 @@ function initRightClick() {
       id = sheet.dataset.id;
     }
     if (theme) {
-      type = 'theme';
       id = theme.dataset.id;
+      if (id != null) type = 'theme';
     }
     window.rightClick.sendContextMenu(type, id);
   });
@@ -105,7 +105,7 @@ export async function setupTheme() {
   }
   if (theme == null) {
     theme = ogThemes['000'];
-    localStorage.setItem('activeThemeId', '001');
+    localStorage.setItem('activeThemeId', '000');
   }
   const primHsl = hexToHSL(theme.primaryHex);
   const secHsl = hexToHSL(theme.secondaryHex);
