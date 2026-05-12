@@ -8,34 +8,66 @@
   --primary-colour-light2: hsl(51, 100%, 70%);
   --primary-colour-light3: hsl(51, 100%, 60%);
 
-  --primary-text: black;
-  --primary-text-light1: black;
-  --primary-text-light2: black;
-  --primary-text-light3: black;
-
   --secondary-colour: hsl(200, 100%, 90%);
   --secondary-colour-dark1: hsl(200, 100%, 80%);
   --secondary-colour-dark2: hsl(200, 100%, 70%);
   --secondary-colour-dark3: hsl(200, 100%, 60%);
-
-  --secondary-text: black;
-  --secondary-text-dark1: black;
-  --secondary-text-dark2: black;
-  --secondary-text-dark3: black;
 
   --tertiary-colour: hsl(0, 0%, 100%);
   --tertiary-colour-dark1: hsl(0, 0%, 95%);
   --tertiary-colour-dark2: hsl(0, 0%, 90%);
   --tertiary-colour-dark3: hsl(0, 0%, 80%);
 
+  --primary-text: black;
+  --primary-text-light1: black;
+  --primary-text-light2: black;
+  --primary-text-light3: black;
+
+  --secondary-text: black;
+  --secondary-text-dark1: black;
+  --secondary-text-dark2: black;
+  --secondary-text-dark3: black;
+
   --tertiary-text: black;
   --tertiary-text-dark1: black;
   --tertiary-text-dark2: black;
   --tertiary-text-dark3: black;
 
+  --background-border: black;
+
+  --primary-border: black;
+  --primary-border-light1: black; 
+  --primary-border-light2: black;
+  --primary-border-light3: black;
+
+  --secondary-border: black;
+  --secondary-border-dark1: black;
+  --secondary-border-dark2: black;
+  --secondary-border-dark3: black;
+
+  --tertiary-border: black;
+  --tertiary-border-dark1: black;
+  --tertiary-border-dark2: black;
+  --tertiary-border-dark3: black;
+
+  --background-box-shadow-light: 0%;
+
+  --primary-box-shadow-light: 0%;
+  --primary-box-shadow-light-light1: 0%;
+  --primary-box-shadow-light-light2: 0%;
+  --primary-box-shadow-light-light3: 0%;
+
+  --secondary-box-shadow-light: 0%;
+  --secondary-box-shadow-light-dark1: 0%;
+  --secondary-box-shadow-light-dark2: 0%;
+  --secondary-box-shadow-light-dark3: 0%;
+  
+  --tertiary-box-shadow-light: 0%;
+  --tertiary-box-shadow-light-dark1: 0%;
+  --tertiary-box-shadow-light-dark2: 0%;
+  --tertiary-box-shadow-light-dark3: 0%;
+
   --overlay: hsla(0, 0%, 100%, 0.3);
-  --box-shadow-light: 0%;
-  --custom-border-colour: black;
 }
 
 :root {

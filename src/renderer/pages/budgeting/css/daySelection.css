@@ -13,7 +13,7 @@
 
   width: 90%;
 
-  border: solid black 1px;
+  border: solid var(--secondary-border) 1px;
   border-bottom: none;
 }
 
@@ -25,7 +25,7 @@
   height: auto;
   width: 90%;
 
-  border: solid black 1px;
+  border: solid var(--secondary-border) 1px;
   border-top: none;
 }
 
@@ -35,7 +35,7 @@
   color: var(--primary-text);
 
   background-color: var(--primary-colour);
-  border: solid black 1px;
+  border: solid var(--primary-border) 1px;
 }
 
 .day-number {
@@ -44,7 +44,7 @@
   color: var(--tertiary-text);
 
   background-color: var(--tertiary-colour);
-  border: solid black 1px;
+  border: solid var(--tertiary-border) 1px;
 }
 
 .day-number:hover {

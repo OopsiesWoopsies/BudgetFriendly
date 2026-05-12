@@ -13,7 +13,7 @@
 
   width: 90%;
 
-  border: solid black 1px;
+  border: solid var(--primary-border-light1) 1px;
 }
 
 .month-name {
@@ -27,7 +27,7 @@
   color: var(--primary-text-light1);
 
   background-color: var(--primary-colour-light1);
-  border: solid black 1px;
+  border: solid var(--primary-border-light1) 1px;
 }
 
 .month-name:hover {

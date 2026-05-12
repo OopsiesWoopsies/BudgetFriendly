@@ -22,10 +22,10 @@ dialog {
   grid-template-columns: 1fr 3fr;
 }
 
-.theme-creation {
-}
 .theme-creation > .card {
   border-radius: 15px;
+  border: solid var(--background-border) 2px;
+  box-shadow: 4px 7px 10px hsla(0, 0%, var(--background-box-shadow-light), 0.6);
 }
 .theme-creation > .grid {
   padding: 10px;
@@ -40,6 +40,8 @@ dialog {
 .theme-name-input {
   max-width: 150px;
   width: 100%;
+
+  border-color: var(--background-border);
 }
 
 .save-theme-but {
@@ -52,18 +54,21 @@ dialog {
 
   font-size: 1.1rem;
   text-align: center;
-}
 
-.theme-selection {
+  border-color: var(--background-border);
+  box-shadow: 3px 5px 10px hsla(0, 0%, var(--background-box-shadow-light), 0.6);
+}
+.save-theme-but:hover {
+  box-shadow: 4px 8px 13px hsla(0, 0%, var(--background-box-shadow-light), 0.7);
+}
+.save-theme-but:active {
+  box-shadow: 1px 2px 8px hsla(0, 0%, var(--background-box-shadow-light), 0.5);
 }
 
 .select-originals {
   padding-bottom: 20px;
 
-  border-bottom: dashed black 2px;
-}
-
-.select-customs {
+  border-bottom: dashed var(--background-border) 2px;
 }
 
 .theme-list {
@@ -79,11 +84,19 @@ dialog {
   padding: 0px;
   padding-right: 5px;
   padding-left: 5px;
+  justify-content: space-between;
 
   width: 200px;
   height: 50px;
 
-  justify-content: space-between;
+  box-shadow: 4px 7px 10px hsla(0, 0%, var(--background-box-shadow-light), 0.6);
+  border-color: var(--background-border);
+}
+.theme:hover {
+  box-shadow: 4px 8px 13px hsla(0, 0%, var(--background-box-shadow-light), 0.7);
+}
+.theme:active {
+  box-shadow: 1px 2px 8px hsla(0, 0%, var(--background-box-shadow-light), 0.5);
 }
 .theme > label {
   align-self: center;
@@ -93,6 +106,7 @@ dialog {
   font-family: var(--fonts);
   text-align: center;
 }
+
 .display-colours {
   width: 70px;
   height: 100%;

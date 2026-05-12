@@ -57,8 +57,8 @@ function initRightClick() {
       id = sheet.dataset.id;
     }
     if (theme) {
-      type = 'theme';
       id = theme.dataset.id;
+      if (id != null) type = 'theme';
     }
     window.rightClick.sendContextMenu(type, id);
   });
@@ -105,7 +105,7 @@ export async function setupTheme() {
   }
   if (theme == null) {
     theme = ogThemes['000'];
-    localStorage.setItem('activeThemeId', '001');
+    localStorage.setItem('activeThemeId', '000');
   }
   const primHsl = hexToHSL(theme.primaryHex);
   const secHsl = hexToHSL(theme.secondaryHex);
@@ -157,58 +157,81 @@ export async function setupTheme() {
   determinePrimTextColour(primHsl.l);
   determineSecTextColour(secHsl.l);
   determineTerTextColour(terHsl.l);
-  determineBorderAndBoxShadowColour(bgHsl.l);
 }
 
-export function determineBorderAndBoxShadowColour(lightness) {
-  const colour = determineTextColour(lightness);
-  document.documentElement.style.setProperty('--custom-border-colour', colour);
+export function determineBackgroundTextColour(lightness) {
+  const colour = determineColour(lightness);
+  document.documentElement.style.setProperty('--background-text', colour);
+  document.documentElement.style.setProperty('--background-border', colour);
   document.documentElement.style.setProperty(
-    '--box-shadow-light',
+    '--background-box-shadow-light',
     colour === '#FFFFFF' ? '100%' : '0%'
   );
 }
 
-export function determineBackgroundTextColour(lightness) {
-  document.documentElement.style.setProperty('--background-text', determineTextColour(lightness));
-}
-
 export function determinePrimTextColour(lightness) {
-  document.documentElement.style.setProperty('--primary-text', determineTextColour(lightness));
+  const colour = determineColour(lightness);
+  document.documentElement.style.setProperty('--primary-text', colour);
+  document.documentElement.style.setProperty('--primary-border', colour);
+  document.documentElement.style.setProperty(
+    '--primary-box-shadow-light',
+    colour === '#FFFFFF' ? '100%' : '0%'
+  );
 
   let max = 3;
 
   for (let i = 1; i <= 3; i++) {
+    const colour = determineColour(lightness, 10 * (i - max + 1));
+    document.documentElement.style.setProperty(`--primary-text-light${i}`, colour);
+    document.documentElement.style.setProperty(`--primary-border-light${i}`, colour);
     document.documentElement.style.setProperty(
-      `--primary-text-light${i}`,
-      determineTextColour(lightness, 10 * (i - max + 1))
+      `--primary-box-shadow-light-light${i}`,
+      colour === '#FFFFFF' ? '100%' : '0%'
     );
   }
 }
 
 export function determineSecTextColour(lightness) {
-  document.documentElement.style.setProperty('--secondary-text', determineTextColour(lightness));
+  const colour = determineColour(lightness);
+  document.documentElement.style.setProperty('--secondary-text', determineColour(lightness));
+  document.documentElement.style.setProperty(`--secondary-border`, colour);
+  document.documentElement.style.setProperty(
+    `--secondary-box-shadow-light`,
+    colour === '#FFFFFF' ? '100%' : '0%'
+  );
 
   for (let i = 1; i <= 3; i++) {
+    const colour = determineColour(lightness, 10 * i);
+    document.documentElement.style.setProperty(`--secondary-text-dark${i}`, colour);
+    document.documentElement.style.setProperty(`--secondary-border-dark${i}`, colour);
     document.documentElement.style.setProperty(
-      `--secondary-text-dark${i}`,
-      determineTextColour(lightness, 10 * i)
+      `--secondary-box-shadow-light-dark${i}`,
+      colour === '#FFFFFF' ? '100%' : '0%'
     );
   }
 }
 
 export function determineTerTextColour(lightness) {
-  document.documentElement.style.setProperty('--tertiary-text', determineTextColour(lightness));
+  const colour = determineColour(lightness);
+  document.documentElement.style.setProperty('--tertiary-text', colour);
+  document.documentElement.style.setProperty(`--tertiary-border`, colour);
+  document.documentElement.style.setProperty(
+    `--tertiary-box-shadow-light`,
+    colour === '#FFFFFF' ? '100%' : '0%'
+  );
 
   for (let i = 1; i <= 3; i++) {
+    const colour = determineColour(lightness, 10 * i);
+    document.documentElement.style.setProperty(`--tertiary-text-dark${i}`, colour);
+    document.documentElement.style.setProperty(`--tertiary-border-dark${i}`, colour);
     document.documentElement.style.setProperty(
-      `--tertiary-text-dark${i}`,
-      determineTextColour(lightness, 10 * i)
+      `--tertiary-box-shadow-light-dark${i}`,
+      colour === '#FFFFFF' ? '100%' : '0%'
     );
   }
 }
 
-export function determineTextColour(lightness, offset = 0) {
+export function determineColour(lightness, offset = 0) {
   return lightness >= 30 + offset ? '#000000' : '#FFFFFF';
 }
 

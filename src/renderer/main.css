@@ -59,27 +59,24 @@ button:hover {
 
   background-color: var(--primary-colour-light1);
   border-radius: 5px;
-  box-shadow: 3px 5px 10px hsla(0, 0%, var(--box-shadow-light), 0.6);
+  border: solid black 2px;
+  box-shadow: 3px 5px 10px hsla(0, 0%, 0%, 0.6);
 
-  transition:
-    box-shadow 0.2s ease,
-    background-color 0.5s ease;
   user-select: none;
-  will-change: box-shadow, background-color;
 }
 
 .custom-button:hover {
   color: var(--primary-text-light2);
 
   background-color: var(--primary-colour-light2);
-  box-shadow: 4px 8px 13px hsla(0, 0%, var(--box-shadow-light), 0.7);
+  box-shadow: 4px 8px 13px hsla(0, 0%, 0%, 0.7);
 }
 
 .custom-button:active {
   color: var(--primary-text-light3);
 
   background-color: var(--primary-colour-light3);
-  box-shadow: 1px 2px 8px hsla(0, 0%, var(--box-shadow-light), 0.5);
+  box-shadow: 1px 2px 8px hsla(0, 0%, 0%, 0.5);
 }
 
 .custom-input {
@@ -116,7 +113,7 @@ button:hover {
 
   background-color: var(--secondary-colour);
   border-radius: 30px;
-  box-shadow: 4px 7px 10px hsla(0, 0%, var(--box-shadow-light), 0.6);
+  box-shadow: 4px 7px 10px hsla(0, 0%, 0%, 0.6);
 }
 
 /* Quality of Life */
@@ -129,13 +126,15 @@ label {
 }
 /* Colour transition */
 * {
-  border-color: var(--custom-border-colour) !important;
+  border-color: var(--custom-border-colour) ! important;
 }
 * {
   transition:
     background-color 0.5s ease,
     color 0.5s ease,
-    border-color 0.5s ease;
+    border-color 0.5s ease,
+    box-shadow 0.5s ease;
+  will-change: background-color, color, border-color, box-shadow;
 }
 .no-transition *,
 .no-transition *::before,
