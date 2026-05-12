@@ -1,10 +1,9 @@
 import {
-  determineBorderAndBoxShadowColour,
   determineBackgroundTextColour,
   determinePrimTextColour,
   determineSecTextColour,
   determineTerTextColour,
-  determineTextColour,
+  determineColour,
   hexToHSL,
   setupTheme
 } from '../../../main.js';
@@ -67,7 +66,7 @@ function generateButton(theme) {
   secBg.dataset.hex = theme.secondaryHex;
   terBg.dataset.hex = theme.tertiaryHex;
   label.textContent = theme.name;
-  label.style.color = determineTextColour(hexToHSL(theme.backgroundHex).l);
+  label.style.color = determineColour(hexToHSL(theme.backgroundHex).l);
   primBg.style.setProperty('border-color', label.style.color, 'important');
   secBg.style.setProperty('border-color', label.style.color, 'important');
   terBg.style.setProperty('border-color', label.style.color, 'important');
@@ -95,7 +94,6 @@ function themeConfigListeners() {
     document.documentElement.style.setProperty('--background-colour', target.value);
     const hsl = hexToHSL(target.value);
     determineBackgroundTextColour(hsl.l);
-    determineBorderAndBoxShadowColour(hsl.l);
   });
   colourPickerBackground.addEventListener('change', ({ target }) => {
     backgroundColour = target.value;
