@@ -13,7 +13,7 @@
 
   width: 90%;
 
-  border: solid black 1px;
+  border: solid var(--secondary-border) 1px;
   border-bottom: none;
 }
 
@@ -25,30 +25,38 @@
   height: auto;
   width: 90%;
 
-  border: solid black 1px;
+  border: solid var(--secondary-border) 1px;
   border-top: none;
 }
 
 .day-name {
   padding: 2px;
 
+  color: var(--primary-text);
+
   background-color: var(--primary-colour);
-  border: solid black 1px;
+  border: solid var(--primary-border) 1px;
 }
 
 .day-number {
   padding: 3px;
 
-  background-color: var(--plain-colour);
-  border: solid black 1px;
+  color: var(--tertiary-text);
+
+  background-color: var(--tertiary-colour);
+  border: solid var(--tertiary-border) 1px;
 }
 
 .day-number:hover {
-  background-color: var(--plain-colour-dark3);
+  color: var(--tertiary-text-dark3);
+
+  background-color: var(--tertiary-colour-dark3);
 
   cursor: pointer;
 }
 
 .day-number:active {
-  background-color: var(--plain-colour-dark2);
+  color: var(--tertiary-text-dark2);
+
+  background-color: var(--tertiary-colour-dark2);
 }

@@ -7,15 +7,17 @@
   grid-template-columns: 4fr 1.5fr 1fr;
   width: 90%;
 
-  border: solid black 1px;
+  border: solid var(--primary-border) 1px;
   border-bottom: none;
 }
 
 .column-header {
   padding: 3px;
+  
+  color: var(--primary-text);
 
   background-color: var(--primary-colour);
-  border: solid black 1px;
+  border: solid var(--primary-border) 1px;
 }
 
 .table {
@@ -23,7 +25,7 @@
 
   width: 90%;
 
-  border: solid black 1px;
+  border: solid var(--secondary-border) 1px;
   border-top: none;
 }
 
@@ -42,7 +44,9 @@
 }
 
 .table button:hover {
-  background-color: var(--plain-colour);
+  color: var(--tertiary-text);
+
+  background-color: var(--tertiary-colour);
 }
 
 .cell {
@@ -54,22 +58,29 @@
 
   font: inherit;
   font-size: 1rem;
+  color: var(--tertiary-text-dark1);
 
-  background-color: var(--plain-colour-dark1);
-  border: solid black 1px;
+  background-color: var(--tertiary-colour-dark1);
+  border: solid var(--tertiary-border-dark1) 1px;
   border-radius: 0;
 }
 
 .cell.new {
+  color: black;
+  
   background-color: var(--overlay);
-  border: dashed black 1px;
+  border: dashed var(--tertiary-border-dark1) 1px;
 }
 
 .cell:hover {
-  background-color: var(--plain-colour);
+  color: var(--tertiary-text);
+
+  background-color: var(--tertiary-colour);
 }
 
 .cell:focus-visible {
+  color: var(--tertiary-text);
+
   outline: none;
-  background-color: var(--plain-colour);
+  background-color: var(--tertiary-colour);
 }

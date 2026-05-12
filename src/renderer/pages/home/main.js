@@ -1,8 +1,8 @@
-import { initNavbarListeners } from './js/navbar.js';
+import { initConfigListeners } from './js/config.js';
 import { initBudgetSheetCreationListeners } from './js/budgetSheetCreation.js';
 import { setupSheets, initHomeListeners } from './js/home.js';
 
-initNavbarListeners();
 setupSheets();
 initHomeListeners();
 initBudgetSheetCreationListeners();
+initConfigListeners();

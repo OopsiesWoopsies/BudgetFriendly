@@ -6,6 +6,7 @@ import { registerSheetIpc } from './db/dbFunctions/sheetDb';
 import { registerBudgetSettingsIpc } from './db/dbFunctions/budgetSettingsDb';
 import { registerEntriesIpc } from './db/dbFunctions/entriesDb';
 import { registerBudgetAmountsIpc } from './db/dbFunctions/budgetAmountsDb';
+import { registerThemeIpc } from './db/dbFunctions/themeDb';
 import { registerDataStorageIpc } from './data/data';
 
 function createWindow() {
@@ -36,37 +37,48 @@ function createWindow() {
   });
 
   // Welcome page of BudgetFriendly
-  mainWindow.loadFile(join(__dirname, '../../src/renderer/pages/welcome/welcome.html'));
+  mainWindow.loadFile(join(__dirname, '../../src/renderer/pages/home/home.html'));
 
   // Right click menu
   ipcMain.on('context-menu', (event, type, id) => {
     const template = [
-      { role: 'copy' },
-      { role: 'paste' },
+      { role: 'Copy' },
+      { role: 'Paste' },
       { type: 'separator' },
-      { role: 'undo' },
-      { role: 'redo' }
+      { role: 'Undo' },
+      { role: 'Redo' }
     ];
 
     // Reveal new options specific to significant elements
-    if (type === 'entry') {
-      template.push({ type: 'separator' });
-      template.push({
-        label: 'delete row',
-        click: (_, browserWindow) => {
-          browserWindow.webContents.send('delete-row', id);
-        }
-      });
-    }
+    switch (type) {
+      case 'entry':
+        template.push({ type: 'separator' });
+        template.push({
+          label: 'Delete row',
+          click: (_, browserWindow) => {
+            browserWindow.webContents.send('delete-row', id);
+          }
+        });
+        break;
 
-    if (type === 'sheet') {
-      template.push({ type: 'separator' });
-      template.push({
-        label: 'delete budget sheet',
-        click: (_, browserWindow) => {
-          browserWindow.webContents.send('delete-sheet', id);
-        }
-      });
+      case 'sheet':
+        template.push({ type: 'separator' });
+        template.push({
+          label: 'Delete budget sheet',
+          click: (_, browserWindow) => {
+            browserWindow.webContents.send('delete-sheet', id);
+          }
+        });
+        break;
+
+      case 'theme':
+        template.push({ type: 'separator' });
+        template.push({
+          label: 'Delete theme',
+          click: (_, browserWindow) => {
+            browserWindow.webContents.send('delete-theme', id);
+          }
+        });
     }
 
     const menu = Menu.buildFromTemplate(template);
@@ -113,3 +125,4 @@ registerBudgetSettingsIpc();
 registerEntriesIpc();
 registerBudgetAmountsIpc();
 registerDataStorageIpc();
+registerThemeIpc();

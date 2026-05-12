@@ -20,9 +20,15 @@
   font-weight: 800;
   text-decoration: none;
 
-  border: none;
+  border: solid var(--background-border) 2px;
   border-radius: 25px;
-  box-shadow: 0 4px 10px hsla(0, 0%, 0%, 0.25);
+  box-shadow: 0 4px 10px hsla(0, 0%, var(--background-box-shadow-light), 0.4);
+}
+.open-settings-button:hover {
+  box-shadow: 4px 8px 13px hsla(0, 0%, var(--background-box-shadow-light), 0.7);
+}
+.open-settings-button:active {
+  box-shadow: 1px 2px 8px hsla(0, 0%, var(--background-box-shadow-light), 0.5);
 }
 
 /* Budgets list */
@@ -34,8 +40,15 @@
   padding: 10px;
   font-family: var(--fonts);
 
-  border: solid black 2px;
+  border: solid var(--background-border) 2px;
   border-radius: 10px;
+  box-shadow: 4px 7px 10px hsla(0, 0%, var(--background-box-shadow-light), 0.6);
+}
+.budgets-list a:hover {
+  box-shadow: 4px 8px 13px hsla(0, 0%, var(--background-box-shadow-light), 0.7);
+}
+.budgets-list a:active {
+  box-shadow: 1px 2px 8px hsla(0, 0%, var(--background-box-shadow-light), 0.5);
 }
 
 .sheet-title {

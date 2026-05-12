@@ -5,7 +5,8 @@ import { electronAPI } from '@electron-toolkit/preload';
 const rightClick = {
   sendContextMenu: (type, id) => ipcRenderer.send('context-menu', type, id),
   deleteRow: (callback) => ipcRenderer.on('delete-row', callback),
-  deleteSheet: (callback) => ipcRenderer.on('delete-sheet', callback)
+  deleteSheet: (callback) => ipcRenderer.on('delete-sheet', callback),
+  deleteTheme: (callback) => ipcRenderer.on('delete-theme', callback)
 };
 
 // Sets up data storage functions to expose to the renderer
@@ -90,7 +91,23 @@ const dbFunctions = {
       effectiveFrom: effectiveFrom,
       effectiveTo: effectiveTo,
       budgetSheetId: budgetSheetId
-    })
+    }),
+
+  // Themes queries
+  getThemes: (id = null) =>
+    ipcRenderer.invoke('themes:get', {
+      id: id
+    }),
+  createTheme: (id, name, bgHex, primHex, secHex, terHex) =>
+    ipcRenderer.invoke('themes:create', {
+      id: id,
+      name: name,
+      backgroundHex: bgHex,
+      primaryHex: primHex,
+      secondaryHex: secHex,
+      tertiaryHex: terHex
+    }),
+  deleteTheme: (id) => ipcRenderer.invoke('themes:delete', { id: id })
 };
 
 if (process.contextIsolated) {

@@ -1,9 +1,13 @@
-/* Modal (settings) */
+:root {
+  --modal-header-height: 50px;
+}
+
 .modal {
   min-width: 500px;
-  aspect-ratio: 1 / 1;
   height: 70vh;
   width: 80vw;
+
+  color: var(--background-text);
 
   background-color: var(--background-colour);
 }
@@ -12,9 +16,13 @@
   position: relative;
   padding: 5px;
 
+  height: var(--modal-header-height);
+
   font-family: var(--fonts);
+  color: var(--primary-text);
 
   background-color: var(--primary-colour);
+  border-bottom: solid var(--primary-border) 3px;
 }
 
 .modal-back-button {
@@ -47,8 +55,9 @@
 /* Modal body (settings) */
 .modal-body {
   padding: 2px;
-  
-  height: 90%;
+
+  height: calc(100% - var(--modal-header-height) - 17px);
+  min-height: fit-content;
 
   font-family: var(--fonts);
 }
@@ -70,6 +79,7 @@
 
   font-size: 1.25rem;
   font-weight: 800;
+  color: var(--primary-text-light1);
 
   background-color: var(--primary-colour-light1);
   border: solid black 1px;
@@ -85,8 +95,9 @@
   font-family: var(--fonts);
   font-size: 1rem;
   text-align: center;
+  color: var(--tertiary-text-dark1);
 
-  background-color: var(--plain-colour-dark1);
+  background-color: var(--tertiary-colour-dark1);
   border: solid black 2px;
   border-radius: 5px;
 }
@@ -99,20 +110,28 @@
 .description.header {
   position: relative;
 
+  color: var(--primary-text-light1);
+
   background-color: var(--primary-colour-light1);
 
   transition: background-color 0.3s ease;
 }
 
 .description.header.add-category-mode {
+  color: black;
+
   background-color: green;
 }
 
 .description.header.edit-category-name-mode {
+  color: var(--primary-text-light1);
+
   background-color: var(--primary-colour-light1);
 }
 
 .description.header.remove-category-mode {
+  color: black;
+
   background-color: red;
 }
 
@@ -132,6 +151,7 @@
   font-size: 1.5rem;
   font-weight: 900;
   text-align: center;
+  color: var(--secondary-text);
 
   background-color: var(--secondary-colour);
   border: none;
@@ -139,10 +159,14 @@
 }
 
 .edit-tools button:hover {
+  color: var(--secondary-text-dark1);
+
   background-color: var(--secondary-colour-dark1);
 }
 
 .edit-tools button:active {
+  color: var(--secondary-text-dark2);
+
   background-color: var(--secondary-colour-dark2);
 }
 
@@ -161,6 +185,8 @@
 }
 
 .category.remove-confirm {
+  color: black;
+
   background-color: red;
 }
 
@@ -171,6 +197,7 @@
 
   font-family: var(--fonts);
   text-align: center;
+  color: var(--primary-text-light1);
 
   background-color: var(--primary-colour-light1);
   border: solid black 1px;

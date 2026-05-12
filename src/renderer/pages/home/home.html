@@ -9,27 +9,128 @@
     <link rel="stylesheet" href="../../pages/budgeting/css/settings.css" />
     <link rel="stylesheet" href="./css/budgetSheetCreation.css" />
     <link rel="stylesheet" href="./css/home.css" />
-    <link rel="stylesheet" href="./css/about.css" />
-    <link rel="stylesheet" href="./css/settings.css" />
-    <link rel="stylesheet" href="./css/navbar.css" />
+    <link rel="stylesheet" href="./css/config.css" />
+    <link rel="stylesheet" href="./css/header.css" />
   </head>
   <body class="margin-zero">
-    <header class="navbar flex position-fixed align-items-center justify-content-center">
-      <div class="hamburger flex margin-zero padding-zero">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-      <h1 class="navbar-title no-select">BudgetFriendly</h1>
+    <header class="header flex position-fixed align-items-center justify-content-center">
+      <button id="configButton" class="header-title custom-button no-select">BudgetFriendly</button>
     </header>
 
-    <nav class="sidebar flex position-fixed">
-      <div class="sidebar-labels no-select">
-        <button class="label" data-page="budgets">Home</button>
-        <button class="label" data-page="settings">Settings</button>
-        <button class="label" data-page="about">About</button>
+    <dialog id="config" class="modal">
+      <header class="modal-header flex">
+        <button id="closeConfig" class="modal-back-button close-modal no-select">X</button>
+        <h1 class="modal-title">Configurations</h1>
+      </header>
+      <div class="modal-body">
+        <section id="theme-config" class="grid custom-theme">
+          <section id="createTheme" class="flex flex-down theme-creation text-align-center">
+            <h3 class="card">Make a Theme</h3>
+            <div class="grid">
+              <div class="flex">
+                <label>Background</label>
+                <input
+                  type="color"
+                  id="colourPickerBackground"
+                  class="colour-picker"
+                  value="#e5f6ff"
+                />
+              </div>
+              <div class="flex">
+                <label>Primary</label>
+                <input
+                  type="color"
+                  id="colourPickerPrimary"
+                  class="colour-picker"
+                  value="#ffd900"
+                />
+              </div>
+              <div class="flex">
+                <label>Secondary</label>
+                <input
+                  type="color"
+                  id="colourPickerSecondary"
+                  class="colour-picker"
+                  value="#cceeff"
+                />
+              </div>
+              <div class="flex">
+                <label>Tertiary</label>
+                <input
+                  type="color"
+                  id="colourPickerTertiary"
+                  class="colour-picker"
+                  value="#ffffff"
+                />
+              </div>
+              <div class="flex">
+                <label>Name</label>
+                <input
+                  id="themeNameInput"
+                  type="text"
+                  class="theme-name-input custom-input"
+                  maxlength="15"
+                  placeholder="name"
+                  required
+                />
+              </div>
+            </div>
+            <button id="saveThemeButton" class="custom-button save-theme-but">Save</button>
+          </section>
+          <section id="selectTheme" class="flex flex-down theme-selection">
+            <section class="select-originals text-align-center">
+              <h3>Original Themes</h3>
+              <div id="originalThemes" class="grid theme-list">
+                <button id="000" class="flex custom-button theme" style="background-color: #e5f6ff">
+                  <label style="color: black">Sunny Days</label>
+                  <div class="grid display-colours">
+                    <div style="background-color: #ffd900; border-color: black !important"></div>
+                    <div style="background-color: #cceeff; border-color: black !important"></div>
+                    <div style="background-color: #ffffff; border-color: black !important"></div>
+                  </div>
+                </button>
+                <button id="001" class="flex custom-button theme" style="background-color: #bfbfbf">
+                  <label style="color: black">Moonlight</label>
+                  <div class="grid display-colours">
+                    <div style="background-color: #808080; border-color: black !important"></div>
+                    <div style="background-color: #e6e6e6; border-color: black !important"></div>
+                    <div style="background-color: #ffffff; border-color: black !important"></div>
+                  </div>
+                </button>
+                <button id="002" class="flex custom-button theme" style="background-color: #fee7f5">
+                  <label style="color: black">Strawberry</label>
+                  <div class="grid display-colours">
+                    <div style="background-color: #ff337a; border-color: black !important"></div>
+                    <div style="background-color: #ffcce7; border-color: black !important"></div>
+                    <div style="background-color: #ffffff; border-color: black !important"></div>
+                  </div>
+                </button>
+                <button id="003" class="flex custom-button theme" style="background-color: #0f0019">
+                  <label style="color: white">Obsidian</label>
+                  <div class="grid display-colours">
+                    <div style="background-color: #1c0a29; border-color: white !important"></div>
+                    <div style="background-color: #6600cc; border-color: white !important"></div>
+                    <div style="background-color: #d69afe; border-color: white !important"></div>
+                  </div>
+                </button>
+                <button id="004" class="flex custom-button theme" style="background-color: #b3e4ff">
+                  <label style="color: black">Ocean Waves</label>
+                  <div class="grid display-colours">
+                    <div style="background-color: #0062ff; border-color: black !important"></div>
+                    <div style="background-color: #4dc3ff; border-color: black !important"></div>
+                    <div style="background-color: #ccd2ff; border-color: black !important"></div>
+                  </div>
+                </button>
+              </div>
+            </section>
+            <section class="select-customs text-align-center">
+              <h3>Your Themes</h3>
+              <div id="userThemes" class="grid theme-list"></div>
+            </section>
+          </section>
+        </section>
       </div>
-    </nav>
+    </dialog>
 
     <main>
       <dialog id="settings" class="modal padding-zero">
@@ -92,7 +193,7 @@
         </div>
       </dialog>
 
-      <div class="navbar-space"></div>
+      <div class="header-space"></div>
 
       <div class="budgets-page page flex" data-page="budgets">
         <button
@@ -102,13 +203,8 @@
         >
           +
         </button>
-        <div class="grid budgets-list">
-        </div>
+        <div class="grid budgets-list"></div>
       </div>
-
-      <div class="settings-page page display-none" data-page="settings"></div>
-
-      <div class="about-page page display-none" data-page="about"></div>
     </main>
 
     <script type="module" async src="../../main.js"></script>
