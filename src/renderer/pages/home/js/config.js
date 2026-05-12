@@ -194,8 +194,9 @@ function themeConfigListeners() {
   });
 
   originalThemes.addEventListener('click', ({ target }) => {
-    if (target.id == null) return;
-    localStorage.setItem('activeThemeId', target.id);
+    const theme = target.closest('.theme');
+    if (theme == null) return;
+    localStorage.setItem('activeThemeId', theme.id);
     setupTheme();
     backgroundColour = colourPickerBackground.value;
     primaryColour = colourPickerPrimary.value;
@@ -204,8 +205,9 @@ function themeConfigListeners() {
   });
 
   userThemes.addEventListener('click', ({ target }) => {
-    if (target.id == null) return;
-    localStorage.setItem('activeThemeId', target.dataset.id);
+    const theme = target.closest('.theme');
+    if (theme == null) return;
+    localStorage.setItem('activeThemeId', theme.dataset.id);
     setupTheme();
     backgroundColour = colourPickerBackground.value;
     primaryColour = colourPickerPrimary.value;
