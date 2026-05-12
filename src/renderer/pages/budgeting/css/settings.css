@@ -113,8 +113,6 @@
   color: var(--primary-text-light1);
 
   background-color: var(--primary-colour-light1);
-
-  transition: background-color 0.3s ease;
 }
 
 .description.header.add-category-mode {
