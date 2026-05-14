@@ -1,6 +1,7 @@
 .header {
+  position: sticky;
   top: 0px;
-  z-index: 9999;
+  flex: 0 0 auto;
 
   height: var(--title-header-height);
   width: 100vw;

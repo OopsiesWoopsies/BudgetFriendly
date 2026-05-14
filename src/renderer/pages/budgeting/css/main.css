@@ -4,11 +4,14 @@
 
 /* Header */
 .header {
+  position: sticky;
+  top: 0;
+  flex: 0 0 auto;
+  
+  color: var(--primary-text);
+
   height: var(--title-header-height);
   width: 100%;
-  z-index: 9999;
-
-  color: var(--primary-text);
 
   background-color: var(--primary-colour);
   border-bottom: solid var(--background-border) 2px;

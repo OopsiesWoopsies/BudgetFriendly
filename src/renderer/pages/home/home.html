@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="./css/home.css" />
     <link rel="stylesheet" href="./css/config.css" />
   </head>
-  <body class="margin-zero">
+  <body class="flex flex-down margin-zero">
     <header class="header flex position-fixed align-items-center justify-content-center">
       <button id="configButton" class="header-title custom-button no-select">BudgetFriendly</button>
     </header>
@@ -169,7 +169,10 @@
           </div>
 
           <div class="edit-categories flex">
-            <div id="categories-header-bg" class="card description header add-category-mode align-items-center">
+            <div
+              id="categories-header-bg"
+              class="card description header add-category-mode align-items-center"
+            >
               <p id="categories-header">Add a Category</p>
               <div class="edit-tools grid">
                 <button id="add-category" class="custom-button tool">+</button>
@@ -189,8 +192,6 @@
           </div>
         </div>
       </dialog>
-
-      <div class="header-space"></div>
 
       <div class="budgets-page page flex" data-page="budgets">
         <button
