@@ -85,6 +85,9 @@ export function stagedChangesCleanup(changes) {
 export function initCategorySelectionListeners() {
   settingsBackButton.addEventListener('click', () => {
     settingsModal.close();
+  });
+
+  settingsModal.addEventListener('close', () => {
     updateCategoriesDb();
   });
 }
