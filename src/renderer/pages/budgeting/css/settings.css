@@ -35,10 +35,11 @@ dialog[open] {
 
 .modal-back-button {
   margin-left: 10px;
+
+  width: fit-content;
 }
 
 .back-button {
-  margin-right: 0 auto;
   margin-left: 10px;
   padding-left: 5px;
   padding-right: 5px;
