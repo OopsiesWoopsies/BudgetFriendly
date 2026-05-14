@@ -54,6 +54,7 @@ dialog {
 
   font-size: 1.1rem;
   text-align: center;
+  font-family: var(--fonts);
 
   border-color: var(--background-border);
   box-shadow: 3px 5px 10px hsla(0, 0%, var(--background-box-shadow-light), 0.6);
