@@ -2,7 +2,11 @@
   --modal-header-height: 50px;
 }
 
-.modal {
+dialog[open] {
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 auto;
+
   min-width: 500px;
   height: 70vh;
   width: 80vw;
@@ -10,10 +14,14 @@
   color: var(--background-text);
 
   background-color: var(--background-colour);
+
+  overflow: hidden;
 }
 
 .modal-header {
-  position: relative;
+  grid-template-columns: 1fr auto 1fr;
+  position: sticky;
+  top: 0px;
   padding: 5px;
 
   height: var(--modal-header-height);
@@ -26,17 +34,15 @@
 }
 
 .modal-back-button {
-  position: absolute;
-  justify-self: center;
-
-  top: 10px;
-  left: 15px;
+  margin-left: 10px;
 }
 
 .back-button {
-  left: 20px;
+  margin-right: 0 auto;
+  margin-left: 10px;
   padding-left: 5px;
   padding-right: 5px;
+  width: fit-content;
 
   color: inherit;
   font-family: Arial;
@@ -58,9 +64,11 @@
   padding: 2px;
 
   height: calc(100% - var(--modal-header-height) - 17px);
-  min-height: fit-content;
+  min-height: 0;
 
   font-family: var(--fonts);
+
+  overflow-y: auto;
 }
 
 .change-title {
@@ -80,6 +88,7 @@
   color: var(--background-text);
 }
 .description.header {
+  position: static;
   margin: 0 auto;
   margin-top: 10px;
   margin-bottom: 10px;

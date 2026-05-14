@@ -59,10 +59,8 @@
 }
 
 .submit-button {
-  justify-self: center;
-  position: absolute;
-  right: 20px;
-  top: 10px;
+  margin-right: 10px;
+  margin-left: 0 auto;
 
   color: inherit;
   font-family: Arial;
