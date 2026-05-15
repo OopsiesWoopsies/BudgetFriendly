@@ -95,23 +95,26 @@ export async function makePieChartAndLegend(startDate, endDate) {
 
 export async function getSummation(lastKnownDate, startDate, endDate, budgetSheetId) {
   const grandTotal = await window.db.sumEntries(startDate, endDate, budgetSheetId);
-  const budgetingPeriod = (await window.db.getBudgetSheets(budgetSheetId)).period;
+  const budgetSheet = await window.db.getBudgetSheets(budgetSheetId);
   const budgetAmount = await window.db.getBudgetAmount(startDate, budgetSheetId);
 
   expendituresHeader.textContent = `Expenditures This ${lastKnownDate}`;
   summation.textContent = `$${grandTotal}`;
-  const totalBudgetText = budgetAmount === undefined ? '' : ` / ${budgetAmount.amount}`;
+  const totalBudgetText =
+    budgetAmount === undefined
+      ? ` / ${(await window.db.getBudgetAmount(budgetSheet.createdAt, budgetSheetId)).amount} `
+      : ` / ${budgetAmount.amount}`;
   totalBudget.textContent = totalBudgetText;
 
   // Displays the correct text and reveals max budget if the correct calendar is shown
   totalBudget.classList.add('display-none');
   switch (lastKnownDate) {
     case 'Year':
-      totalBudget.classList.remove('display-none');
+      if (budgetSheet.period === 'yearly') totalBudget.classList.remove('display-none');
       break;
 
     case 'Month':
-      switch (budgetingPeriod) {
+      switch (budgetSheet.period) {
         case 'biweekly':
           expendituresHeader.textContent = `Expenditures Past 2 Weeks`;
           break;
@@ -126,7 +129,7 @@ export async function getSummation(lastKnownDate, startDate, endDate, budgetShee
       break;
 
     case 'Day':
-      totalBudget.classList.remove('display-none');
+      if (budgetSheet.period === 'daily') totalBudget.classList.remove('display-none');
   }
 
   makePieChartAndLegend(startDate, endDate);
