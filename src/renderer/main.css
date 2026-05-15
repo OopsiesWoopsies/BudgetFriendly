@@ -39,6 +39,10 @@ button:hover {
   justify-content: center;
 }
 
+.justify-content-between {
+  justify-content: space-between;
+}
+
 .margin-zero {
   margin: 0;
 }

@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../../main.css" />
     <link rel="stylesheet" href="./css/main.css" />
     <link rel="stylesheet" href="./css/settings.css" />
+    <link rel="stylesheet" href="./css/sheetSettings.css" />
     <link rel="stylesheet" href="./css/monthSelection.css" />
     <link rel="stylesheet" href="./css/daySelection.css" />
     <link rel="stylesheet" href="./css/summary.css" />
@@ -15,12 +16,7 @@
   </head>
   <body class="flex flex-down margin-zero">
     <header class="grid header align-items-center">
-      <button
-        id="exit"
-        class="back-button no-select"
-        href="../home/home.html"
-        draggable="false"
-      >
+      <button id="exit" class="back-button no-select" href="../home/home.html" draggable="false">
         X
       </button>
       <button class="header-title no-select custom-button open-settings-button">Title</button>
@@ -34,14 +30,22 @@
       <div class="grid modal-body">
         <div class="flex flex-down">
           <h2 class="card description header">Budget Sheet Details</h2>
-          <div class="change-title flex">
-            <h2 class="description">Change Budget Sheet Title</h2>
+          <div class="change-title flex justify-content-between">
+            <label class="description">Change Budget Sheet Title</label>
             <input
               type="text"
               class="new-title custom-input"
               maxlength="30"
               placeholder="Budget Sheet Title"
             />
+          </div>
+          <div class="option flex justify-content-between">
+            <label class="description">Budgeting Period</label>
+            <p id="budgetPeriod"></p>
+          </div>
+          <div class="option flex justify-content-between">
+            <label class="description">Budget Amount</label>
+            <p id="budget"></p>
           </div>
         </div>
         <div class="edit-categories flex">
