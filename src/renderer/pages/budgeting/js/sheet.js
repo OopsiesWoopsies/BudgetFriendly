@@ -40,7 +40,7 @@ function createRow(rowInfo) {
   nameInput.value = rowInfo.name;
   if (rowInfo.categoryId === null) categoryDropdown.value = '';
   else categoryDropdown.value = rowInfo.categoryId;
-  costInput.value = rowInfo.cost;
+  costInput.value = Number(rowInfo.cost).toFixed(2);
 
   nameInput.type = 'text';
   nameInput.classList.add('cell', 'name-cell', 'custom-input');
@@ -139,7 +139,7 @@ export function initTableListeners() {
   table.addEventListener('change', (event) => {
     const target = event.target;
     if (target.classList.contains('cost-cell')) {
-      target.value = Math.round(parseFloat(target.value) * 100) / 100;
+      target.value = Number(target.value).toFixed(2);
     }
 
     newRowListener(target);

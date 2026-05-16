@@ -99,7 +99,7 @@ export async function getSummation(lastKnownDate, startDate, endDate, budgetShee
   const budgetAmount = await window.db.getBudgetAmount(startDate, budgetSheetId);
 
   expendituresHeader.textContent = `Expenditures This ${lastKnownDate}`;
-  summation.textContent = `$${grandTotal}`;
+  summation.textContent = `$${Number(grandTotal).toFixed(2)}`;
   const totalBudgetText =
     budgetAmount === undefined
       ? ` / ${(await window.db.getBudgetAmount(budgetSheet.createdAt, budgetSheetId)).amount} `

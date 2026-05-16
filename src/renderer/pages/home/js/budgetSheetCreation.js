@@ -28,7 +28,7 @@ export function initBudgetSheetCreationListeners() {
   });
 
   budgetAmount.addEventListener('blur', () => {
-    budgetAmount.value = Math.round(parseFloat(budgetAmount.value) * 100) / 100;
+    budgetAmount.value = Number(budgetAmount.value).toFixed(2);
   });
 
   // Check for budget sheet creation
@@ -40,7 +40,7 @@ export function initBudgetSheetCreationListeners() {
     } else {
       budgetAmount.classList.remove('invalid');
       budgetAmount.placeholder = '1234.56';
-      budgetAmount.value = Math.round(parseFloat(budgetAmount.value) * 100) / 100;
+      budgetAmount.value = Number(budgetAmount.value).toFixed(2);
     }
 
     // Creates new sheet and POSTs to budget sheet db

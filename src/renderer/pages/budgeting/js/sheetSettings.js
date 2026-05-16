@@ -8,5 +8,5 @@ export async function initBudgetInfo() {
   const budget = (await window.db.getBudgetAmount(today, budgetSheetId)).amount;
 
   periodDisplay.textContent = period;
-  changeBudget.textContent = budget;
+  changeBudget.textContent = Number(budget).toFixed(2);
 }
