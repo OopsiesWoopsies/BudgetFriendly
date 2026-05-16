@@ -46,7 +46,6 @@
   background-color: var(--tertiary-colour);
   border: solid var(--tertiary-border) 1px;
 }
-
 .day-number:hover {
   color: var(--tertiary-text-dark3);
 
@@ -54,9 +53,24 @@
 
   cursor: pointer;
 }
-
 .day-number:active {
   color: var(--tertiary-text-dark2);
 
   background-color: var(--tertiary-colour-dark2);
+}
+
+.today {
+  color: var(--primary-text);
+
+  background-color: var(--primary-colour);
+}
+.today:hover {
+  color: var(--primary-text-light2);
+
+  background-color: var(--primary-colour-light2);
+}
+.today:active {
+  color: var(--primary-text-light1);
+
+  background-color: var(--primary-colour-light1);
 }
