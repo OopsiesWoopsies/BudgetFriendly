@@ -163,7 +163,28 @@ function initRightClick() {
 function initRightClickCommands() {
   window.rightClick.deleteRow((_, id) => {
     const row = document.querySelector(`[data-id="${id}"]`);
+    const summation = document.querySelector('.summation');
+    const categoryId = row.querySelector('.category-cell').value;
+    const cost = row.querySelector('.cost-cell').value;
+    let newGrandTotal = expCategoriesSum[0].grandTotal;
     stagedTableChanges.removing.set(id, '');
+
+    for (const category of expCategoriesSum) {
+      if (category.categoryId === categoryId) {
+        const newCategoryCost = Math.round(category.totalCategoryCost * 100 - cost * 100) / 100;
+        newGrandTotal = Math.round(category.grandTotal * 100 - cost * 100) / 100;
+        category.totalCategoryCost = newCategoryCost;
+        expCategoriesSum[0].grandTotal = newGrandTotal;
+        break;
+      }
+    }
+    expCategoriesSum.sort((a, b) => b.totalCategoryCost - a.totalCategoryCost);
+    expCategoriesSum[0].grandTotal = newGrandTotal;
+    console.log(expCategoriesSum);
+
+    makePieChartAndLegend(expCategoriesSum);
+    summation.textContent = `$${expCategoriesSum[0].grandTotal}`;
+
     row.remove();
   });
 

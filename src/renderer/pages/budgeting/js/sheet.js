@@ -131,13 +131,13 @@ function updateRowListener(target) {
 
       for (const category of categoriesSum) {
         if (category.categoryId === categoryId) {
-          const newCategoryCost = Math.round(category.totalCategoryCost * 100 + intCost);
-          category.totalCategoryCost = newCategoryCost / 100;
+          const newCategoryCost = Math.round(category.totalCategoryCost * 100 + intCost) / 100;
+          category.totalCategoryCost = newCategoryCost;
           changed++;
         }
         if (category.categoryId === oldCategoryId) {
-          const newCategoryCost = Math.round(category.totalCategoryCost * 100 - intCost);
-          category.totalCategoryCost = newCategoryCost / 100;
+          const newCategoryCost = Math.round(category.totalCategoryCost * 100 - intCost) / 100;
+          category.totalCategoryCost = newCategoryCost;
           changed++;
         }
         if (changed === 2) break;
@@ -159,15 +159,16 @@ function updateRowListener(target) {
 
       for (const category of categoriesSum) {
         if (category.categoryId === categoryId) {
-          const newCategoryCost = Math.round(category.totalCategoryCost * 100 + additionalCost);
-          newGrandTotal = Math.round(categoriesSum[0].grandTotal * 100 + additionalCost);
-          category.totalCategoryCost = newCategoryCost / 100;
-          categoriesSum[0].grandTotal = newGrandTotal / 100;
+          const newCategoryCost =
+            Math.round(category.totalCategoryCost * 100 + additionalCost) / 100;
+          newGrandTotal = Math.round(categoriesSum[0].grandTotal * 100 + additionalCost) / 100;
+          category.totalCategoryCost = newCategoryCost;
+          categoriesSum[0].grandTotal = newGrandTotal;
           break;
         }
       }
       categoriesSum.sort((a, b) => b.totalCategoryCost - a.totalCategoryCost);
-      categoriesSum[0].grandTotal = newGrandTotal / 100;
+      categoriesSum[0].grandTotal = newGrandTotal;
 
       summation.textContent = `$${((Number(summation.textContent.slice(1)) * 100 + additionalCost) / 100).toFixed(2)}`;
       makePieChartAndLegend(categoriesSum);
