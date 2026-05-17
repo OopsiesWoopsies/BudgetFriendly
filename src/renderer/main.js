@@ -4,6 +4,15 @@ export const stagedTableChanges = {
   removing: new Map()
 };
 
+let expCategoriesSum = [];
+
+export function getCategoriesSum() {
+  return expCategoriesSum;
+}
+export function setCategoriesSum(categoriesSum) {
+  expCategoriesSum = categoriesSum;
+}
+
 // Original Themes
 const ogThemes = {
   '000': {
@@ -37,6 +46,92 @@ const ogThemes = {
     backgroundHex: '#b3e4ff'
   }
 };
+
+export function makePieChartAndLegend(categoriesSum) {
+  const legend = document.querySelector('.legend');
+  const pie = document.querySelector('.pie-chart');
+  legend.innerHTML = '';
+
+  if (categoriesSum[0].grandTotal === 0) return;
+
+  const colours = [
+    'red',
+    'orange',
+    'yellow',
+    'green',
+    'blue',
+    'purple',
+    'cyan',
+    'lavender',
+    'violet',
+    'lime'
+  ];
+  // Creates pie chart of top 10 most expensive categories
+  const numOfCategories = categoriesSum.length;
+  const grandTotal = categoriesSum[0].grandTotal;
+  const relativePercentages = [];
+  const pieElems = [];
+  let startPercentage = 0,
+    totalPercentage = 0;
+
+  for (let i = 0; i < 10 && i < numOfCategories; i++) {
+    let relativePercentage = Math.round((categoriesSum[i].totalCategoryCost / grandTotal) * 100000);
+    relativePercentages.push(relativePercentage);
+    totalPercentage = startPercentage + relativePercentage;
+    pieElems.push(`${colours[i]} ${startPercentage / 1000}% ${totalPercentage / 1000}%`);
+    startPercentage = totalPercentage;
+  }
+
+  // Creates legend for said pie chart
+  const fragment = document.createDocumentFragment();
+
+  for (let i = 0; i < 10 && i < numOfCategories; i++) {
+    if (relativePercentages[i] === 0) continue;
+    const label = document.createElement('div');
+    const colourCode = document.createElement('div');
+    const name = document.createElement('p');
+    const percent = document.createElement('p');
+
+    label.classList.add('grid', 'align-items-center', 'legend-label');
+    colourCode.classList.add('colour-code');
+    name.textContent = categoriesSum[i].name;
+    percent.textContent = `${relativePercentages[i] / 1000}%`;
+    colourCode.style.background = colours[i];
+
+    label.appendChild(colourCode);
+    label.appendChild(name);
+    label.appendChild(percent);
+
+    fragment.appendChild(label);
+  }
+
+  // Creates 'others' category if needed
+  if (numOfCategories > 10) {
+    pieElems.push(`gray ${totalPercentage / 1000}% 100%`);
+
+    const label = document.createElement('div');
+    const colourCode = document.createElement('div');
+    const name = document.createElement('p');
+    const percent = document.createElement('p');
+
+    label.classList.add('grid', 'align-items-center', 'legend-label');
+    colourCode.classList.add('colour-code');
+    name.textContent = 'Others';
+    percent.textContent = `${(100000 - totalPercentage) / 1000}%`;
+    colourCode.style.background = 'gray';
+
+    label.appendChild(colourCode);
+    label.appendChild(name);
+    label.appendChild(percent);
+
+    fragment.appendChild(label);
+  }
+
+  const gradient = pieElems.join(',');
+  pie.style.background = `conic-gradient(${gradient})`;
+
+  legend.appendChild(fragment);
+}
 
 // Initializes listener for right-clicking
 function initRightClick() {
