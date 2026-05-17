@@ -52,7 +52,10 @@ export function makePieChartAndLegend(categoriesSum) {
   const pie = document.querySelector('.pie-chart');
   legend.innerHTML = '';
 
-  if (categoriesSum[0].grandTotal === 0) return;
+  if (categoriesSum[0].grandTotal === 0) {
+    pie.style.background = 'black';
+    return;
+  }
 
   const colours = [
     'red',
@@ -163,11 +166,12 @@ function initRightClick() {
 function initRightClickCommands() {
   window.rightClick.deleteRow((_, id) => {
     const row = document.querySelector(`[data-id="${id}"]`);
+    stagedTableChanges.removing.set(id, '');
+
     const summation = document.querySelector('.summation');
     const categoryId = row.querySelector('.category-cell').value;
     const cost = row.querySelector('.cost-cell').value;
     let newGrandTotal = expCategoriesSum[0].grandTotal;
-    stagedTableChanges.removing.set(id, '');
 
     for (const category of expCategoriesSum) {
       if (category.categoryId === categoryId) {
@@ -181,6 +185,7 @@ function initRightClickCommands() {
     expCategoriesSum.sort((a, b) => b.totalCategoryCost - a.totalCategoryCost);
     expCategoriesSum[0].grandTotal = newGrandTotal;
     console.log(expCategoriesSum);
+    console.log('hello');
 
     makePieChartAndLegend(expCategoriesSum);
     summation.textContent = `$${expCategoriesSum[0].grandTotal}`;
