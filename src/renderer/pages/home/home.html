@@ -137,58 +137,62 @@
         <header class="modal-header flex">
           <button class="modal-back-button back-button no-select">X</button>
           <h1 class="modal-title">Create Budget Sheet</h1>
-          <button class="submit-button no-select">></button>
         </header>
-        <div class="grid modal-body">
-          <div class="flex flex-down">
-            <h2 class="card description header text-align-center">Budget Sheet Details</h2>
-            <div class="change-title flex align-items-center">
-              <label class="description">Name of Budget Sheet</label>
-              <input
-                type="text"
-                class="new-title custom-input"
-                maxlength="30"
-                placeholder="Budget Sheet Title"
-              />
-            </div>
+        <div class="modal-body">
+          <div class="grid">
+            <div class="flex flex-down">
+              <h2 class="card description header text-align-center">Budget Sheet Details</h2>
+              <div class="change-title flex align-items-center">
+                <label class="description">Name of Budget Sheet</label>
+                <input
+                  type="text"
+                  class="new-title custom-input"
+                  maxlength="30"
+                  placeholder="Budget Sheet Title"
+                />
+              </div>
 
-            <div class="flex period-options">
-              <label>Budget Period Selection</label>
-              <select class="period-dropdown">
-                <option value="daily">Daily</option>
-                <option value="weekly">Weekly</option>
-                <option value="biweekly">Biweekly</option>
-                <option value="monthly">Monthly</option>
-                <option value="yearly">Yearly</option>
-              </select>
-            </div>
-            <div class="flex amount">
-              <label>Enter Budget Amount</label>
-              <input class="budget-amount custom-input" type="number" placeholder="1234.56" />
-            </div>
-          </div>
-
-          <div class="edit-categories flex">
-            <div
-              id="categories-header-bg"
-              class="card description header add-category-mode align-items-center"
-            >
-              <p id="categories-header">Add a Category</p>
-              <div class="edit-tools grid">
-                <button id="add-category" class="custom-button tool">+</button>
-                <button id="edit-category-name" class="custom-button tool">✏️</button>
-                <button id="remove-category" class="custom-button tool">🗑️</button>
+              <div class="flex period-options">
+                <label>Budget Period Selection</label>
+                <select class="period-dropdown">
+                  <option value="daily">Daily</option>
+                  <option value="weekly">Weekly</option>
+                  <option value="biweekly">Biweekly</option>
+                  <option value="monthly">Monthly</option>
+                  <option value="yearly">Yearly</option>
+                </select>
+              </div>
+              <div class="flex amount">
+                <label>Enter Budget Amount</label>
+                <input class="budget-amount custom-input" type="number" placeholder="1234.56" />
               </div>
             </div>
-            <div class="categories flex align-items-center justify-content-center">
-              <input
-                id="category-input"
-                type="text"
-                class="new-category custom-input"
-                maxlength="15"
-                placeholder="___________"
-              />
+
+            <div class="edit-categories flex">
+              <div
+                id="categories-header-bg"
+                class="card description header add-category-mode align-items-center"
+              >
+                <p id="categories-header">Add a Category</p>
+                <div class="edit-tools grid">
+                  <button id="add-category" class="custom-button tool">+</button>
+                  <button id="edit-category-name" class="custom-button tool">✏️</button>
+                  <button id="remove-category" class="custom-button tool">🗑️</button>
+                </div>
+              </div>
+              <div class="categories flex align-items-center justify-content-center">
+                <input
+                  id="category-input"
+                  type="text"
+                  class="new-category custom-input"
+                  maxlength="15"
+                  placeholder="___________"
+                />
+              </div>
             </div>
+          </div>
+          <div class="submit">
+            <button class="flex submit-button custom-button no-select">Create Budget Sheet</button>
           </div>
         </div>
       </dialog>
