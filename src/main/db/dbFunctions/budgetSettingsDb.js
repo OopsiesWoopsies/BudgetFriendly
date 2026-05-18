@@ -21,7 +21,6 @@ function getCategoriesSum(startDate, endDate, budgetSheetId) {
     .prepare(
       `
     SELECT
-      e.id AS entryId,
       c.id AS categoryId,
       c.name,
       COALESCE(SUM(e.cost) / 100.0, 0) AS totalCategoryCost,
