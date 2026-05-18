@@ -81,9 +81,25 @@ function newRowListener(target) {
     // Ensure all information is filled before data is saved
     let { id, name, categoryId, cost } = newRowInfo;
     if (name === '' || categoryId === '' || cost === '') return;
-    filledTable.appendChild(createRow(newRowInfo));
+    const categoriesSum = getCategoriesSum();
+    let newGrandTotal = categoriesSum[0].grandTotal;
 
-    if (categoryId === '') categoryId = null;
+    filledTable.appendChild(createRow(newRowInfo));
+    for (const category of categoriesSum) {
+      if (category.categoryId === newRowInfo.categoryId) {
+        const newCategoryCost =
+          Math.round(category.totalCategoryCost * 100 + newRowInfo.cost * 100) / 100;
+        newGrandTotal = Math.round(category.grandTotal * 100 + newRowInfo.cost * 100) / 100;
+        category.totalCategoryCost = newCategoryCost;
+        category.grandTotal = newGrandTotal;
+      }
+    }
+    categoriesSum.sort((a, b) => b.totalCategoryCost - a.totalCategoryCost);
+    categoriesSum[0].grandTotal = newGrandTotal;
+
+    summation.textContent = `$${((Number(summation.textContent.slice(1)) * 100 + newRowInfo.cost * 100) / 100).toFixed(2)}`;
+    makePieChartAndLegend(categoriesSum);
+
     stagedTableChanges.adding.set(id, {
       name: name,
       categoryId: categoryId,
@@ -124,6 +140,7 @@ function updateRowListener(target) {
 
       // Visually update the pie chart when the category changes
       const categoriesSum = getCategoriesSum();
+      const grandTotal = categoriesSum[0].grandTotal;
       const intCost = cost * 100;
       let changed = 0;
 
@@ -143,6 +160,7 @@ function updateRowListener(target) {
         if (changed === 2) break;
       }
       categoriesSum.sort((a, b) => b.totalCategoryCost - a.totalCategoryCost);
+      categoriesSum[0].grandTotal = grandTotal;
       makePieChartAndLegend(categoriesSum);
     } else if (target.classList.contains('cost-cell')) {
       cost = target.value;

@@ -184,11 +184,9 @@ function initRightClickCommands() {
     }
     expCategoriesSum.sort((a, b) => b.totalCategoryCost - a.totalCategoryCost);
     expCategoriesSum[0].grandTotal = newGrandTotal;
-    console.log(expCategoriesSum);
-    console.log('hello');
 
     makePieChartAndLegend(expCategoriesSum);
-    summation.textContent = `$${expCategoriesSum[0].grandTotal}`;
+    summation.textContent = `$${Number(expCategoriesSum[0].grandTotal).toFixed(2)}`;
 
     row.remove();
   });
