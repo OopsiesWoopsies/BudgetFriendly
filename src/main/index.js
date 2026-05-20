@@ -1,7 +1,7 @@
 import { app, shell, BrowserWindow, ipcMain, Menu } from 'electron';
 import { join } from 'path';
 import { electronApp, optimizer } from '@electron-toolkit/utils';
-import icon from '../../resources/icon.png?asset';
+import icon from '../../resources/imgs/icon2.ico';
 import { registerSheetIpc } from './db/dbFunctions/sheetDb';
 import { registerBudgetSettingsIpc } from './db/dbFunctions/budgetSettingsDb';
 import { registerEntriesIpc } from './db/dbFunctions/entriesDb';
@@ -21,7 +21,8 @@ function createWindow() {
       contextIsolation: true,
       nodeIntegration: false,
       sandbox: false
-    }
+    },
+    icon: join(__dirname, '../../resources/imgs/icon.ico')
   });
 
   // Full screen
