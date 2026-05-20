@@ -1,5 +1,6 @@
 appId: com.electron.app
-productName: budgetfriendly
+productName: BudgetFriendly
+asar: true
 directories:
   buildResources: build
 files:
@@ -9,9 +10,10 @@ files:
   - '!{.eslintcache,eslint.config.mjs,.prettierignore,.prettierrc.yaml,dev-app-update.yml,CHANGELOG.md,README.md}'
   - '!{.env,.env.*,.npmrc,pnpm-lock.yaml}'
 asarUnpack:
-  - resources/**
+  - '**/*.node'
 win:
   executableName: budgetfriendly
+  icon: build/icon.ico
 nsis:
   artifactName: ${name}-${version}-setup.${ext}
   shortcutName: ${productName}
@@ -36,7 +38,7 @@ linux:
   category: Utility
 appImage:
   artifactName: ${name}-${version}.${ext}
-npmRebuild: false
+npmRebuild: true
 publish:
   provider: generic
   url: https://example.com/auto-updates

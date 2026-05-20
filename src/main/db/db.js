@@ -87,3 +87,7 @@ db.prepare(
 ).run();
 
 export default db;
+
+app.on('before-quit', () => {
+  db.close();
+});
