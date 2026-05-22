@@ -140,24 +140,41 @@ function updateRowListener(target) {
 
       // Visually update the pie chart when the category changes
       const categoriesSum = getCategoriesSum();
-      const grandTotal = categoriesSum[0].grandTotal;
+      let grandTotal = categoriesSum[0].grandTotal;
       const intCost = cost * 100;
-      let changed = 0;
+      let newChanged = false,
+        oldChanged = false;
 
       if (oldCategoryId == null) return;
+      if (oldCategoryId === '') oldCategoryId = null;
+      if (categoryId === '') categoryId = null;
 
       for (const category of categoriesSum) {
-        if (category.categoryId === categoryId) {
+        if (!newChanged && category.categoryId === categoryId) {
           const newCategoryCost = Math.round(category.totalCategoryCost * 100 + intCost) / 100;
           category.totalCategoryCost = newCategoryCost;
-          changed++;
+          category.grandTotal = grandTotal;
+          newChanged = true;
         }
-        if (category.categoryId === oldCategoryId) {
+        if (!oldChanged && category.categoryId === oldCategoryId) {
           const newCategoryCost = Math.round(category.totalCategoryCost * 100 - intCost) / 100;
           category.totalCategoryCost = newCategoryCost;
-          changed++;
+          oldChanged = true;
+          category.grandTotal = grandTotal;
         }
-        if (changed === 2) break;
+        if (oldChanged && newChanged) break;
+      }
+      if (!newChanged) {
+        const categoryName =
+          targetRow.querySelector('.category-cell').selectedOptions[0].textContent;
+
+        categoriesSum.push({
+          categoryId: categoryId,
+          name: categoryName,
+          totalCategoryCost: Number(cost),
+          grandTotal: grandTotal,
+          budgetSheetId: budgetSheetId
+        });
       }
       categoriesSum.sort((a, b) => b.totalCategoryCost - a.totalCategoryCost);
       categoriesSum[0].grandTotal = grandTotal;
@@ -171,6 +188,7 @@ function updateRowListener(target) {
       // Visually update the summation and pie chart instead of waiting for database to update
       const categoriesSum = getCategoriesSum();
       let newGrandTotal = categoriesSum[0].grandTotal;
+      let categoryUpdated = false;
 
       const additionalCost = Math.round(cost * 100 - oldCost * 100);
       if (additionalCost === 0) return;
@@ -182,9 +200,23 @@ function updateRowListener(target) {
           newGrandTotal = Math.round(categoriesSum[0].grandTotal * 100 + additionalCost) / 100;
           category.totalCategoryCost = newCategoryCost;
           categoriesSum[0].grandTotal = newGrandTotal;
+          categoryUpdated = true;
           break;
         }
       }
+      if (!categoryUpdated) {
+        const categoryName =
+          targetRow.querySelector('.category-cell').selectedOptions[0].textContent;
+
+        categoriesSum.push({
+          categoryId: categoryId,
+          name: categoryName,
+          totalCategoryCost: Number(cost),
+          grandTotal: newGrandTotal,
+          budgetSheetId: budgetSheetId
+        });
+      }
+
       categoriesSum.sort((a, b) => b.totalCategoryCost - a.totalCategoryCost);
       categoriesSum[0].grandTotal = newGrandTotal;
 
