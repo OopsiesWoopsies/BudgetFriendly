@@ -11,6 +11,7 @@ import { registerDataStorageIpc } from './data/data';
 
 let mainWindow, resolveQuit, isQuitting;
 const lock = app.requestSingleInstanceLock();
+if (app.isPackaged) Menu.setApplicationMenu(null); // Remove the menu bar
 
 if (!lock) {
   app.quit();
@@ -37,7 +38,8 @@ function createWindow() {
       preload: join(__dirname, '../preload/index.js'),
       contextIsolation: true,
       nodeIntegration: false,
-      sandbox: false
+      sandbox: false,
+      devTools: !app.isPackaged
     },
     icon: join(__dirname, '../../resources/imgs/icon.ico')
   });
