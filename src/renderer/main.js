@@ -25,7 +25,7 @@ const ogThemes = {
     backgroundHex: '#fee7f5'
   },
   '003': {
-    primaryHex: '#1c0a29',
+    primaryHex: '#2a0f3e',
     secondaryHex: '#6600cc',
     tertiaryHex: '#d69afe',
     backgroundHex: '#0f0019'
