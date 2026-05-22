@@ -83,6 +83,7 @@ function newRowListener(target) {
     if (name === '' || categoryId === '' || cost === '') return;
     const categoriesSum = getCategoriesSum();
     let newGrandTotal = categoriesSum.length === 0 ? 0 : categoriesSum[0].grandTotal;
+    let categoryAdded = false;
 
     filledTable.appendChild(createRow(newRowInfo));
     for (const category of categoriesSum) {
@@ -92,17 +93,19 @@ function newRowListener(target) {
         newGrandTotal = Math.round(newGrandTotal * 100 + newRowInfo.cost * 100) / 100;
         category.totalCategoryCost = newCategoryCost;
         category.grandTotal = newGrandTotal;
+        categoryAdded = true;
         break;
       }
     }
-    if (newGrandTotal === 0) {
+    if (!categoryAdded) {
       const categoryName = newRow.querySelector('.category-cell').selectedOptions[0].textContent;
+      newGrandTotal = Math.round(newGrandTotal * 100 + newRowInfo.cost * 100) / 100;
 
       categoriesSum.push({
         categoryId: categoryId,
         name: categoryName,
         totalCategoryCost: Number(cost),
-        grandTotal: Number(cost),
+        grandTotal: newGrandTotal,
         budgetSheetId: budgetSheetId
       });
     }
