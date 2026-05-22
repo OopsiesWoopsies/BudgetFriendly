@@ -71,7 +71,7 @@ export function makePieChartAndLegend(categoriesSum) {
   ];
   // Creates pie chart of top 10 most expensive categories
   const numOfCategories = categoriesSum.length;
-  const grandTotal = categoriesSum[0].grandTotal;
+  const grandTotal = expCategoriesSum.length === 0 ? 0 : expCategoriesSum[0].grandTotal;
   const relativePercentages = [];
   const pieElems = [];
   let startPercentage = 0,
@@ -171,7 +171,7 @@ function initRightClickCommands() {
     const summation = document.querySelector('.summation');
     const categoryId = row.querySelector('.category-cell').value;
     const cost = row.querySelector('.cost-cell').value;
-    let newGrandTotal = expCategoriesSum[0].grandTotal;
+    let newGrandTotal = expCategoriesSum.length === 0 ? 0 : expCategoriesSum[0].grandTotal;
 
     for (const category of expCategoriesSum) {
       if (category.categoryId === categoryId) {
@@ -186,7 +186,7 @@ function initRightClickCommands() {
     expCategoriesSum[0].grandTotal = newGrandTotal;
 
     makePieChartAndLegend(expCategoriesSum);
-    summation.textContent = `$${Number(expCategoriesSum[0].grandTotal).toFixed(2)}`;
+    summation.textContent = `$${Number(newGrandTotal).toFixed(2)}`;
 
     row.remove();
   });

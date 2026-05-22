@@ -183,6 +183,9 @@ export function initCardListeners() {
       // Returns to day selection for the current month and year
       else if (event.target.classList.contains('title')) {
         upsertRows(`${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`);
+        newName.value = '';
+        newCategory.value = '';
+        newCost.value = '';
         budgetSheet.classList.add('display-none');
         daySelection.classList.remove('display-none');
         calendarHeaderTitle.textContent = `${monthName}, ${year}`;

@@ -82,17 +82,29 @@ function newRowListener(target) {
     let { id, name, categoryId, cost } = newRowInfo;
     if (name === '' || categoryId === '' || cost === '') return;
     const categoriesSum = getCategoriesSum();
-    let newGrandTotal = categoriesSum[0].grandTotal;
+    let newGrandTotal = categoriesSum.length === 0 ? 0 : categoriesSum[0].grandTotal;
 
     filledTable.appendChild(createRow(newRowInfo));
     for (const category of categoriesSum) {
       if (category.categoryId === newRowInfo.categoryId) {
         const newCategoryCost =
           Math.round(category.totalCategoryCost * 100 + newRowInfo.cost * 100) / 100;
-        newGrandTotal = Math.round(categoriesSum[0].grandTotal * 100 + newRowInfo.cost * 100) / 100;
+        newGrandTotal = Math.round(newGrandTotal * 100 + newRowInfo.cost * 100) / 100;
         category.totalCategoryCost = newCategoryCost;
         category.grandTotal = newGrandTotal;
+        break;
       }
+    }
+    if (newGrandTotal === 0) {
+      const categoryName = newRow.querySelector('.category-cell').selectedOptions[0].textContent;
+
+      categoriesSum.push({
+        categoryId: categoryId,
+        name: categoryName,
+        totalCategoryCost: Number(cost),
+        grandTotal: Number(cost),
+        budgetSheetId: budgetSheetId
+      });
     }
     categoriesSum.sort((a, b) => b.totalCategoryCost - a.totalCategoryCost);
     categoriesSum[0].grandTotal = newGrandTotal;
@@ -197,7 +209,7 @@ function updateRowListener(target) {
         if (category.categoryId === categoryId) {
           const newCategoryCost =
             Math.round(category.totalCategoryCost * 100 + additionalCost) / 100;
-          newGrandTotal = Math.round(categoriesSum[0].grandTotal * 100 + additionalCost) / 100;
+          newGrandTotal = Math.round(newGrandTotal * 100 + additionalCost) / 100;
           category.totalCategoryCost = newCategoryCost;
           categoriesSum[0].grandTotal = newGrandTotal;
           categoryUpdated = true;
