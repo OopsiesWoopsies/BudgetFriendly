@@ -19,6 +19,7 @@ dialog {
 
 /* Themes */
 .custom-theme {
+  display: grid;
   grid-template-columns: 1fr 3fr;
 }
 
