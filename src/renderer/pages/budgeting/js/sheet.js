@@ -182,7 +182,7 @@ function updateRowListener(target) {
 
         categoriesSum.push({
           categoryId: categoryId,
-          name: categoryName,
+          name: categoryId === null ? 'Uncategorized' : categoryName,
           totalCategoryCost: Number(cost),
           grandTotal: grandTotal,
           budgetSheetId: budgetSheetId
