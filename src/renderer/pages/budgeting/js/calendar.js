@@ -28,6 +28,11 @@ calendarHeaderTitle.textContent = year;
 const currMonth = document.getElementById(today.getMonth());
 currMonth.classList.add('today');
 
+// Budget sheet vars
+const newName = document.querySelector('.new-row > .name-cell');
+const newCategory = document.querySelector('.new-row > .category-cell');
+const newCost = document.querySelector('.new-row > .cost-cell');
+
 // Sets up the summation for the day, month, and year
 function getDaySummation(year, month, day) {
   const monthStr = String(month + 1).padStart(2, '0');
@@ -141,6 +146,9 @@ export function initCardListeners() {
     else if (!budgetSheet.classList.contains('display-none')) {
       if (id === 'left-arrow') {
         upsertRows(`${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`);
+        newName.value = '';
+        newCategory.value = '';
+        newCost.value = '';
         if (--day < 1) {
           if (--month < 0) {
             year--;
@@ -155,6 +163,9 @@ export function initCardListeners() {
         getDaySummation(year, month, day);
       } else if (id === 'right-arrow') {
         upsertRows(`${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`);
+        newName.value = '';
+        newCategory.value = '';
+        newCost.value = '';
         if (++day > daysInMonth) {
           if (++month > 11) {
             year++;
