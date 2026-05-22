@@ -1,7 +1,7 @@
 import { app, shell, BrowserWindow, ipcMain, Menu } from 'electron';
 import { join } from 'path';
 import { electronApp, optimizer } from '@electron-toolkit/utils';
-import icon from '../../resources/icon.png?asset';
+import icon from '../../resources/imgs/icon.ico?asset';
 import { registerSheetIpc } from './db/dbFunctions/sheetDb';
 import { registerBudgetSettingsIpc } from './db/dbFunctions/budgetSettingsDb';
 import { registerEntriesIpc } from './db/dbFunctions/entriesDb';
@@ -9,8 +9,25 @@ import { registerBudgetAmountsIpc } from './db/dbFunctions/budgetAmountsDb';
 import { registerThemeIpc } from './db/dbFunctions/themeDb';
 import { registerDataStorageIpc } from './data/data';
 
+let mainWindow;
+const lock = app.requestSingleInstanceLock();
+
+if (!lock) {
+  app.quit();
+  process.exit(0);
+} else {
+  app.on('second-instance', () => {
+    if (!mainWindow) return;
+
+    if (mainWindow) {
+      if (mainWindow.isMinimized()) mainWindow.restore();
+      mainWindow.focus();
+    }
+  });
+}
+
 function createWindow() {
-  const mainWindow = new BrowserWindow({
+  mainWindow = new BrowserWindow({
     width: 900,
     height: 670,
     show: false,
@@ -21,7 +38,8 @@ function createWindow() {
       contextIsolation: true,
       nodeIntegration: false,
       sandbox: false
-    }
+    },
+    icon: join(__dirname, '../../resources/imgs/icon.ico')
   });
 
   // Full screen
@@ -36,8 +54,10 @@ function createWindow() {
     return { action: 'deny' };
   });
 
-  // Welcome page of BudgetFriendly
-  mainWindow.loadFile(join(__dirname, '../../src/renderer/pages/home/home.html'));
+  // Home page of BudgetFriendly
+  app.isPackaged
+    ? mainWindow.loadFile(join(__dirname, '../renderer/pages/home/home.html'))
+    : mainWindow.loadURL('http://localhost:5173/pages/home/home.html');
 
   // Right click menu
   ipcMain.on('context-menu', (event, type, id) => {
@@ -116,6 +136,12 @@ app.whenReady().then(() => {
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit();
+  }
+});
+
+app.on('activate', () => {
+  if (BrowserWindow.getAllWindows().length === 0) {
+    createWindow();
   }
 });
 

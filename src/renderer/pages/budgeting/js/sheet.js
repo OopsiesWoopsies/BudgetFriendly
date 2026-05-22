@@ -1,9 +1,10 @@
 import { categoryDropdownModel, stagedChangesCleanup } from './handleCategorySelection.js';
-import { stagedTableChanges } from '../../../main.js';
+import { stagedTableChanges, makePieChartAndLegend, getCategoriesSum } from '../../../main.js';
 
 const table = document.querySelector('.table');
 const filledTable = document.getElementById('filled-table');
 const newRow = document.querySelector('.new-row');
+const summation = document.querySelector('.summation');
 
 const budgetSheetId = await window.data.getSheetId();
 
@@ -40,7 +41,7 @@ function createRow(rowInfo) {
   nameInput.value = rowInfo.name;
   if (rowInfo.categoryId === null) categoryDropdown.value = '';
   else categoryDropdown.value = rowInfo.categoryId;
-  costInput.value = rowInfo.cost;
+  costInput.value = Number(rowInfo.cost).toFixed(2);
 
   nameInput.type = 'text';
   nameInput.classList.add('cell', 'name-cell', 'custom-input');
@@ -80,9 +81,25 @@ function newRowListener(target) {
     // Ensure all information is filled before data is saved
     let { id, name, categoryId, cost } = newRowInfo;
     if (name === '' || categoryId === '' || cost === '') return;
-    filledTable.appendChild(createRow(newRowInfo));
+    const categoriesSum = getCategoriesSum();
+    let newGrandTotal = categoriesSum[0].grandTotal;
 
-    if (categoryId === '') categoryId = null;
+    filledTable.appendChild(createRow(newRowInfo));
+    for (const category of categoriesSum) {
+      if (category.categoryId === newRowInfo.categoryId) {
+        const newCategoryCost =
+          Math.round(category.totalCategoryCost * 100 + newRowInfo.cost * 100) / 100;
+        newGrandTotal = Math.round(categoriesSum[0].grandTotal * 100 + newRowInfo.cost * 100) / 100;
+        category.totalCategoryCost = newCategoryCost;
+        category.grandTotal = newGrandTotal;
+      }
+    }
+    categoriesSum.sort((a, b) => b.totalCategoryCost - a.totalCategoryCost);
+    categoriesSum[0].grandTotal = newGrandTotal;
+
+    summation.textContent = `$${((Number(summation.textContent.slice(1)) * 100 + newRowInfo.cost * 100) / 100).toFixed(2)}`;
+    makePieChartAndLegend(categoriesSum);
+
     stagedTableChanges.adding.set(id, {
       name: name,
       categoryId: categoryId,
@@ -102,6 +119,9 @@ function newRowListener(target) {
 }
 
 // Listens for row editing and removing
+let oldCategoryId = null,
+  oldCost = null;
+
 function updateRowListener(target) {
   if (!target.classList.contains('new')) {
     const targetRow = target.closest('.row');
@@ -117,11 +137,59 @@ function updateRowListener(target) {
 
       name = targetRow.querySelector('.name-cell').value;
       cost = targetRow.querySelector('.cost-cell').value;
+
+      // Visually update the pie chart when the category changes
+      const categoriesSum = getCategoriesSum();
+      const grandTotal = categoriesSum[0].grandTotal;
+      const intCost = cost * 100;
+      let changed = 0;
+
+      if (oldCategoryId == null) return;
+
+      for (const category of categoriesSum) {
+        if (category.categoryId === categoryId) {
+          const newCategoryCost = Math.round(category.totalCategoryCost * 100 + intCost) / 100;
+          category.totalCategoryCost = newCategoryCost;
+          changed++;
+        }
+        if (category.categoryId === oldCategoryId) {
+          const newCategoryCost = Math.round(category.totalCategoryCost * 100 - intCost) / 100;
+          category.totalCategoryCost = newCategoryCost;
+          changed++;
+        }
+        if (changed === 2) break;
+      }
+      categoriesSum.sort((a, b) => b.totalCategoryCost - a.totalCategoryCost);
+      categoriesSum[0].grandTotal = grandTotal;
+      makePieChartAndLegend(categoriesSum);
     } else if (target.classList.contains('cost-cell')) {
       cost = target.value;
 
       name = targetRow.querySelector('.name-cell').value;
       categoryId = targetRow.querySelector('.category-cell').value;
+
+      // Visually update the summation and pie chart instead of waiting for database to update
+      const categoriesSum = getCategoriesSum();
+      let newGrandTotal = categoriesSum[0].grandTotal;
+
+      const additionalCost = Math.round(cost * 100 - oldCost * 100);
+      if (additionalCost === 0) return;
+
+      for (const category of categoriesSum) {
+        if (category.categoryId === categoryId) {
+          const newCategoryCost =
+            Math.round(category.totalCategoryCost * 100 + additionalCost) / 100;
+          newGrandTotal = Math.round(categoriesSum[0].grandTotal * 100 + additionalCost) / 100;
+          category.totalCategoryCost = newCategoryCost;
+          categoriesSum[0].grandTotal = newGrandTotal;
+          break;
+        }
+      }
+      categoriesSum.sort((a, b) => b.totalCategoryCost - a.totalCategoryCost);
+      categoriesSum[0].grandTotal = newGrandTotal;
+
+      summation.textContent = `$${((Number(summation.textContent.slice(1)) * 100 + additionalCost) / 100).toFixed(2)}`;
+      makePieChartAndLegend(categoriesSum);
     }
 
     const id = targetRow.dataset.id;
@@ -136,14 +204,19 @@ function updateRowListener(target) {
 
 // Initialize table listeners
 export function initTableListeners() {
-  table.addEventListener('change', (event) => {
-    const target = event.target;
+  table.addEventListener('change', ({ target }) => {
     if (target.classList.contains('cost-cell')) {
-      target.value = Math.round(parseFloat(target.value) * 100) / 100;
+      target.value = Number(target.value).toFixed(2);
     }
+    target.blur();
 
     newRowListener(target);
     updateRowListener(target);
+  });
+
+  table.addEventListener('focusin', ({ target }) => {
+    if (target.classList.contains('category-cell')) oldCategoryId = target.value;
+    if (target.classList.contains('cost-cell')) oldCost = target.value;
   });
 }
 

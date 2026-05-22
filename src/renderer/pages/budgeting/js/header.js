@@ -21,6 +21,7 @@ export function initTitleInputListeners() {
     budgetSheetTitle = newTitleInput.value;
     title.textContent = budgetSheetTitle;
     updateSheetTitle(sheetId, budgetSheetTitle);
+    newTitleInput.placeholder = budgetSheetTitle;
   });
 
   newTitleInput.addEventListener('keydown', (event) => {

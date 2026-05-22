@@ -1,8 +1,18 @@
 /* Single-change classes */
 body {
+  height: 100vh;
+
   color: var(--background-text);
 
   background-color: var(--background-colour);
+
+  overflow: hidden;
+}
+
+main {
+  flex: 1 1 auto;
+  min-height: 0px;
+  overflow-y: auto;
 }
 
 a:hover,
@@ -27,6 +37,10 @@ button:hover {
 
 .justify-content-center {
   justify-content: center;
+}
+
+.justify-content-between {
+  justify-content: space-between;
 }
 
 .margin-zero {
@@ -126,9 +140,6 @@ label {
 }
 /* Colour transition */
 * {
-  border-color: var(--custom-border-colour) ! important;
-}
-* {
   transition:
     background-color 0.5s ease,
     color 0.5s ease,
@@ -140,4 +151,22 @@ label {
 .no-transition *::before,
 .no-transition *::after {
   transition: none !important;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background-color: var(--background-text);
+  border-radius: 2px;
+  border: 2px solid hsla(0, 0%, 0%, 0);
+  background-clip: content-box;
 }

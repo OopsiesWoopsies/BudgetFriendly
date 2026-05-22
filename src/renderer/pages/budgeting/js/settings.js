@@ -1,7 +1,7 @@
 // Modal (settings) DOM vars
 const settingsButton = document.querySelector('.open-settings-button');
 const settingsModal = document.getElementById('settings');
-const editCategoryHeader = document.querySelector('.description.header');
+const editCategoryHeader = document.getElementById('categories-header-bg');
 const categoriesTitle = document.getElementById('categories-header');
 const categoryToolButtons = document.querySelector('.edit-tools');
 const categoryList = document.querySelector('.categories');

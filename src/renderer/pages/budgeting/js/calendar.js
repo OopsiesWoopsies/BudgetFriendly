@@ -15,6 +15,7 @@ const budgetSheet = document.querySelector('.budget-sheet');
 const exitButton = document.getElementById('exit');
 
 // Calendar vars
+const today = new Date();
 let date = new Date();
 let year = date.getFullYear();
 let month = date.getMonth();
@@ -23,6 +24,9 @@ let day = 0;
 let daysInMonth = new Date(year, month + 1, 0).getDate();
 
 calendarHeaderTitle.textContent = year;
+
+const currMonth = document.getElementById(today.getMonth());
+currMonth.classList.add('today');
 
 // Sets up the summation for the day, month, and year
 function getDaySummation(year, month, day) {
@@ -48,43 +52,39 @@ export function getYearSummation(year) {
 
 // Creates calendar and creates an array containing relevant information
 function createCalendar() {
-  let calendarArr = Array.from({ length: 5 }, () => Array(7).fill(null));
-
   const daysInMonth = new Date(year, month + 1, 0).getDate();
   const firstDay = new Date(year, month, 1).getDay();
 
   let day = 1;
-  let week = 0;
 
-  function createDiv(container, content) {
+  function createDiv(content) {
     const div = document.createElement('div');
     div.textContent = content;
     div.classList.add('day-number', 'no-select');
-    container.appendChild(div);
+    return div;
   }
 
   // Sets up calendar and array
   for (let i = 0; i < firstDay; i++) {
-    createDiv(daysDiv, '');
+    const div = createDiv('');
+    daysDiv.appendChild(div);
   }
 
-  for (let i = 0; day <= daysInMonth; i++, day++) {
-    if (i == 7) {
-      week++;
-      i = 0;
-    }
-    calendarArr[week][i] = day;
-    createDiv(daysDiv, day);
+  for (let i = 0; day <= daysInMonth; i = (i + 1) % 7, day++) {
+    const div = createDiv(day);
+    if (day == today.getDate() && month == today.getMonth() && year == today.getFullYear())
+      div.classList.add('today');
+    daysDiv.appendChild(div);
   }
 
   let customDay = new Date(year, month, day).getDay();
   if (customDay !== 0) {
     for (; customDay !== 7; customDay++) {
-      createDiv(daysDiv, '');
+      const div = createDiv('');
+      daysDiv.appendChild(div);
     }
   }
 
-  // !Need to return array
   return daysInMonth;
 }
 
@@ -150,7 +150,6 @@ export function initCardListeners() {
           daysInMonth = new Date(year, month + 1, 0).getDate();
           day = daysInMonth;
         }
-        // !(consider caching)
         setAllRows(`${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`);
         calendarHeaderTitle.textContent = `${monthName} ${day}, ${year}`;
         getDaySummation(year, month, day);
@@ -222,5 +221,3 @@ export function initExitListener() {
     window.location.href = '../home/home.html';
   });
 }
-// TODO
-// Add summation to year upon opening budget
