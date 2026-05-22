@@ -6,3 +6,7 @@ setupSheets();
 initHomeListeners();
 initBudgetSheetCreationListeners();
 initConfigListeners();
+
+window.urgentSave.manualExit(async () => {
+  await window.urgentSave.notifyReadyToQuit();
+});

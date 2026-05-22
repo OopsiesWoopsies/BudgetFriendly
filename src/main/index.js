@@ -9,7 +9,7 @@ import { registerBudgetAmountsIpc } from './db/dbFunctions/budgetAmountsDb';
 import { registerThemeIpc } from './db/dbFunctions/themeDb';
 import { registerDataStorageIpc } from './data/data';
 
-let mainWindow;
+let mainWindow, resolveQuit, isQuitting;
 const lock = app.requestSingleInstanceLock();
 
 if (!lock) {
@@ -52,6 +52,21 @@ function createWindow() {
   mainWindow.webContents.setWindowOpenHandler((details) => {
     shell.openExternal(details.url);
     return { action: 'deny' };
+  });
+
+  mainWindow.on('close', async (event) => {
+    if (isQuitting) return;
+
+    event.preventDefault();
+
+    mainWindow.webContents.send('urgent-save');
+
+    await new Promise((resolve) => {
+      resolveQuit = resolve;
+    });
+
+    isQuitting = true;
+    mainWindow.close();
   });
 
   // Home page of BudgetFriendly
@@ -130,9 +145,12 @@ app.whenReady().then(() => {
   });
 });
 
-// Quit when all windows are closed, except on macOS. There, it's common
-// for applications and their menu bar to stay active until the user quits
-// explicitly with Cmd + Q.
+ipcMain.handle('ready-to-quit', async () => {
+  if (resolveQuit) {
+    resolveQuit();
+  }
+});
+
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit();

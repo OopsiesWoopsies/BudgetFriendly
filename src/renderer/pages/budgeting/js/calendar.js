@@ -235,3 +235,12 @@ export function initExitListener() {
     window.location.href = '../home/home.html';
   });
 }
+
+window.urgentSave.manualExit(async () => {
+  if (!budgetSheet.classList.contains('display-none')) {
+    const date = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+    await upsertRows(date);
+  }
+
+  await window.urgentSave.notifyReadyToQuit();
+});

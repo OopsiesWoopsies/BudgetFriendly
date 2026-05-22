@@ -16,7 +16,7 @@ let newRowInfo = {
   cost: ''
 };
 
-// Creates new a new row and copies the cells from the new cells
+// Creates a new row and copies the cells from the new cells
 function createRow(rowInfo) {
   const row = document.createElement('div');
   row.classList.add('grid', 'row');
