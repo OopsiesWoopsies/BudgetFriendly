@@ -89,7 +89,7 @@ function newRowListener(target) {
       if (category.categoryId === newRowInfo.categoryId) {
         const newCategoryCost =
           Math.round(category.totalCategoryCost * 100 + newRowInfo.cost * 100) / 100;
-        newGrandTotal = Math.round(category.grandTotal * 100 + newRowInfo.cost * 100) / 100;
+        newGrandTotal = Math.round(categoriesSum[0].grandTotal * 100 + newRowInfo.cost * 100) / 100;
         category.totalCategoryCost = newCategoryCost;
         category.grandTotal = newGrandTotal;
       }
