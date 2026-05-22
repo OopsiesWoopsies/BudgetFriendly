@@ -52,7 +52,7 @@ export function makePieChartAndLegend(categoriesSum) {
   const pie = document.querySelector('.pie-chart');
   legend.innerHTML = '';
 
-  if (categoriesSum[0].grandTotal === 0) {
+  if (categoriesSum.length === 0) {
     pie.style.background = 'black';
     return;
   }
