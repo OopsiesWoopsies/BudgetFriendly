@@ -69,7 +69,7 @@ function sumDayCalendar(startDate, endDate, budgetSheetId) {
     FROM entries
     WHERE budget_sheet_id = ? AND date >= ? AND date <= ?
     GROUP BY date
-    ORDER BY date DESC
+    ORDER BY date ASC
     `
     )
     .all(budgetSheetId, startDate, endDate);
@@ -85,7 +85,7 @@ function sumMonthCalendar(startDate, endDate, budgetSheetId) {
     FROM entries
     WHERE budget_sheet_id = ? AND date >= ? AND date <= ?
     GROUP BY month
-    ORDER BY month DESC
+    ORDER BY month ASC
     `
     )
     .all(budgetSheetId, startDate, endDate);
