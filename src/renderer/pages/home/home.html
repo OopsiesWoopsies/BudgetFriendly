@@ -6,24 +6,26 @@
     <title>BudgetFriendly</title>
     <link rel="stylesheet" href="../../constants.css" />
     <link rel="stylesheet" href="../../main.css" />
+    <link rel="stylesheet" href="./css/header.css" />
     <link rel="stylesheet" href="../../pages/budgeting/css/settings.css" />
     <link rel="stylesheet" href="./css/budgetSheetCreation.css" />
     <link rel="stylesheet" href="./css/home.css" />
     <link rel="stylesheet" href="./css/config.css" />
-    <link rel="stylesheet" href="./css/header.css" />
   </head>
-  <body class="margin-zero">
+  <body class="flex flex-down margin-zero">
+    <div id="transition" class="page-transition"></div>
+
     <header class="header flex position-fixed align-items-center justify-content-center">
       <button id="configButton" class="header-title custom-button no-select">BudgetFriendly</button>
     </header>
 
     <dialog id="config" class="modal">
-      <header class="modal-header flex">
+      <header class="modal-header grid">
         <button id="closeConfig" class="modal-back-button close-modal no-select">X</button>
         <h1 class="modal-title">Configurations</h1>
       </header>
       <div class="modal-body">
-        <section id="theme-config" class="grid custom-theme">
+        <section id="theme-config" class="custom-theme">
           <section id="createTheme" class="flex flex-down theme-creation text-align-center">
             <h3 class="card">Make a Theme</h3>
             <div class="grid">
@@ -137,24 +139,23 @@
         <header class="modal-header flex">
           <button class="modal-back-button back-button no-select">X</button>
           <h1 class="modal-title">Create Budget Sheet</h1>
-          <button class="submit-button no-select">></button>
         </header>
         <div class="modal-body">
-          <div class="change-title flex align-items-center">
-            <h2 class="description">Name of Budget Sheet</h2>
-            <input
-              type="text"
-              class="new-title custom-input"
-              maxlength="30"
-              placeholder="Budget Sheet Title"
-            />
-          </div>
+          <div class="grid">
+            <div class="flex flex-down">
+              <h2 class="card description header text-align-center">Budget Sheet Details</h2>
+              <div class="change-title flex align-items-center">
+                <label class="description">Name of Budget Sheet</label>
+                <input
+                  type="text"
+                  class="new-title custom-input"
+                  maxlength="30"
+                  placeholder="Budget Sheet Title"
+                />
+              </div>
 
-          <div class="flex flex-down align-items-center">
-            <h2 class="description">Budgeting Details</h2>
-            <div class="grid budgeting-options">
-              <div class="flex justify-content-center period-options card">
-                <h3>Budget Period Selection</h3>
+              <div class="flex period-options">
+                <label>Budget Period Selection</label>
                 <select class="period-dropdown">
                   <option value="daily">Daily</option>
                   <option value="weekly">Weekly</option>
@@ -163,36 +164,40 @@
                   <option value="yearly">Yearly</option>
                 </select>
               </div>
-              <div class="flex justify-content-center amount card">
-                <h3>Enter Budget Amount</h3>
+              <div class="flex amount">
+                <label>Enter Budget Amount</label>
                 <input class="budget-amount custom-input" type="number" placeholder="1234.56" />
               </div>
             </div>
-          </div>
 
-          <div class="edit-categories flex align-items-center">
-            <div class="description header add-category-mode">
-              <p id="categories-header">Add a Category</p>
-              <div class="edit-tools grid">
-                <button id="add-category" class="custom-button">+</button>
-                <button id="edit-category-name" class="custom-button">✏️</button>
-                <button id="remove-category" class="custom-button">🗑️</button>
+            <div class="edit-categories flex">
+              <div
+                id="categories-header-bg"
+                class="card description header add-category-mode align-items-center"
+              >
+                <p id="categories-header">Add a Category</p>
+                <div class="edit-tools grid">
+                  <button id="add-category" class="custom-button tool">+</button>
+                  <button id="edit-category-name" class="custom-button tool">✏️</button>
+                  <button id="remove-category" class="custom-button tool">🗑️</button>
+                </div>
+              </div>
+              <div class="categories flex align-items-center justify-content-center">
+                <input
+                  id="category-input"
+                  type="text"
+                  class="new-category custom-input"
+                  maxlength="15"
+                  placeholder="___________"
+                />
               </div>
             </div>
-            <div class="categories flex align-items-center justify-content-center">
-              <input
-                id="category-input"
-                type="text"
-                class="new-category custom-input"
-                maxlength="15"
-                placeholder="___________"
-              />
-            </div>
+          </div>
+          <div class="submit">
+            <button class="flex submit-button custom-button no-select">Create Budget Sheet</button>
           </div>
         </div>
       </dialog>
-
-      <div class="header-space"></div>
 
       <div class="budgets-page page flex" data-page="budgets">
         <button

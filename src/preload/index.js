@@ -77,6 +77,18 @@ const dbFunctions = {
       endDate: endDate,
       budgetSheetId: budgetSheetId
     }),
+  sumDayCalendar: (startDate, endDate, budgetSheetId) =>
+    ipcRenderer.invoke('entries:sumDayCalendar', {
+      startDate: startDate,
+      endDate: endDate,
+      budgetSheetId: budgetSheetId
+    }),
+  sumMonthCalendar: (startDate, endDate, budgetSheetId) =>
+    ipcRenderer.invoke('entries:sumMonthCalendar', {
+      startDate: startDate,
+      endDate: endDate,
+      budgetSheetId: budgetSheetId
+    }),
 
   // Budget amounts queries
   getBudgetAmount: (date, budgetSheetId) =>
@@ -117,6 +129,12 @@ if (process.contextIsolated) {
     contextBridge.exposeInMainWorld('rightClick', rightClick);
     contextBridge.exposeInMainWorld('db', dbFunctions);
     contextBridge.exposeInMainWorld('data', dataStorageFunctions);
+    contextBridge.exposeInMainWorld('urgentSave', {
+      notifyReadyToQuit: () => ipcRenderer.invoke('ready-to-quit'),
+      manualExit: (callback) => {
+        ipcRenderer.on('urgent-save', callback);
+      }
+    });
   } catch (error) {
     console.error(error);
   }

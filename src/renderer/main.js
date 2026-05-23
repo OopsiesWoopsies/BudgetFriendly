@@ -4,6 +4,15 @@ export const stagedTableChanges = {
   removing: new Map()
 };
 
+let expCategoriesSum = [];
+
+export function getCategoriesSum() {
+  return expCategoriesSum;
+}
+export function setCategoriesSum(categoriesSum) {
+  expCategoriesSum = categoriesSum;
+}
+
 // Original Themes
 const ogThemes = {
   '000': {
@@ -38,6 +47,95 @@ const ogThemes = {
   }
 };
 
+export function makePieChartAndLegend(categoriesSum) {
+  const legend = document.querySelector('.legend');
+  const pie = document.querySelector('.pie-chart');
+  legend.innerHTML = '';
+
+  if (categoriesSum.length === 0) {
+    pie.style.background = 'black';
+    return;
+  }
+
+  const colours = [
+    'red',
+    'orange',
+    'yellow',
+    'green',
+    'blue',
+    'purple',
+    'cyan',
+    'lavender',
+    'violet',
+    'lime'
+  ];
+  // Creates pie chart of top 10 most expensive categories
+  const numOfCategories = categoriesSum.length;
+  const grandTotal = expCategoriesSum.length === 0 ? 0 : expCategoriesSum[0].grandTotal;
+  const relativePercentages = [];
+  const pieElems = [];
+  let startPercentage = 0,
+    totalPercentage = 0;
+
+  for (let i = 0; i < 10 && i < numOfCategories; i++) {
+    let relativePercentage = Math.round((categoriesSum[i].totalCategoryCost / grandTotal) * 100000);
+    relativePercentages.push(relativePercentage);
+    totalPercentage = startPercentage + relativePercentage;
+    pieElems.push(`${colours[i]} ${startPercentage / 1000}% ${totalPercentage / 1000}%`);
+    startPercentage = totalPercentage;
+  }
+
+  // Creates legend for said pie chart
+  const fragment = document.createDocumentFragment();
+
+  for (let i = 0; i < 10 && i < numOfCategories; i++) {
+    if (relativePercentages[i] === 0) continue;
+    const label = document.createElement('div');
+    const colourCode = document.createElement('div');
+    const name = document.createElement('p');
+    const percent = document.createElement('p');
+
+    label.classList.add('grid', 'align-items-center', 'legend-label');
+    colourCode.classList.add('colour-code');
+    name.textContent = categoriesSum[i].name;
+    percent.textContent = `${relativePercentages[i] / 1000}%`;
+    colourCode.style.background = colours[i];
+
+    label.appendChild(colourCode);
+    label.appendChild(name);
+    label.appendChild(percent);
+
+    fragment.appendChild(label);
+  }
+
+  // Creates 'others' category if needed
+  if (numOfCategories > 10) {
+    pieElems.push(`gray ${totalPercentage / 1000}% 100%`);
+
+    const label = document.createElement('div');
+    const colourCode = document.createElement('div');
+    const name = document.createElement('p');
+    const percent = document.createElement('p');
+
+    label.classList.add('grid', 'align-items-center', 'legend-label');
+    colourCode.classList.add('colour-code');
+    name.textContent = 'Others';
+    percent.textContent = `${(100000 - totalPercentage) / 1000}%`;
+    colourCode.style.background = 'gray';
+
+    label.appendChild(colourCode);
+    label.appendChild(name);
+    label.appendChild(percent);
+
+    fragment.appendChild(label);
+  }
+
+  const gradient = pieElems.join(',');
+  pie.style.background = `conic-gradient(${gradient})`;
+
+  legend.appendChild(fragment);
+}
+
 // Initializes listener for right-clicking
 function initRightClick() {
   document.addEventListener('contextmenu', (event) => {
@@ -69,6 +167,27 @@ function initRightClickCommands() {
   window.rightClick.deleteRow((_, id) => {
     const row = document.querySelector(`[data-id="${id}"]`);
     stagedTableChanges.removing.set(id, '');
+
+    const summation = document.querySelector('.summation');
+    const categoryId = row.querySelector('.category-cell').value;
+    const cost = row.querySelector('.cost-cell').value;
+    let newGrandTotal = expCategoriesSum.length === 0 ? 0 : expCategoriesSum[0].grandTotal;
+
+    for (const category of expCategoriesSum) {
+      if (category.categoryId === categoryId) {
+        const newCategoryCost = Math.round(category.totalCategoryCost * 100 - cost * 100) / 100;
+        newGrandTotal = Math.round(category.grandTotal * 100 - cost * 100) / 100;
+        category.totalCategoryCost = newCategoryCost;
+        expCategoriesSum[0].grandTotal = newGrandTotal;
+        break;
+      }
+    }
+    expCategoriesSum.sort((a, b) => b.totalCategoryCost - a.totalCategoryCost);
+    expCategoriesSum[0].grandTotal = newGrandTotal;
+
+    makePieChartAndLegend(expCategoriesSum);
+    summation.textContent = `$${Number(newGrandTotal).toFixed(2)}`;
+
     row.remove();
   });
 
@@ -277,11 +396,16 @@ export function hexToHSL(hex) {
   };
 }
 
-document.documentElement.classList.add('no-transition');
+// Page transition
+const pageTransition = document.getElementById('transition');
+pageTransition.classList.add('move');
+
+export function moveToPage(url) {
+  pageTransition.classList.add('reset');
+
+  setTimeout(() => {
+    window.location.replace(url);
+  }, 1000);
+}
+
 setupTheme();
-// Remove colour transition to first cleanly apply theme
-requestAnimationFrame(() => {
-  requestAnimationFrame(() => {
-    document.documentElement.classList.remove('no-transition');
-  });
-});

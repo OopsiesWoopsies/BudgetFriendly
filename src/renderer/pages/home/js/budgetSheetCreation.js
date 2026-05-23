@@ -5,6 +5,7 @@ import {
   isAddingCategory
 } from '../../budgeting/js/settings.js';
 import { stagedChangesCleanup } from '../../budgeting/js/handleCategorySelection.js';
+import { moveToPage } from '../../../main.js';
 
 const openModalButton = document.querySelector('.open-settings-button');
 const modal = document.getElementById('settings');
@@ -28,7 +29,7 @@ export function initBudgetSheetCreationListeners() {
   });
 
   budgetAmount.addEventListener('blur', () => {
-    budgetAmount.value = Math.round(parseFloat(budgetAmount.value) * 100) / 100;
+    budgetAmount.value = Number(budgetAmount.value).toFixed(2);
   });
 
   // Check for budget sheet creation
@@ -40,7 +41,7 @@ export function initBudgetSheetCreationListeners() {
     } else {
       budgetAmount.classList.remove('invalid');
       budgetAmount.placeholder = '1234.56';
-      budgetAmount.value = Math.round(parseFloat(budgetAmount.value) * 100) / 100;
+      budgetAmount.value = Number(budgetAmount.value).toFixed(2);
     }
 
     // Creates new sheet and POSTs to budget sheet db
@@ -93,7 +94,7 @@ export function initBudgetSheetCreationListeners() {
     // Setup sheet id to retrieve upon page traversal
     await window.data.setSheetId(sheetId);
 
-    window.location.href = '../budgeting/sheet.html';
+    moveToPage('../budgeting/sheet.html');
   });
 
   // Resets budget sheet creation page to blank

@@ -8,46 +8,55 @@
     <link rel="stylesheet" href="../../main.css" />
     <link rel="stylesheet" href="./css/main.css" />
     <link rel="stylesheet" href="./css/settings.css" />
+    <link rel="stylesheet" href="./css/sheetSettings.css" />
     <link rel="stylesheet" href="./css/monthSelection.css" />
     <link rel="stylesheet" href="./css/daySelection.css" />
     <link rel="stylesheet" href="./css/summary.css" />
     <link rel="stylesheet" href="./css/sheet.css" />
   </head>
-  <body class="margin-zero">
-    <header class="header flex position-fixed align-items-center justify-content-center">
-      <button
-        id="exit"
-        class="back-button position-fixed no-select"
-        href="../home/home.html"
-        draggable="false"
-      >
-        X
+  <body class="flex flex-down margin-zero">
+    <div id="transition" class="page-transition"></div>
+
+    <header class="grid header align-items-center">
+      <button id="exit" class="back-button no-select" href="../home/home.html" draggable="false">
+        &larr;
       </button>
       <button class="header-title no-select custom-button open-settings-button">Title</button>
     </header>
 
     <dialog id="settings" class="modal padding-zero">
-      <header class="modal-header flex">
+      <header class="modal-header grid">
         <button class="modal-back-button back-button no-select">X</button>
         <h1 class="modal-title">Settings</h1>
       </header>
-      <div class="modal-body">
-        <div class="change-title flex align-items-center">
-          <h2 class="description">Change Budget Sheet Title</h2>
-          <input
-            type="text"
-            class="new-title custom-input"
-            maxlength="30"
-            placeholder="Budget Sheet Title"
-          />
+      <div class="grid modal-body">
+        <div class="flex flex-down">
+          <h2 class="card description header">Budget Sheet Details</h2>
+          <div class="change-title flex justify-content-between">
+            <label class="description">Change Budget Sheet Title</label>
+            <input
+              type="text"
+              class="new-title custom-input"
+              maxlength="30"
+              placeholder="Budget Sheet Title"
+            />
+          </div>
+          <div class="option flex justify-content-between">
+            <label class="description">Budgeting Period</label>
+            <p id="budgetPeriod"></p>
+          </div>
+          <div class="option flex justify-content-between">
+            <label class="description">Budget Amount</label>
+            <p id="budget"></p>
+          </div>
         </div>
-        <div class="edit-categories flex align-items-center">
-          <div class="description header add-category-mode">
+        <div class="edit-categories flex">
+          <div id="categories-header-bg" class="card description header add-category-mode">
             <p id="categories-header">Add a Category</p>
             <div class="edit-tools grid">
-              <button id="add-category" class="custom-button">+</button>
-              <button id="edit-category-name" class="custom-button">✏️</button>
-              <button id="remove-category" class="custom-button">🗑️</button>
+              <button id="add-category" class="custom-button tool">+</button>
+              <button id="edit-category-name" class="custom-button tool">✏️</button>
+              <button id="remove-category" class="tool">🗑️</button>
             </div>
           </div>
           <div class="categories flex align-items-center justify-content-center">
@@ -63,9 +72,7 @@
       </div>
     </dialog>
 
-    <div class="header-space"></div>
-
-    <main class="flex flex-down align-items-center justify-content-center">
+    <main class="flex flex-down align-items-center">
       <div class="card flex align-items-center">
         <div class="card-header flex">
           <button id="left-arrow" class="custom-button flex justify-content-center no-select">
@@ -80,18 +87,54 @@
         <div class="calendar flex justify-content-center">
           <div class="month-selection">
             <div class="calendar-month grid">
-              <div id="0" class="month-name no-select">Jan</div>
-              <div id="1" class="month-name no-select">Feb</div>
-              <div id="2" class="month-name no-select">Mar</div>
-              <div id="3" class="month-name no-select">Apr</div>
-              <div id="4" class="month-name no-select">May</div>
-              <div id="5" class="month-name no-select">Jun</div>
-              <div id="6" class="month-name no-select">Jul</div>
-              <div id="7" class="month-name no-select">Aug</div>
-              <div id="8" class="month-name no-select">Sep</div>
-              <div id="9" class="month-name no-select">Oct</div>
-              <div id="10" class="month-name no-select">Nov</div>
-              <div id="11" class="month-name no-select">Dec</div>
+              <div id="0" class="month-cell no-select">
+                <div class="month-name">Jan</div>
+                <div class="month-expense"></div>
+              </div>
+              <div id="1" class="month-cell no-select">
+                <div class="month-name">Feb</div>
+                <div class="month-expense"></div>
+              </div>
+              <div id="2" class="month-cell no-select">
+                <div class="month-name">Mar</div>
+                <div class="month-expense"></div>
+              </div>
+              <div id="3" class="month-cell no-select">
+                <div class="month-name">Apr</div>
+                <div class="month-expense"></div>
+              </div>
+              <div id="4" class="month-cell no-select">
+                <div class="month-name">May</div>
+                <div class="month-expense"></div>
+              </div>
+              <div id="5" class="month-cell no-select">
+                <div class="month-name">Jun</div>
+                <div class="month-expense"></div>
+              </div>
+              <div id="6" class="month-cell no-select">
+                <div class="month-name">Jul</div>
+                <div class="month-expense"></div>
+              </div>
+              <div id="7" class="month-cell no-select">
+                <div class="month-name">Aug</div>
+                <div class="month-expense"></div>
+              </div>
+              <div id="8" class="month-cell no-select">
+                <div class="month-name">Sep</div>
+                <div class="month-expense"></div>
+              </div>
+              <div id="9" class="month-cell no-select">
+                <div class="month-name">Oct</div>
+                <div class="month-expense"></div>
+              </div>
+              <div id="10" class="month-cell no-select">
+                <div class="month-name">Nov</div>
+                <div class="month-expense"></div>
+              </div>
+              <div id="11" class="month-cell no-select">
+                <div class="month-name">Dec</div>
+                <div class="month-expense"></div>
+              </div>
             </div>
           </div>
 

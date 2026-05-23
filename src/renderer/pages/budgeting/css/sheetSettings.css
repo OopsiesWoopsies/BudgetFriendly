@@ -1,0 +1,7 @@
+.option {
+  margin: 5px;
+}
+.option p {
+  margin: 0;
+  align-self: center;
+}

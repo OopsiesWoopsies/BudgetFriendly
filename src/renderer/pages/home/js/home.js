@@ -1,3 +1,5 @@
+import { moveToPage } from "../../../main";
+
 const budgetList = document.querySelector('.budgets-list');
 
 // Sets up the budget sheets from the db and put it on the home page
@@ -11,7 +13,6 @@ export async function setupSheets() {
     anchor.classList.add('sheet', 'custom-button');
     anchor.dataset.id = sheet.id;
 
-    // Create sheet title
     const sheetTitle = document.createElement('h3');
     sheetTitle.classList.add('sheet-title');
     sheetTitle.textContent = sheet.title;
@@ -26,10 +27,9 @@ export async function setupSheets() {
     const budgetAmount = await window.db.getBudgetAmount(today, sheet.id);
     const budgetPeriod = document.createElement('p');
     budgetPeriod.classList.add('budget-period');
-    budgetPeriod.textContent = `$${budgetAmount.amount} ${sheet.period}`;
+    budgetPeriod.textContent = `$${Number(budgetAmount.amount).toFixed(2)} ${sheet.period}`;
     anchor.appendChild(budgetPeriod);
 
-    // Create date creation
     const dateCreation = document.createElement('p');
     dateCreation.classList.add('date-created');
     dateCreation.textContent = `Date Created: ${sheet.createdAt}`;
@@ -43,13 +43,12 @@ export async function setupSheets() {
 
 // Initialize event listeners in the home page
 export function initHomeListeners() {
-  // Budget sheet click listener
   budgetList.addEventListener('click', async (event) => {
     const target = event.target.closest('a');
     if (!target || !target.classList.contains('sheet')) return;
     // Setup sheet id to retrieve upon page traversal
     await window.data.setSheetId(target.dataset.id);
 
-    window.location.href = '../budgeting/sheet.html';
+    moveToPage('../budgeting/sheet.html');
   });
 }

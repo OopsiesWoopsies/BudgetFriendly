@@ -1,7 +1,7 @@
 import { app, shell, BrowserWindow, ipcMain, Menu } from 'electron';
 import { join } from 'path';
 import { electronApp, optimizer } from '@electron-toolkit/utils';
-import icon from '../../resources/icon.png?asset';
+import icon from '../../resources/imgs/icon.ico?asset';
 import { registerSheetIpc } from './db/dbFunctions/sheetDb';
 import { registerBudgetSettingsIpc } from './db/dbFunctions/budgetSettingsDb';
 import { registerEntriesIpc } from './db/dbFunctions/entriesDb';
@@ -9,8 +9,26 @@ import { registerBudgetAmountsIpc } from './db/dbFunctions/budgetAmountsDb';
 import { registerThemeIpc } from './db/dbFunctions/themeDb';
 import { registerDataStorageIpc } from './data/data';
 
+let mainWindow, resolveQuit, isQuitting;
+const lock = app.requestSingleInstanceLock();
+if (app.isPackaged) Menu.setApplicationMenu(null); // Remove the menu bar
+
+if (!lock) {
+  app.quit();
+  process.exit(0);
+} else {
+  app.on('second-instance', () => {
+    if (!mainWindow) return;
+
+    if (mainWindow) {
+      if (mainWindow.isMinimized()) mainWindow.restore();
+      mainWindow.focus();
+    }
+  });
+}
+
 function createWindow() {
-  const mainWindow = new BrowserWindow({
+  mainWindow = new BrowserWindow({
     width: 900,
     height: 670,
     show: false,
@@ -20,8 +38,10 @@ function createWindow() {
       preload: join(__dirname, '../preload/index.js'),
       contextIsolation: true,
       nodeIntegration: false,
-      sandbox: false
-    }
+      sandbox: false,
+      devTools: !app.isPackaged
+    },
+    icon: join(__dirname, '../../resources/imgs/icon.ico')
   });
 
   // Full screen
@@ -36,8 +56,40 @@ function createWindow() {
     return { action: 'deny' };
   });
 
-  // Welcome page of BudgetFriendly
-  mainWindow.loadFile(join(__dirname, '../../src/renderer/pages/home/home.html'));
+  // Override window closing
+  mainWindow.on('close', async (event) => {
+    if (isQuitting) return;
+
+    event.preventDefault();
+
+    mainWindow.webContents.send('urgent-save');
+
+    await new Promise((resolve) => {
+      resolveQuit = resolve;
+    });
+
+    isQuitting = true;
+    mainWindow.close();
+
+    // Remove unintentional page navigation
+    mainWindow.webContents.on('before-input-event', (event, input) => {
+      const isBack = input.alt && input.key === 'ArrowLeft';
+      const isForward = input.alt && input.key === 'ArrowRight';
+
+      if (isBack || isForward) {
+        event.preventDefault();
+      }
+
+      if (input.buttons === 4 || input.buttons === 5) {
+        event.preventDefault();
+      }
+    });
+  });
+
+  // Home page of BudgetFriendly
+  app.isPackaged
+    ? mainWindow.loadFile(join(__dirname, '../renderer/pages/home/home.html'))
+    : mainWindow.loadURL('http://localhost:5173/pages/home/home.html');
 
   // Right click menu
   ipcMain.on('context-menu', (event, type, id) => {
@@ -110,12 +162,21 @@ app.whenReady().then(() => {
   });
 });
 
-// Quit when all windows are closed, except on macOS. There, it's common
-// for applications and their menu bar to stay active until the user quits
-// explicitly with Cmd + Q.
+ipcMain.handle('ready-to-quit', async () => {
+  if (resolveQuit) {
+    resolveQuit();
+  }
+});
+
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit();
+  }
+});
+
+app.on('activate', () => {
+  if (BrowserWindow.getAllWindows().length === 0) {
+    createWindow();
   }
 });
 
