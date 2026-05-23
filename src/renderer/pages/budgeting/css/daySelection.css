@@ -38,7 +38,7 @@
   border: solid var(--primary-border) 1px;
 }
 
-.day-number {
+.day-cell {
   padding: 3px;
 
   color: var(--tertiary-text);
@@ -46,14 +46,17 @@
   background-color: var(--tertiary-colour);
   border: solid var(--tertiary-border) 1px;
 }
-.day-number:hover {
+.day-cell > div {
+  margin-bottom: 5px;
+}
+.day-cell:hover {
   color: var(--tertiary-text-dark3);
 
   background-color: var(--tertiary-colour-dark3);
 
   cursor: pointer;
 }
-.day-number:active {
+.day-cell:active {
   color: var(--tertiary-text-dark2);
 
   background-color: var(--tertiary-colour-dark2);

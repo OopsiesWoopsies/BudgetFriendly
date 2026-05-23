@@ -56,37 +56,59 @@ export function getYearSummation(year) {
 }
 
 // Creates calendar and creates an array containing relevant information
-function createCalendar() {
+async function createCalendar() {
   const daysInMonth = new Date(year, month + 1, 0).getDate();
   const firstDay = new Date(year, month, 1).getDay();
 
+  const firstDate = new Date(year, month, 1).toISOString().slice(0, 10);
+  const lastDate = new Date(year, month + 1, 0).toISOString().slice(0, 10);
+  const sumDayCalendar = await window.db.sumDayCalendar(firstDate, lastDate, budgetSheetId);
+  console.log(sumDayCalendar);
+
   let day = 1;
 
-  function createDiv(content) {
+  function createDiv() {
     const div = document.createElement('div');
-    div.textContent = content;
-    div.classList.add('day-number', 'no-select');
+    div.classList.add('day-cell', 'no-select');
     return div;
   }
 
   // Sets up calendar and array
   for (let i = 0; i < firstDay; i++) {
-    const div = createDiv('');
-    daysDiv.appendChild(div);
+    const dayCell = createDiv();
+    daysDiv.appendChild(dayCell);
   }
 
+  let dayIndex = 0;
   for (let i = 0; day <= daysInMonth; i = (i + 1) % 7, day++) {
-    const div = createDiv(day);
+    const dayCell = createDiv();
+    const dayNumber = document.createElement('div');
+    const dayBody = document.createElement('div');
     if (day == today.getDate() && month == today.getMonth() && year == today.getFullYear())
-      div.classList.add('today');
-    daysDiv.appendChild(div);
+      dayCell.classList.add('today');
+
+    dayCell.classList.add('flex', 'flex-down');
+    dayNumber.classList.add('day-number');
+    dayNumber.textContent = day;
+
+    if (
+      dayIndex < sumDayCalendar.length &&
+      Number(sumDayCalendar[dayIndex].date.slice(8, 10)) === day
+    ) {
+      dayBody.textContent = `Exp: $${(Number(sumDayCalendar[dayIndex].total) / 100).toFixed(2)}`;
+      dayIndex++;
+    }
+
+    dayCell.appendChild(dayNumber);
+    dayCell.appendChild(dayBody);
+    daysDiv.appendChild(dayCell);
   }
 
   let customDay = new Date(year, month, day).getDay();
   if (customDay !== 0) {
     for (; customDay !== 7; customDay++) {
-      const div = createDiv('');
-      daysDiv.appendChild(div);
+      const dayCell = createDiv();
+      daysDiv.appendChild(dayCell);
     }
   }
 
@@ -214,10 +236,12 @@ export function initCardListeners() {
     }
     // Day selected
     else if (!daySelection.classList.contains('display-none')) {
-      const selectedCell = event.target.closest('.day-number');
-      if (!selectedCell || selectedCell.textContent === '') return;
+      const dayCell = event.target.closest('.day-cell');
+      const dayNumber = dayCell.querySelector('.day-number');
 
-      day = selectedCell.textContent;
+      if (!dayCell || dayNumber.textContent === '') return;
+
+      day = dayNumber.textContent;
       setAllRows(`${year}-${String(month + 1).padStart(2, '0')}-${day.padStart(2, '0')}`);
       getDaySummation(year, month, day);
 
