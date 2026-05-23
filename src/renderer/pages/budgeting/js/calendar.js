@@ -26,6 +26,7 @@ let daysInMonth = new Date(year, month + 1, 0).getDate();
 calendarHeaderTitle.textContent = year;
 
 const currMonth = document.getElementById(today.getMonth());
+const monthCells = document.querySelectorAll('.month-cell');
 currMonth.classList.add('today');
 
 // Budget sheet vars
@@ -115,6 +116,25 @@ async function createCalendar() {
   return daysInMonth;
 }
 
+// Sums each month's expenses of the displayed year
+async function sumMonthCalendar(startDate, endDate) {
+  const sumMonthCalendar = await window.db.sumMonthCalendar(startDate, endDate, budgetSheetId);
+  let monthIndex = 0;
+  for (const monthCell of monthCells) {
+    const month = Number(monthCell.id);
+    const expense = monthCell.querySelector('.month-expense');
+    if (
+      monthIndex < sumMonthCalendar.length &&
+      Number(sumMonthCalendar[monthIndex].month.slice(5, 7)) === month + 1
+    ) {
+      expense.textContent = `Exp: ${(sumMonthCalendar[monthIndex].total / 100).toFixed(2)}`;
+      monthIndex++;
+    } else {
+      expense.textContent = 'Exp: ---';
+    }
+  }
+}
+
 // Initialize event listeners for the calendar
 export function initCardListeners() {
   cardHeader.addEventListener('click', (event) => {
@@ -126,10 +146,12 @@ export function initCardListeners() {
         year--;
         calendarHeaderTitle.textContent = year;
         getYearSummation(year);
+        sumMonthCalendar(`${year}-01-01`, `${year}-12-31`);
       } else if (id === 'right-arrow') {
         year++;
         calendarHeaderTitle.textContent = year;
         getYearSummation(year);
+        sumMonthCalendar(`${year}-01-01`, `${year}-12-31`);
       }
     }
     // Change months and creates day calendar
@@ -162,6 +184,7 @@ export function initCardListeners() {
         calendarBody.innerHTML = '';
         calendarHeaderTitle.textContent = year;
         getYearSummation(year);
+        sumMonthCalendar(`${year}-01-01`, `${year}-12-31`);
       }
     }
     // Changes budget sheet and shows budget data for that day
@@ -268,3 +291,7 @@ window.urgentSave.manualExit(async () => {
 
   await window.urgentSave.notifyReadyToQuit();
 });
+
+const startDate = `${year}-01-01`;
+const endDate = `${year}-12-31`;
+sumMonthCalendar(startDate, endDate);
