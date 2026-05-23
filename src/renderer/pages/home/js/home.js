@@ -47,6 +47,6 @@ export function initHomeListeners() {
     // Setup sheet id to retrieve upon page traversal
     await window.data.setSheetId(target.dataset.id);
 
-    window.location.href = '../budgeting/sheet.html';
+    window.location.replace('../budgeting/sheet.html');
   });
 }

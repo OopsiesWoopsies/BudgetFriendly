@@ -279,7 +279,7 @@ export function initCardListeners() {
 export function initExitListener() {
   exitButton.addEventListener('click', () => {
     upsertRows(`${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`);
-    window.location.href = '../home/home.html';
+    window.location.replace('../home/home.html');
   });
 }
 
