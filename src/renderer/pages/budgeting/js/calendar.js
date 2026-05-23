@@ -245,7 +245,7 @@ export function initCardListeners() {
   calendar.addEventListener('click', (event) => {
     // Month selected
     if (!monthSelection.classList.contains('display-none')) {
-      const selectedCell = event.target.closest('.month-name');
+      const selectedCell = event.target.closest('.month-cell');
       if (!selectedCell) return;
 
       month = Number(selectedCell.id);
@@ -254,7 +254,7 @@ export function initCardListeners() {
       getMonthSummation(year, month);
       monthSelection.classList.add('display-none');
       daySelection.classList.remove('display-none');
-      monthName = selectedCell.textContent;
+      monthName = selectedCell.querySelector('.month-name').textContent;
       calendarHeaderTitle.textContent = `${monthName}, ${year}`;
     }
     // Day selected
