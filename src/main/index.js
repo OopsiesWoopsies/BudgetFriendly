@@ -56,6 +56,7 @@ function createWindow() {
     return { action: 'deny' };
   });
 
+  // Override window closing
   mainWindow.on('close', async (event) => {
     if (isQuitting) return;
 
@@ -69,6 +70,20 @@ function createWindow() {
 
     isQuitting = true;
     mainWindow.close();
+
+    // Remove unintentional page navigation
+    mainWindow.webContents.on('before-input-event', (event, input) => {
+      const isBack = input.alt && input.key === 'ArrowLeft';
+      const isForward = input.alt && input.key === 'ArrowRight';
+
+      if (isBack || isForward) {
+        event.preventDefault();
+      }
+
+      if (input.buttons === 4 || input.buttons === 5) {
+        event.preventDefault();
+      }
+    });
   });
 
   // Home page of BudgetFriendly
