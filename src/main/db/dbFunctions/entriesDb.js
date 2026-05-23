@@ -59,6 +59,38 @@ function sumEntries(startDate, endDate, budgetSheetId) {
   return row.grandTotal / 100.0;
 }
 
+function sumDayCalendar(startDate, endDate, budgetSheetId) {
+  return db
+    .prepare(
+      `
+    SELECT 
+      date,
+      SUM(cost) AS total
+    FROM entries
+    WHERE budget_sheet_id = ? AND date >= ? AND date <= ?
+    GROUP BY date
+    ORDER BY date DESC
+    `
+    )
+    .all(budgetSheetId, startDate, endDate);
+}
+
+function sumMonthCalendar(startDate, endDate, budgetSheetId) {
+  return db
+    .prepare(
+      `
+    SELECT
+      strftime('%Y-%m, date) AS month,
+      SUM(amount) AS total
+    FROM entries
+    WHERE budget_sheet_id = ? AND date >= ? AND date <= ?
+    GROUP BY month
+    ORDER BY month DESC
+    `
+    )
+    .all(budgetSheetId, startDate, endDate);
+}
+
 // Registers db functions for renderer use
 export function registerEntriesIpc() {
   ipcMain.handle('entries:get', (_event, { date, budgetSheetId }) => {
@@ -71,5 +103,13 @@ export function registerEntriesIpc() {
 
   ipcMain.handle('entries:sum', (_event, { startDate, endDate, budgetSheetId }) => {
     return enqueue(() => sumEntries(startDate, endDate, budgetSheetId));
+  });
+
+  ipcMain.handle('entries:sumDayCalendar', (_event, { startDate, endDate, budgetSheetId }) => {
+    return enqueue(() => sumDayCalendar(startDate, endDate, budgetSheetId));
+  });
+
+  ipcMain.handle('entries:sumMonthCalendar', (_event, { startDate, endDate, budgetSheetId }) => {
+    return enqueue(() => sumMonthCalendar(startDate, endDate, budgetSheetId));
   });
 }
