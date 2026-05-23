@@ -80,8 +80,8 @@ function sumMonthCalendar(startDate, endDate, budgetSheetId) {
     .prepare(
       `
     SELECT
-      strftime('%Y-%m, date) AS month,
-      SUM(amount) AS total
+      strftime('%Y-%m', date) AS month,
+      SUM(cost) AS total
     FROM entries
     WHERE budget_sheet_id = ? AND date >= ? AND date <= ?
     GROUP BY month
