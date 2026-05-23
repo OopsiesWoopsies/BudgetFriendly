@@ -161,7 +161,7 @@ dialog[open] {
   padding: 0;
   margin: 0;
 
-  font-size: 1.5rem ! important;
+  font-size: 1.5rem !important;
   font-weight: 900;
   text-align: center;
   color: var(--secondary-text);

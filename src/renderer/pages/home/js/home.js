@@ -1,3 +1,5 @@
+import { moveToPage } from "../../../main";
+
 const budgetList = document.querySelector('.budgets-list');
 
 // Sets up the budget sheets from the db and put it on the home page
@@ -47,6 +49,6 @@ export function initHomeListeners() {
     // Setup sheet id to retrieve upon page traversal
     await window.data.setSheetId(target.dataset.id);
 
-    window.location.replace('../budgeting/sheet.html');
+    moveToPage('../budgeting/sheet.html');
   });
 }

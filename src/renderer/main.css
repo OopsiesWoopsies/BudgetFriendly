@@ -130,6 +130,28 @@ button:hover {
   box-shadow: 4px 7px 10px hsla(0, 0%, 0%, 0.6);
 }
 
+/* Page transition */
+.page-transition {
+  display: block;
+  position: absolute;
+  top: -10vh;
+  left: 0;
+  z-index: 9999;
+
+  width: 100vw;
+  height: 120vh;
+
+  background-color: var(--background-text);
+
+  transition: transform 1s ease-in-out;
+}
+.page-transition.move {
+  transform: translateY(110vh);
+}
+.page-transition.reset {
+  transform: translateY(-10vh);
+}
+
 /* Quality of Life */
 input[type='number']::-webkit-inner-spin-button,
 input[type='number']::-webkit-outer-spin-button {
@@ -138,6 +160,7 @@ input[type='number']::-webkit-outer-spin-button {
 label {
   pointer-events: none;
 }
+
 /* Colour transition */
 * {
   transition:
@@ -146,11 +169,6 @@ label {
     border-color 0.5s ease,
     box-shadow 0.5s ease;
   will-change: background-color, color, border-color, box-shadow;
-}
-.no-transition *,
-.no-transition *::before,
-.no-transition *::after {
-  transition: none !important;
 }
 
 /* Scrollbar */

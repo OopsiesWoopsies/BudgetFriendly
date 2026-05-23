@@ -1,5 +1,6 @@
 import { setAllRows, upsertRows } from './sheet.js';
 import { getSummation } from './summary.js';
+import { moveToPage } from '../../../main.js';
 
 const budgetSheetId = await window.data.getSheetId();
 
@@ -279,7 +280,7 @@ export function initCardListeners() {
 export function initExitListener() {
   exitButton.addEventListener('click', () => {
     upsertRows(`${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`);
-    window.location.replace('../home/home.html');
+    moveToPage('../home/home.html');
   });
 }
 

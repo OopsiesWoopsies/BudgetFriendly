@@ -396,11 +396,16 @@ export function hexToHSL(hex) {
   };
 }
 
-document.documentElement.classList.add('no-transition');
+// Page transition
+const pageTransition = document.getElementById('transition');
+pageTransition.classList.add('move');
+
+export function moveToPage(url) {
+  pageTransition.classList.add('reset');
+
+  setTimeout(() => {
+    window.location.replace(url);
+  }, 1000);
+}
+
 setupTheme();
-// Remove colour transition to first cleanly apply theme
-requestAnimationFrame(() => {
-  requestAnimationFrame(() => {
-    document.documentElement.classList.remove('no-transition');
-  });
-});

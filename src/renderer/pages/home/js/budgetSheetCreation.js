@@ -5,6 +5,7 @@ import {
   isAddingCategory
 } from '../../budgeting/js/settings.js';
 import { stagedChangesCleanup } from '../../budgeting/js/handleCategorySelection.js';
+import { moveToPage } from '../../../main.js';
 
 const openModalButton = document.querySelector('.open-settings-button');
 const modal = document.getElementById('settings');
@@ -93,7 +94,7 @@ export function initBudgetSheetCreationListeners() {
     // Setup sheet id to retrieve upon page traversal
     await window.data.setSheetId(sheetId);
 
-    window.location.replace('../budgeting/sheet.html');
+    moveToPage('../budgeting/sheet.html');
   });
 
   // Resets budget sheet creation page to blank
