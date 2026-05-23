@@ -77,6 +77,18 @@ const dbFunctions = {
       endDate: endDate,
       budgetSheetId: budgetSheetId
     }),
+  sumDayCalendar: (startDate, endDate, budgetSheetId) =>
+    ipcRenderer.invoke('entries:sumDayCalendar', {
+      startDate: startDate,
+      endDate: endDate,
+      budgetSheetId: budgetSheetId
+    }),
+  sumMonthCalendar: (startDate, endDate, budgetSheetId) =>
+    ipcRenderer.invoke('entries:sumMonthCalendar', {
+      startDate: startDate,
+      endDate: endDate,
+      budgetSheetId: budgetSheetId
+    }),
 
   // Budget amounts queries
   getBudgetAmount: (date, budgetSheetId) =>
