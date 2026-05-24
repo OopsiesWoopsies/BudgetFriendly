@@ -36,5 +36,30 @@
     "oneClick": true,
     "perMachine": false,
     "createDesktopShortcut": true
+  },
+  "build": {
+    "appId": "com.budgetfriendly.app",
+    "productName": "BudgetFriendly",
+    "directories": {
+      "output": "dist",
+      "buildResources": "build"
+    },
+    "files": [
+      "out/**/*",
+      "package.json"
+    ],
+    "asar": true,
+    "win": {
+      "target": "nsis",
+      "icon": "build/icon.ico"
+    },
+    "mac": {
+      "target": "dmg",
+      "icon": "build/icon.icns"
+    },
+    "linux": {
+      "target": "AppImage",
+      "icon": "build/icon.png"
+    }
   }
 }
