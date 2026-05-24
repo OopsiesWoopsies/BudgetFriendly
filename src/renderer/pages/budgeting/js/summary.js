@@ -23,7 +23,7 @@ export async function getSummation(lastKnownDate, startDate, endDate, budgetShee
   summation.textContent = `$${Number(grandTotal).toFixed(2)}`;
   const totalBudgetText =
     budgetAmount === undefined
-      ? ` / ${Number(await window.db.getBudgetAmount(budgetSheet.createdAt, budgetSheetId).amount).toFixed(2)}`
+      ? ` / ${Number((await window.db.getBudgetAmount(budgetSheet.createdAt, budgetSheetId)).amount).toFixed(2)}`
       : ` / ${Number(budgetAmount.amount).toFixed(2)}`;
   totalBudget.textContent = totalBudgetText;
 

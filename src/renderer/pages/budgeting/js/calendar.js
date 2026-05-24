@@ -65,7 +65,6 @@ async function createCalendar() {
   const firstDate = new Date(year, month, 1).toISOString().slice(0, 10);
   const lastDate = new Date(year, month + 1, 0).toISOString().slice(0, 10);
   const sumDayCalendar = await window.db.sumDayCalendar(firstDate, lastDate, budgetSheetId);
-  console.log(sumDayCalendar);
 
   let day = 1;
 
