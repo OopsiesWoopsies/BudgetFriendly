@@ -21,6 +21,7 @@ jobs:
           path: ~/.cache/electron
           key: mac-electron-${{ hashFiles('**/package-lock.json') }}
       - run: npm ci
+      - run: npm run build
       - run: npx electron-builder --mac --publish always
         env:
           CSC_LINK: ${{ secrets.MAC_CSC_LINK }}
@@ -43,6 +44,7 @@ jobs:
           path: ~\AppData\Local\electron
           key: win-electron-${{ hashFiles('**/package-lock.json') }}
       - run: npm ci
+      - run: npm run build
       - run: npx electron-builder --win --publish always
         env:
           WIN_CSC_LINK: ${{ secrets.WIN_CSC_LINK }}
@@ -62,6 +64,7 @@ jobs:
           path: ~/.cache/electron
           key: linux-electron-${{ hashFiles('**/package-lock.json') }}
       - run: npm ci
+      - run: npm run build
       - run: npx electron-builder --linux --publish always
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
