@@ -93,7 +93,7 @@ export function initBudgetSheetCreationListeners() {
 
     // Setup sheet id to retrieve upon page traversal
     await window.data.setSheetId(sheetId);
-
+    modal.close();
     moveToPage('../budgeting/sheet.html');
   });
 

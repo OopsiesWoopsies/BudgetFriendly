@@ -398,14 +398,33 @@ export function hexToHSL(hex) {
 
 // Page transition
 const pageTransition = document.getElementById('transition');
-pageTransition.classList.add('move');
+requestAnimationFrame(() => {
+  requestAnimationFrame(() => {
+    pageTransition.classList.add('move');
+  });
+});
+pageTransition.addEventListener(
+  'transitionend',
+  () => {
+    if (pageTransition.classList.contains('move')) pageTransition.classList.add('display-none');
+  },
+  { once: true }
+);
 
 export function moveToPage(url) {
-  pageTransition.classList.add('reset');
-
-  setTimeout(() => {
-    window.location.replace(url);
-  }, 1000);
+  pageTransition.classList.remove('display-none');
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      pageTransition.classList.remove('move');
+    });
+  });
+  pageTransition.addEventListener(
+    'transitionend',
+    () => {
+      window.location.replace(url);
+    },
+    { once: true }
+  );
 }
 
 setupTheme();

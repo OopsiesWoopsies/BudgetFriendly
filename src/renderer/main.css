@@ -132,7 +132,6 @@ button:hover {
 
 /* Page transition */
 .page-transition {
-  display: block;
   position: absolute;
   top: -10vh;
   left: 0;
@@ -141,15 +140,12 @@ button:hover {
   width: 100vw;
   height: 120vh;
 
-  background-color: var(--background-text);
+  background-color: black;
 
-  transition: transform 1s ease-in-out;
+  transition: top 1s ease-in-out;
 }
 .page-transition.move {
-  transform: translateY(110vh);
-}
-.page-transition.reset {
-  transform: translateY(-10vh);
+  top: 100vh;
 }
 
 /* Quality of Life */
