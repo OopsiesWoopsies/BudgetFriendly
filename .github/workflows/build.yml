@@ -18,7 +18,7 @@ jobs:
           cache: npm
       - uses: actions/cache@v4
         with:
-          path: ~/.cache/electron-builder
+          path: ~/.cache/electron
           key: mac-electron-${{ hashFiles('**/package-lock.json') }}
       - run: npm ci
       - run: npx electron-builder --mac --publish always
@@ -40,11 +40,9 @@ jobs:
           cache: npm
       - uses: actions/cache@v4
         with:
-          path: ~\AppData\Local\electron-builder
+          path: ~\AppData\Local\electron
           key: win-electron-${{ hashFiles('**/package-lock.json') }}
       - run: npm ci
-      - name: Clear electron-builder cache
-        run: rm -rf ~/.cache/electron-builder
       - run: npx electron-builder --win --publish always
         env:
           WIN_CSC_LINK: ${{ secrets.WIN_CSC_LINK }}
@@ -61,7 +59,7 @@ jobs:
           cache: npm
       - uses: actions/cache@v4
         with:
-          path: ~/.cache/electron-builder
+          path: ~/.cache/electron
           key: linux-electron-${{ hashFiles('**/package-lock.json') }}
       - run: npm ci
       - run: npx electron-builder --linux --publish always
