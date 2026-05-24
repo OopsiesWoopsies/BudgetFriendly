@@ -1,56 +1,67 @@
-name: Build & Release
+name: Release
 
 on:
   push:
-    tags:
-      - "v*"
+    tags: ['v*.*.*']
 
 permissions:
   contents: write
 
 jobs:
-  build:
-    runs-on: ${{ matrix.os }}
-
-    strategy:
-      matrix:
-        os: [windows-latest, ubuntu-latest, macos-latest]
-
+  build-mac:
+    runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
-
       - uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: npm
-
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/electron
+          key: mac-electron-${{ hashFiles('**/package-lock.json') }}
       - run: npm ci
-
-      - name: Build app
-        run: npm run build
-
-      - name: Package app
-        run: npx electron-builder --publish never
+      - run: npx electron-builder --mac --publish always
         env:
+          CSC_LINK: ${{ secrets.MAC_CSC_LINK }}
+          CSC_KEY_PASSWORD: ${{ secrets.MAC_CSC_KEY_PASSWORD }}
+          APPLE_ID: ${{ secrets.APPLE_ID }}
+          APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.APPLE_APP_SPECIFIC_PASSWORD }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: ${{ matrix.os }}
-          path: dist/**
-
-  release:
-    needs: build
-    runs-on: ubuntu-latest
-
+  build-windows:
+    runs-on: windows-latest
     steps:
-      - uses: actions/download-artifact@v4
-
-      - name: Create Release
-        uses: softprops/action-gh-release@v2
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          files: |
-            **/*.exe
-            **/*.AppImage
-            **/*.dmg
+          node-version: 20
+          cache: npm
+      - uses: actions/cache@v4
+        with:
+          path: ~\AppData\Local\electron
+          key: win-electron-${{ hashFiles('**/package-lock.json') }}
+      - run: npm ci
+      - run: npx electron-builder --win --publish always
+        env:
+          WIN_CSC_LINK: ${{ secrets.WIN_CSC_LINK }}
+          WIN_CSC_KEY_PASSWORD: ${{ secrets.WIN_CSC_KEY_PASSWORD }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  build-linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/electron
+          key: linux-electron-${{ hashFiles('**/package-lock.json') }}
+      - run: npm ci
+      - run: npx electron-builder --linux --publish always
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
