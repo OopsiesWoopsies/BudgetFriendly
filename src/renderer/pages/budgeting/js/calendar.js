@@ -128,7 +128,7 @@ async function sumMonthCalendar(startDate, endDate) {
       monthIndex < sumMonthCalendar.length &&
       Number(sumMonthCalendar[monthIndex].month.slice(5, 7)) === month + 1
     ) {
-      expense.textContent = `Exp: ${(sumMonthCalendar[monthIndex].total / 100).toFixed(2)}`;
+      expense.textContent = `Exp: $${(sumMonthCalendar[monthIndex].total / 100).toFixed(2)}`;
       monthIndex++;
     } else {
       expense.textContent = 'Exp: ---';
@@ -162,7 +162,7 @@ export function initCardListeners() {
           month = 11;
           year--;
         }
-        monthName = document.getElementById(month).textContent;
+        monthName = document.getElementById(month).querySelector('.month-name').textContent;
         calendarHeaderTitle.textContent = `${monthName}, ${year}`;
         calendarBody.innerHTML = '';
         daysInMonth = createCalendar();
@@ -172,7 +172,7 @@ export function initCardListeners() {
           month = 0;
           year++;
         }
-        monthName = document.getElementById(month).textContent;
+        monthName = document.getElementById(month).querySelector('.month-name').textContent;
         calendarHeaderTitle.textContent = `${monthName}, ${year}`;
         calendarBody.innerHTML = '';
         daysInMonth = createCalendar();
@@ -200,7 +200,7 @@ export function initCardListeners() {
             year--;
             month = 11;
           }
-          monthName = document.getElementById(month).textContent;
+          monthName = document.getElementById(month).querySelector('.month-name').textContent;
           daysInMonth = new Date(year, month + 1, 0).getDate();
           day = daysInMonth;
         }
@@ -217,7 +217,7 @@ export function initCardListeners() {
             year++;
             month = 0;
           }
-          monthName = document.getElementById(month).textContent;
+          monthName = document.getElementById(month).querySelector('.month-name').textContent;
           daysInMonth = new Date(year, month + 1, 0).getDate();
           day = 1;
         }
