@@ -1,9 +1,12 @@
-name: BudgetFriendly Build
+name: Build BudgetFriendly
 
 on:
   push:
     tags:
-      - "v*"
+      - 'v*'
+
+permissions:
+  contents: write
 
 jobs:
   build:
@@ -14,37 +17,44 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps:
-      - name: Checkout repo
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Node
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: npm
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
-      - name: Build app
-        run: npm run build
+      - name: Build Windows
+        if: matrix.os == 'windows-latest'
+        run: npm run dist -- --win nsis
 
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: build-${{ matrix.os }}
-          path: dist/
+      - name: Build Linux (AppImage)
+        if: matrix.os == 'ubuntu-latest'
+        run: npm run dist -- --linux AppImage
 
-  release:
-    needs: build
-    runs-on: ubuntu-latest
+      - name: Build macOS
+        if: matrix.os == 'macos-latest'
+        run: npm run dist -- --mac dmg
 
-    steps:
-      - name: Download all artifacts
-        uses: actions/download-artifact@v4
-        with:
-          path: dist
-
-      - name: Create Release
+      - name: Upload Windows artifact
+        if: matrix.os == 'windows-latest'
         uses: softprops/action-gh-release@v2
         with:
-          files: dist/**/*
+          files: dist/*.exe
+
+      - name: Upload Linux artifact
+        if: matrix.os == 'ubuntu-latest'
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/*.AppImage
+
+      - name: Upload macOS artifact
+        if: matrix.os == 'macos-latest'
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/*.dmg
